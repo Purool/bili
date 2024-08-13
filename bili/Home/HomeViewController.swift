@@ -30,26 +30,26 @@ class HomeViewController: UIViewController {
         return contentScrollView
     }()
     
-    lazy var titleMenu: slideMenu = {[unowned self] in
-       
-        // 1.frame
-        let width:CGFloat = 150
-        let height:CGFloat = 30
-        let x = (self.view.mj_w - width)/2
-        let y = KtabbarHeight - 26
-        let rect = CGRect(x: x, y: y, width: width, height: height)
-       
-        // 2.平常的颜色
-        let normalColor = slideMenu.slideMenuTitleColor(red: 230, green: 230, blue: 230)
-        
-        // 3.显示的颜色
-        let hightLightColor = slideMenu.slideMenuTitleColor(red: 255, green: 255, blue: 255)
-        
-        // 4.生成slidemenu
-        let menu = slideMenu(frame: rect, titles: ["直播","推荐","番剧"], padding: 15, normalColr: normalColor, hightLightColor: hightLightColor, font: 16, sliderColor: UIColor.white, onlyHorizon: false, scrollView: self.contentScrollView, autoPadding: true)
-
-        return menu
-    }()
+//    lazy var titleMenu: slideMenu = {[unowned self] in
+//       
+//        // 1.frame
+//        let width:CGFloat = 150
+//        let height:CGFloat = 30
+//        let x = (self.view.mj_w - width)/2
+//        let y = KtabbarHeight - 26
+//        let rect = CGRect(x: x, y: y, width: width, height: height)
+//       
+//        // 2.平常的颜色
+//        let normalColor = slideMenu.slideMenuTitleColor(red: 230, green: 230, blue: 230)
+//        
+//        // 3.显示的颜色
+//        let hightLightColor = slideMenu.slideMenuTitleColor(red: 255, green: 255, blue: 255)
+//        
+//        // 4.生成slidemenu
+//        let menu = slideMenu(frame: rect, titles: ["直播","推荐","番剧"], padding: 15, normalColr: normalColor, hightLightColor: hightLightColor, font: 16, sliderColor: UIColor.white, onlyHorizon: false, scrollView: self.contentScrollView, autoPadding: true)
+//
+//        return menu
+//    }()
     
     
     override func viewDidLoad() {
@@ -62,7 +62,7 @@ class HomeViewController: UIViewController {
         self.contentScrollView.contentOffset = CGPoint(x: kscreenWidth, y: 0)
         
         // 监听通知
-        NotificationCenter.default.addObserver(self, selector: #selector(showLive), name: khomeViewControllerShowLIVEnotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(showLive), name: khomeViewControllerShowLIVEnotification, object: nil)
     }
     
     deinit {
@@ -79,7 +79,7 @@ extension HomeViewController {
         
         view.addSubview(contentScrollView)
         
-        view.addSubview(titleMenu)
+//        view.addSubview(titleMenu)
         
         addChildVCs()
     }

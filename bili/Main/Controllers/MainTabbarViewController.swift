@@ -33,8 +33,8 @@ class MainTabbarViewController: UITabBarController,UITabBarControllerDelegate {
 //        let item4 = MainCustomNaViController(rootViewController: ZHNbilibiliFindViewController())
 //        controllers.append(item4)
 //        // 5
-//        let item5 = MainCustomNaViController(rootViewController: ZHNbilibiliMineViewController())
-//        controllers.append(item5)
+        let item5 = MainCustomNaViController(rootViewController: BilibiliMineViewController())
+        controllers.append(item5)
         
         return controllers
     }()

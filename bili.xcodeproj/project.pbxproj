@@ -19,6 +19,9 @@
 		3821AF8C2C6B65BB00770034 /* HomeLiveShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF8B2C6B65BB00770034 /* HomeLiveShowViewController.swift */; };
 		3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF8F2C6B661800770034 /* HomeRecommendViewController.swift */; };
 		3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF932C6B663800770034 /* HomebangumiViewController.swift */; };
+		3821AF972C6B6D2D00770034 /* BilibiliMineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF962C6B6D2D00770034 /* BilibiliMineViewController.swift */; };
+		3821AF9A2C6B79DB00770034 /* UIColor+zhnAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF992C6B79DB00770034 /* UIColor+zhnAdd.swift */; };
+		3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF9B2C6B7A8500770034 /* ImportHeader.swift */; };
 		C91C5500BDBCB73AC6CBC116 /* Pods_bili.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88612C5A9348610DEF30A0 /* Pods_bili.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,6 +41,9 @@
 		3821AF8B2C6B65BB00770034 /* HomeLiveShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLiveShowViewController.swift; sourceTree = "<group>"; };
 		3821AF8F2C6B661800770034 /* HomeRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecommendViewController.swift; sourceTree = "<group>"; };
 		3821AF932C6B663800770034 /* HomebangumiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomebangumiViewController.swift; sourceTree = "<group>"; };
+		3821AF962C6B6D2D00770034 /* BilibiliMineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BilibiliMineViewController.swift; sourceTree = "<group>"; };
+		3821AF992C6B79DB00770034 /* UIColor+zhnAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+zhnAdd.swift"; sourceTree = "<group>"; };
+		3821AF9B2C6B7A8500770034 /* ImportHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportHeader.swift; sourceTree = "<group>"; };
 		930FDA5393FB98E973CA9742 /* Pods-bili.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bili.release.xcconfig"; path = "Target Support Files/Pods-bili/Pods-bili.release.xcconfig"; sourceTree = "<group>"; };
 		9D88612C5A9348610DEF30A0 /* Pods_bili.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bili.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -75,6 +81,8 @@
 		3821AF5A2C6B317C00770034 /* bili */ = {
 			isa = PBXGroup;
 			children = (
+				3821AF982C6B79C800770034 /* Extensions */,
+				3821AF952C6B6D0700770034 /* Mine */,
 				3821AF7B2C6B375700770034 /* Customuis */,
 				3821AF782C6B342500770034 /* Home */,
 				3821AF732C6B329B00770034 /* Configs */,
@@ -84,6 +92,7 @@
 				3821AF642C6B317E00770034 /* Assets.xcassets */,
 				3821AF662C6B317E00770034 /* LaunchScreen.storyboard */,
 				3821AF692C6B317E00770034 /* Info.plist */,
+				3821AF9B2C6B7A8500770034 /* ImportHeader.swift */,
 			);
 			path = bili;
 			sourceTree = "<group>";
@@ -178,6 +187,22 @@
 				3821AF932C6B663800770034 /* HomebangumiViewController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3821AF952C6B6D0700770034 /* Mine */ = {
+			isa = PBXGroup;
+			children = (
+				3821AF962C6B6D2D00770034 /* BilibiliMineViewController.swift */,
+			);
+			path = Mine;
+			sourceTree = "<group>";
+		};
+		3821AF982C6B79C800770034 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				3821AF992C6B79DB00770034 /* UIColor+zhnAdd.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		6C38C4019730178D7B867AF2 /* Pods */ = {
@@ -312,6 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3821AF9A2C6B79DB00770034 /* UIColor+zhnAdd.swift in Sources */,
 				3821AF722C6B325500770034 /* MainTabbarViewController.swift in Sources */,
 				3821AF772C6B33B700770034 /* MainCustomNaViController.swift in Sources */,
 				3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */,
@@ -320,6 +346,8 @@
 				3821AF752C6B32A400770034 /* Configs.swift in Sources */,
 				3821AF5C2C6B317C00770034 /* AppDelegate.swift in Sources */,
 				3821AF7A2C6B343500770034 /* HomeViewController.swift in Sources */,
+				3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */,
+				3821AF972C6B6D2D00770034 /* BilibiliMineViewController.swift in Sources */,
 				3821AF8C2C6B65BB00770034 /* HomeLiveShowViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -383,7 +411,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -446,7 +474,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;

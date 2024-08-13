@@ -4,7 +4,12 @@
 # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-target 'bili' do 
+target 'bili' do
+  pod 'RxSwift'
+  pod 'RxCocoa' #cocoa库加rx属性
+  pod 'RxDataSources' #tableview、collectionview 使用
+  pod 'NSObject+Rx' #rx.disposebag
+  pod 'R.swift'
   pod 'MJRefresh'
   pod "DynamicBlurView", '~> 5.0.0'
   pod 'ReachabilitySwift', '~> 5.2.1'
