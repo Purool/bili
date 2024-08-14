@@ -46,8 +46,9 @@ class BilibiliMineViewController: UIViewController {
         }
         
         loginButton.rx.tap.subscribe(onNext: {
-            btn in
-            print(btn)
+            _ in
+            let vc = LoginViewController()
+            self?.navigationController?.pushViewController(vc, animated: true)
         }).disposed(by: rx.disposeBag)
     }
 }

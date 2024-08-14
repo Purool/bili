@@ -22,6 +22,7 @@
 		3821AF972C6B6D2D00770034 /* BilibiliMineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF962C6B6D2D00770034 /* BilibiliMineViewController.swift */; };
 		3821AF9A2C6B79DB00770034 /* UIColor+zhnAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF992C6B79DB00770034 /* UIColor+zhnAdd.swift */; };
 		3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF9B2C6B7A8500770034 /* ImportHeader.swift */; };
+		3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AFA02C6CAB1700770034 /* LoginViewController.swift */; };
 		C91C5500BDBCB73AC6CBC116 /* Pods_bili.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88612C5A9348610DEF30A0 /* Pods_bili.framework */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +45,7 @@
 		3821AF962C6B6D2D00770034 /* BilibiliMineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BilibiliMineViewController.swift; sourceTree = "<group>"; };
 		3821AF992C6B79DB00770034 /* UIColor+zhnAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+zhnAdd.swift"; sourceTree = "<group>"; };
 		3821AF9B2C6B7A8500770034 /* ImportHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportHeader.swift; sourceTree = "<group>"; };
+		3821AFA02C6CAB1700770034 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		930FDA5393FB98E973CA9742 /* Pods-bili.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bili.release.xcconfig"; path = "Target Support Files/Pods-bili/Pods-bili.release.xcconfig"; sourceTree = "<group>"; };
 		9D88612C5A9348610DEF30A0 /* Pods_bili.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bili.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -81,6 +83,7 @@
 		3821AF5A2C6B317C00770034 /* bili */ = {
 			isa = PBXGroup;
 			children = (
+				3821AF9F2C6CAB0D00770034 /* Login */,
 				3821AF982C6B79C800770034 /* Extensions */,
 				3821AF952C6B6D0700770034 /* Mine */,
 				3821AF7B2C6B375700770034 /* Customuis */,
@@ -203,6 +206,14 @@
 				3821AF992C6B79DB00770034 /* UIColor+zhnAdd.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		3821AF9F2C6CAB0D00770034 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				3821AFA02C6CAB1700770034 /* LoginViewController.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		6C38C4019730178D7B867AF2 /* Pods */ = {
@@ -348,6 +359,7 @@
 				3821AF7A2C6B343500770034 /* HomeViewController.swift in Sources */,
 				3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */,
 				3821AF972C6B6D2D00770034 /* BilibiliMineViewController.swift in Sources */,
+				3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */,
 				3821AF8C2C6B65BB00770034 /* HomeLiveShowViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
