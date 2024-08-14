@@ -21,7 +21,7 @@ class BilibiliMineViewController: UIViewController {
     lazy var registButton: UIButton = {
         let registButton = UIButton()
         registButton.setTitle("注册", for: .normal)
-        registButton.backgroundColor = UIColor.ZHNcolor(red: 247, green: 117, blue: 156, alpha: 1)
+        registButton.backgroundColor = UIColor.etColor(r: 247, g: 117, b: 156)
         registButton.setTitleColor(UIColor.white, for: .normal)
         registButton.layer.cornerRadius = 5
         return registButton
@@ -45,10 +45,15 @@ class BilibiliMineViewController: UIViewController {
             make.size.equalTo(CGSize(width: 120, height: 40))
         }
         
+        loginButton.addTarget(self, action: #selector(testPush), for: .touchUpInside)
         loginButton.rx.tap.subscribe(onNext: {
             _ in
-            let vc = LoginViewController()
-            self?.navigationController?.pushViewController(vc, animated: true)
+//            let vc = LoginViewController()
+//            self.navigationController?.pushViewController(vc, animated: true)
         }).disposed(by: rx.disposeBag)
+    }
+    @objc func testPush() {
+        let vc = LoginViewController()
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }

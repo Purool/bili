@@ -20,9 +20,11 @@
 		3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF8F2C6B661800770034 /* HomeRecommendViewController.swift */; };
 		3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF932C6B663800770034 /* HomebangumiViewController.swift */; };
 		3821AF972C6B6D2D00770034 /* BilibiliMineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF962C6B6D2D00770034 /* BilibiliMineViewController.swift */; };
-		3821AF9A2C6B79DB00770034 /* UIColor+zhnAdd.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF992C6B79DB00770034 /* UIColor+zhnAdd.swift */; };
+		3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF992C6B79DB00770034 /* UIColor+ET.swift */; };
 		3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF9B2C6B7A8500770034 /* ImportHeader.swift */; };
 		3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AFA02C6CAB1700770034 /* LoginViewController.swift */; };
+		384AFDC82C6CE44F001E792C /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDC72C6CE44F001E792C /* NetworkTool.swift */; };
+		384AFDCC2C6CE762001E792C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDCB2C6CE762001E792C /* BaseViewController.swift */; };
 		C91C5500BDBCB73AC6CBC116 /* Pods_bili.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88612C5A9348610DEF30A0 /* Pods_bili.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,9 +45,11 @@
 		3821AF8F2C6B661800770034 /* HomeRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecommendViewController.swift; sourceTree = "<group>"; };
 		3821AF932C6B663800770034 /* HomebangumiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomebangumiViewController.swift; sourceTree = "<group>"; };
 		3821AF962C6B6D2D00770034 /* BilibiliMineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BilibiliMineViewController.swift; sourceTree = "<group>"; };
-		3821AF992C6B79DB00770034 /* UIColor+zhnAdd.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+zhnAdd.swift"; sourceTree = "<group>"; };
+		3821AF992C6B79DB00770034 /* UIColor+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ET.swift"; sourceTree = "<group>"; };
 		3821AF9B2C6B7A8500770034 /* ImportHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportHeader.swift; sourceTree = "<group>"; };
 		3821AFA02C6CAB1700770034 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		384AFDC72C6CE44F001E792C /* NetworkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
+		384AFDCB2C6CE762001E792C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		930FDA5393FB98E973CA9742 /* Pods-bili.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bili.release.xcconfig"; path = "Target Support Files/Pods-bili/Pods-bili.release.xcconfig"; sourceTree = "<group>"; };
 		9D88612C5A9348610DEF30A0 /* Pods_bili.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bili.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -83,6 +87,8 @@
 		3821AF5A2C6B317C00770034 /* bili */ = {
 			isa = PBXGroup;
 			children = (
+				384AFDC92C6CE71E001E792C /* PublicComponent */,
+				384AFDC52C6CE440001E792C /* Helpers */,
 				3821AF9F2C6CAB0D00770034 /* Login */,
 				3821AF982C6B79C800770034 /* Extensions */,
 				3821AF952C6B6D0700770034 /* Mine */,
@@ -203,7 +209,7 @@
 		3821AF982C6B79C800770034 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				3821AF992C6B79DB00770034 /* UIColor+zhnAdd.swift */,
+				3821AF992C6B79DB00770034 /* UIColor+ET.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -214,6 +220,30 @@
 				3821AFA02C6CAB1700770034 /* LoginViewController.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		384AFDC52C6CE440001E792C /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				384AFDC72C6CE44F001E792C /* NetworkTool.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		384AFDC92C6CE71E001E792C /* PublicComponent */ = {
+			isa = PBXGroup;
+			children = (
+				384AFDCA2C6CE74A001E792C /* SuperClasses */,
+			);
+			path = PublicComponent;
+			sourceTree = "<group>";
+		};
+		384AFDCA2C6CE74A001E792C /* SuperClasses */ = {
+			isa = PBXGroup;
+			children = (
+				384AFDCB2C6CE762001E792C /* BaseViewController.swift */,
+			);
+			path = SuperClasses;
 			sourceTree = "<group>";
 		};
 		6C38C4019730178D7B867AF2 /* Pods */ = {
@@ -348,8 +378,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3821AF9A2C6B79DB00770034 /* UIColor+zhnAdd.swift in Sources */,
+				384AFDCC2C6CE762001E792C /* BaseViewController.swift in Sources */,
+				3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */,
 				3821AF722C6B325500770034 /* MainTabbarViewController.swift in Sources */,
+				384AFDC82C6CE44F001E792C /* NetworkTool.swift in Sources */,
 				3821AF772C6B33B700770034 /* MainCustomNaViController.swift in Sources */,
 				3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */,
 				3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */,
