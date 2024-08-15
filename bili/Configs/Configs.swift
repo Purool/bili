@@ -99,3 +99,44 @@ let navigationHeight: CGFloat = (kSafeBottomMargin == 0 ? 64 :88)
 let tabBarHeight: CGFloat = (kSafeBottomMargin + 49)
 
 
+enum HttpString {
+    static let baseUrl = "https://www.bilibili.com"
+    static let apiBaseUrl = "https://api.bilibili.com"
+    static let tUrl = "https://api.vc.bilibili.com"
+    static let appBaseUrl = "https://app.bilibili.com"
+    static let liveBaseUrl = "https://api.live.bilibili.com"
+    static let passBaseUrl = "https://passport.bilibili.com"
+    static let validateStatusCodes: [Int]  = [
+        302,
+        304,
+        307,
+        400,
+        401,
+        403,
+        404,
+        405,
+        409,
+        412,
+        500,
+        503,
+        504,
+        509,
+        616,
+        617,
+        625,
+        626,
+        628,
+        629,
+        632,
+        643,
+        650,
+        652,
+        658,
+        662,
+        688,
+        689,
+        701,
+        799,
+        8888
+    ];
+}

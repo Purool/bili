@@ -9,6 +9,7 @@ import UIKit
 
 import RxSwift
 import RxCocoa
+import Alamofire
 
 class LoginViewController: QBaseViewController {
     
@@ -31,6 +32,7 @@ class LoginViewController: QBaseViewController {
         title = "手机登录"
         
         setupUI()
+        setAction()
     }
     
     
@@ -157,7 +159,23 @@ class LoginViewController: QBaseViewController {
             make.height.equalTo(44)
         }
     }
-    
+    func setAction() {
+        let headers: HTTPHeaders = [
+            HTTPHeader(name: "Authorization", value: "Basic VXNlcm5hbWU6UGFzc3dvcmQ="),
+            HTTPHeader(name: "Accept", value: "application/json")
+        ]
+        let para = ["a":"b"]
+        sendSmsButton.rx.tap.subscribe(onNext: {
+            AF.request("https://passport.bilibili.com/x/passport-login/sms/send", method: .post, parameters: para, headers: headers).responseJSON { response in
+                switch response.result {
+                case .success(let value):
+                    print(value)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }).disposed(by: rx.disposeBag)
+    }
 }
 
 

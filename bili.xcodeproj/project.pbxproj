@@ -25,6 +25,7 @@
 		3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AFA02C6CAB1700770034 /* LoginViewController.swift */; };
 		384AFDC82C6CE44F001E792C /* QNetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDC72C6CE44F001E792C /* QNetworkTool.swift */; };
 		384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDCB2C6CE762001E792C /* QBaseViewController.swift */; };
+		389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389D3ACC2C6E4C030066E20A /* QApi.swift */; };
 		38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */; };
 		38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */; };
 		38DBB9D22C6E169C00A1AFA6 /* HLImagePositionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9D12C6E169C00A1AFA6 /* HLImagePositionButton.swift */; };
@@ -53,6 +54,7 @@
 		3821AFA02C6CAB1700770034 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		384AFDC72C6CE44F001E792C /* QNetworkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QNetworkTool.swift; sourceTree = "<group>"; };
 		384AFDCB2C6CE762001E792C /* QBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBaseViewController.swift; sourceTree = "<group>"; };
+		389D3ACC2C6E4C030066E20A /* QApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QApi.swift; sourceTree = "<group>"; };
 		38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+ET.swift"; sourceTree = "<group>"; };
 		38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ET.swift"; sourceTree = "<group>"; };
 		38DBB9D12C6E169C00A1AFA6 /* HLImagePositionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLImagePositionButton.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				3821AF742C6B32A400770034 /* Configs.swift */,
+				389D3ACC2C6E4C030066E20A /* QApi.swift */,
 			);
 			path = Configs;
 			sourceTree = "<group>";
@@ -391,6 +394,7 @@
 				3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */,
 				3821AF722C6B325500770034 /* MainTabbarViewController.swift in Sources */,
 				384AFDC82C6CE44F001E792C /* QNetworkTool.swift in Sources */,
+				389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */,
 				3821AF772C6B33B700770034 /* QUINavigationController.swift in Sources */,
 				38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */,
 				38DBB9D22C6E169C00A1AFA6 /* HLImagePositionButton.swift in Sources */,
