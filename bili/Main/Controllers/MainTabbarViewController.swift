@@ -21,20 +21,20 @@ class MainTabbarViewController: UITabBarController,UITabBarControllerDelegate {
         var controllers = [UIViewController]()
         
         // 1.
-        let item1 = MainCustomNaViController(rootViewController: HomeViewController())
+        let item1 = QUINavigationController(rootViewController: HomeViewController())
         controllers.append(item1)
         // 2.
-//        let item2 = MainCustomNaViController(rootViewController: ZHNzoneViewController())
+//        let item2 = QUINavigationController(rootViewController: ZHNzoneViewController())
 //        controllers.append(item2)
 //        // 3
-//        let item3 = MainCustomNaViController(rootViewController: ZHNbilibiliFocuseViewController())
+//        let item3 = QUINavigationController(rootViewController: ZHNbilibiliFocuseViewController())
 //        controllers.append(item3)
 //        // 4
-//        let item4 = MainCustomNaViController(rootViewController: ZHNbilibiliFindViewController())
+//        let item4 = QUINavigationController(rootViewController: ZHNbilibiliFindViewController())
 //        controllers.append(item4)
 //        // 5
         
-        let item5 = MainCustomNaViController(rootViewController: BilibiliMineViewController())
+        let item5 = QUINavigationController(rootViewController: BBPhoneUserCenterVC())
         controllers.append(item5)
         
         return controllers

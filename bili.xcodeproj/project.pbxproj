@@ -13,18 +13,21 @@
 		3821AF682C6B317E00770034 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 3821AF672C6B317E00770034 /* Base */; };
 		3821AF722C6B325500770034 /* MainTabbarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF712C6B325500770034 /* MainTabbarViewController.swift */; };
 		3821AF752C6B32A400770034 /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF742C6B32A400770034 /* Configs.swift */; };
-		3821AF772C6B33B700770034 /* MainCustomNaViController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF762C6B33B700770034 /* MainCustomNaViController.swift */; };
+		3821AF772C6B33B700770034 /* QUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF762C6B33B700770034 /* QUINavigationController.swift */; };
 		3821AF7A2C6B343500770034 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF792C6B343500770034 /* HomeViewController.swift */; };
 		3821AF842C6B3D1300770034 /* SlideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF832C6B3D1300770034 /* SlideMenu.swift */; };
 		3821AF8C2C6B65BB00770034 /* HomeLiveShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF8B2C6B65BB00770034 /* HomeLiveShowViewController.swift */; };
 		3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF8F2C6B661800770034 /* HomeRecommendViewController.swift */; };
 		3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF932C6B663800770034 /* HomebangumiViewController.swift */; };
-		3821AF972C6B6D2D00770034 /* BilibiliMineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF962C6B6D2D00770034 /* BilibiliMineViewController.swift */; };
+		3821AF972C6B6D2D00770034 /* BBPhoneUserCenterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF962C6B6D2D00770034 /* BBPhoneUserCenterVC.swift */; };
 		3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF992C6B79DB00770034 /* UIColor+ET.swift */; };
 		3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF9B2C6B7A8500770034 /* ImportHeader.swift */; };
 		3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AFA02C6CAB1700770034 /* LoginViewController.swift */; };
-		384AFDC82C6CE44F001E792C /* NetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDC72C6CE44F001E792C /* NetworkTool.swift */; };
-		384AFDCC2C6CE762001E792C /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDCB2C6CE762001E792C /* BaseViewController.swift */; };
+		384AFDC82C6CE44F001E792C /* QNetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDC72C6CE44F001E792C /* QNetworkTool.swift */; };
+		384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDCB2C6CE762001E792C /* QBaseViewController.swift */; };
+		38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */; };
+		38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */; };
+		38DBB9D22C6E169C00A1AFA6 /* HLImagePositionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9D12C6E169C00A1AFA6 /* HLImagePositionButton.swift */; };
 		C91C5500BDBCB73AC6CBC116 /* Pods_bili.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9D88612C5A9348610DEF30A0 /* Pods_bili.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,18 +41,21 @@
 		3821AF692C6B317E00770034 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3821AF712C6B325500770034 /* MainTabbarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabbarViewController.swift; sourceTree = "<group>"; };
 		3821AF742C6B32A400770034 /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
-		3821AF762C6B33B700770034 /* MainCustomNaViController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCustomNaViController.swift; sourceTree = "<group>"; };
+		3821AF762C6B33B700770034 /* QUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QUINavigationController.swift; sourceTree = "<group>"; };
 		3821AF792C6B343500770034 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		3821AF832C6B3D1300770034 /* SlideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenu.swift; sourceTree = "<group>"; };
 		3821AF8B2C6B65BB00770034 /* HomeLiveShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLiveShowViewController.swift; sourceTree = "<group>"; };
 		3821AF8F2C6B661800770034 /* HomeRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecommendViewController.swift; sourceTree = "<group>"; };
 		3821AF932C6B663800770034 /* HomebangumiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomebangumiViewController.swift; sourceTree = "<group>"; };
-		3821AF962C6B6D2D00770034 /* BilibiliMineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BilibiliMineViewController.swift; sourceTree = "<group>"; };
+		3821AF962C6B6D2D00770034 /* BBPhoneUserCenterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBPhoneUserCenterVC.swift; sourceTree = "<group>"; };
 		3821AF992C6B79DB00770034 /* UIColor+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ET.swift"; sourceTree = "<group>"; };
 		3821AF9B2C6B7A8500770034 /* ImportHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportHeader.swift; sourceTree = "<group>"; };
 		3821AFA02C6CAB1700770034 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		384AFDC72C6CE44F001E792C /* NetworkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkTool.swift; sourceTree = "<group>"; };
-		384AFDCB2C6CE762001E792C /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		384AFDC72C6CE44F001E792C /* QNetworkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QNetworkTool.swift; sourceTree = "<group>"; };
+		384AFDCB2C6CE762001E792C /* QBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBaseViewController.swift; sourceTree = "<group>"; };
+		38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+ET.swift"; sourceTree = "<group>"; };
+		38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ET.swift"; sourceTree = "<group>"; };
+		38DBB9D12C6E169C00A1AFA6 /* HLImagePositionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLImagePositionButton.swift; sourceTree = "<group>"; };
 		930FDA5393FB98E973CA9742 /* Pods-bili.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bili.release.xcconfig"; path = "Target Support Files/Pods-bili/Pods-bili.release.xcconfig"; sourceTree = "<group>"; };
 		9D88612C5A9348610DEF30A0 /* Pods_bili.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bili.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -87,7 +93,7 @@
 		3821AF5A2C6B317C00770034 /* bili */ = {
 			isa = PBXGroup;
 			children = (
-				384AFDC92C6CE71E001E792C /* PublicComponent */,
+				384AFDC92C6CE71E001E792C /* QPublicComponent */,
 				384AFDC52C6CE440001E792C /* Helpers */,
 				3821AF9F2C6CAB0D00770034 /* Login */,
 				3821AF982C6B79C800770034 /* Extensions */,
@@ -118,7 +124,6 @@
 			isa = PBXGroup;
 			children = (
 				3821AF712C6B325500770034 /* MainTabbarViewController.swift */,
-				3821AF762C6B33B700770034 /* MainCustomNaViController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -201,7 +206,7 @@
 		3821AF952C6B6D0700770034 /* Mine */ = {
 			isa = PBXGroup;
 			children = (
-				3821AF962C6B6D2D00770034 /* BilibiliMineViewController.swift */,
+				3821AF962C6B6D2D00770034 /* BBPhoneUserCenterVC.swift */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -210,6 +215,8 @@
 			isa = PBXGroup;
 			children = (
 				3821AF992C6B79DB00770034 /* UIColor+ET.swift */,
+				38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */,
+				38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -225,23 +232,25 @@
 		384AFDC52C6CE440001E792C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				384AFDC72C6CE44F001E792C /* NetworkTool.swift */,
+				384AFDC72C6CE44F001E792C /* QNetworkTool.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		384AFDC92C6CE71E001E792C /* PublicComponent */ = {
+		384AFDC92C6CE71E001E792C /* QPublicComponent */ = {
 			isa = PBXGroup;
 			children = (
 				384AFDCA2C6CE74A001E792C /* SuperClasses */,
 			);
-			path = PublicComponent;
+			path = QPublicComponent;
 			sourceTree = "<group>";
 		};
 		384AFDCA2C6CE74A001E792C /* SuperClasses */ = {
 			isa = PBXGroup;
 			children = (
-				384AFDCB2C6CE762001E792C /* BaseViewController.swift */,
+				3821AF762C6B33B700770034 /* QUINavigationController.swift */,
+				384AFDCB2C6CE762001E792C /* QBaseViewController.swift */,
+				38DBB9D12C6E169C00A1AFA6 /* HLImagePositionButton.swift */,
 			);
 			path = SuperClasses;
 			sourceTree = "<group>";
@@ -378,19 +387,22 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				384AFDCC2C6CE762001E792C /* BaseViewController.swift in Sources */,
+				384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */,
 				3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */,
 				3821AF722C6B325500770034 /* MainTabbarViewController.swift in Sources */,
-				384AFDC82C6CE44F001E792C /* NetworkTool.swift in Sources */,
-				3821AF772C6B33B700770034 /* MainCustomNaViController.swift in Sources */,
+				384AFDC82C6CE44F001E792C /* QNetworkTool.swift in Sources */,
+				3821AF772C6B33B700770034 /* QUINavigationController.swift in Sources */,
+				38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */,
+				38DBB9D22C6E169C00A1AFA6 /* HLImagePositionButton.swift in Sources */,
 				3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */,
 				3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */,
 				3821AF842C6B3D1300770034 /* SlideMenu.swift in Sources */,
+				38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */,
 				3821AF752C6B32A400770034 /* Configs.swift in Sources */,
 				3821AF5C2C6B317C00770034 /* AppDelegate.swift in Sources */,
 				3821AF7A2C6B343500770034 /* HomeViewController.swift in Sources */,
 				3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */,
-				3821AF972C6B6D2D00770034 /* BilibiliMineViewController.swift in Sources */,
+				3821AF972C6B6D2D00770034 /* BBPhoneUserCenterVC.swift in Sources */,
 				3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */,
 				3821AF8C2C6B65BB00770034 /* HomeLiveShowViewController.swift in Sources */,
 			);

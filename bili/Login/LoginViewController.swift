@@ -10,226 +10,155 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class LoginViewController: UIViewController {
+class LoginViewController: QBaseViewController {
     
-    var backImgV: UIImageView!
-    var backBtn: UIButton!
-    var titleLabel: UILabel!
-    var emailView: UIView!
-    var pwdView: UIView!
-    var emailImgV: UIImageView!
-    var pwdImgV: UIImageView!
-    var emailTF: UITextField!
-    var pwdTF: UITextField!
-    var signInBtn: UIButton!
-    var forgetPwdBtn: UIButton!
-    var sepView: UIView!
-    var termsBtn: UIButton!
-    var privacyBtn: UIButton!
+    var phoneBgView: UIView!
+    var countryButton: UIButton!
+    var lineView1: UIView!
+    var phoneTextField: UITextField!
+    
+    var codeBgView: UIView!
+    var sendSmsButton: UIButton!
+    var lineView2: UIView!
+    var codeTextField: UITextField!
+    
+    var loginButton: UIButton!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
-        titleLabel = UILabel()
-        titleLabel.text = "Sign In"
-        titleLabel.textColor = UIColor.hexColor(str: "FF31B6")
-        titleLabel.font = UIFont.boldSystemFont(ofSize: 18)
-        view.addSubview(titleLabel)
-        titleLabel.snp.makeConstraints { make in
-            make.centerX.equalTo(view)
-            make.centerY.equalTo(backImgV)
-        }
+        title = "手机登录"
         
-        emailView = UIView()
-        emailView.layer.borderColor = UIColor.hexColor(str: "FFAB6C").cgColor
-        emailView.layer.borderWidth = 1
-        emailView.layer.cornerRadius = 10
-        emailView.layer.masksToBounds = true
-        view.addSubview(emailView)
-        emailView.snp.makeConstraints { make in
-            make.left.equalTo(view).offset(29)
-            make.right.equalTo(view).offset(-29)
-            make.top.equalTo(view).offset(topSafeAreaHeight + statusBarHeight + 143)
-            make.height.equalTo(48)
-        }
+        setupUI()
+    }
+    
+    
+    func setupUI() {
         
-        pwdView = UIView()
-        pwdView.layer.borderColor = UIColor.hexColor(str: "FFAB6C").cgColor
-        pwdView.layer.borderWidth = 1
-        pwdView.layer.cornerRadius = 10
-        pwdView.layer.masksToBounds = true
-        view.addSubview(pwdView)
-        pwdView.snp.makeConstraints { make in
-            make.left.right.height.equalTo(emailView)
-            make.top.equalTo(emailView.snp.bottom).offset(21)
-        }
+        phoneBgView = UIView()
+        phoneBgView.layer.borderColor = UIColor.hexColor(str: "E3E5E7").cgColor
+        phoneBgView.layer.borderWidth = 1
+        phoneBgView.layer.cornerRadius = 4
+        phoneBgView.layer.masksToBounds = true
+        view.addSubview(phoneBgView)
         
-        emailImgV = UIImageView(image: UIImage(named: "email"))
-        emailView.addSubview(emailImgV)
-        emailImgV.snp.makeConstraints { make in
-            make.left.equalTo(emailView).offset(10.5)
-            make.centerY.equalTo(emailView)
-            make.width.equalTo(19)
-            make.height.equalTo(14)
-        }
-        
-        pwdImgV = UIImageView(image: UIImage(named: "pwd"))
-        pwdView.addSubview(pwdImgV)
-        pwdImgV.snp.makeConstraints { make in
-            make.left.equalTo(pwdView).offset(10.5)
-            make.centerY.equalTo(pwdView)
-            make.width.equalTo(14)
-            make.height.equalTo(17)
-        }
-        
-        emailTF = UITextField()
-        let emailPlace = NSMutableAttributedString(string: "Enter your email")
-        if let email = UserDefaults.standard.value(forKey: "loginEmail") as? String {
-            emailTF.text = email
-        }
-        
-        emailPlace.addAttribute(.foregroundColor, value: UIColor.black, range: NSMakeRange(0, emailPlace.length))
-        emailPlace.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), range: NSMakeRange(0, emailPlace.length))
-        emailTF.attributedPlaceholder = emailPlace
-        emailView.addSubview(emailTF)
-        emailTF.delegate = self
-        emailTF.snp.makeConstraints { make in
-            make.left.equalTo(emailImgV.snp.right).offset(15)
-            make.top.right.bottom.equalTo(emailView)
-        }
-        
-        pwdTF = UITextField()
-        let pwdPlace = NSMutableAttributedString(string: "Enter your password")
-        if let pwd = UserDefaults.standard.value(forKey: "loginPwd") as? String {
-            pwdTF.text = pwd
-        }
-        
-        pwdPlace.addAttribute(.foregroundColor, value: UIColor.black, range: NSMakeRange(0, pwdPlace.length))
-        pwdPlace.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), range: NSMakeRange(0, pwdPlace.length))
-        pwdTF.attributedPlaceholder = pwdPlace
-        pwdTF.delegate = self
-        pwdView.addSubview(pwdTF)
-        pwdTF.snp.makeConstraints { make in
-            make.left.equalTo(pwdImgV.snp.right).offset(15)
-            make.top.right.bottom.equalTo(pwdView)
-        }
-        
-        signInBtn = UIButton(type: .custom)
-        view.addSubview(signInBtn)
-        signInBtn.snp.makeConstraints { make in
-            make.left.equalTo(view).offset(49.5)
-            make.right.equalTo(view).offset(-49.5)
-            make.top.equalTo(pwdView.snp.bottom).offset(41.5)
-            make.height.equalTo(53)
-        }
-        signInBtn.setTitle("Sign In", for: .normal)
-        signInBtn.addTarget(self, action: #selector(signInAction), for: .touchUpInside)
-        signInBtn.setTitleColor(.white, for: .normal)
-        signInBtn.titleLabel?.font = UIFont.boldSystemFont(ofSize: 18)
-        signInBtn.layer.cornerRadius = 25
-        signInBtn.layer.masksToBounds = true
-        view.layoutIfNeeded()
-
-        
-        
-        forgetPwdBtn = UIButton(type: .custom)
-        forgetPwdBtn.addTarget(self, action: #selector(forgetAction), for: .touchUpInside)
-        forgetPwdBtn.setTitle("Forgot Password?", for: .normal)
-        forgetPwdBtn.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        forgetPwdBtn.setTitleColor(.black, for: .normal)
-        view.addSubview(forgetPwdBtn)
-        forgetPwdBtn.snp.makeConstraints { make in
-            make.left.right.equalTo(signInBtn)
-            make.top.equalTo(signInBtn.snp.bottom).offset(20)
+        phoneBgView.snp.makeConstraints { make in
+            make.left.equalTo(view).offset(12)
+            make.right.equalTo(view).offset(-12)
+            make.top.equalTo(view).offset(topSafeAreaHeight + statusBarHeight + 16)
             make.height.equalTo(44)
         }
         
-        sepView = UIView()
-        sepView.backgroundColor = .black
-        view.addSubview(sepView)
-        sepView.snp.makeConstraints { make in
+        codeBgView = UIView()
+        codeBgView.layer.borderColor = UIColor.hexColor(str: "E3E5E7").cgColor
+        codeBgView.layer.borderWidth = 1
+        codeBgView.layer.cornerRadius = 4
+        codeBgView.layer.masksToBounds = true
+        view.addSubview(codeBgView)
+        
+        codeBgView.snp.makeConstraints { make in
+            make.left.right.height.equalTo(phoneBgView)
+            make.top.equalTo(phoneBgView.snp.bottom).offset(8)
+        }
+        
+        countryButton = HLImagePositionButton(type: .left, space: 0)
+        countryButton.setTitle("+86", for: .normal)
+        countryButton.setTitleColor(.black, for: .normal)
+        countryButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        countryButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+        countryButton.tintColor = .hexColor(str: "e3e5e7")
+        countryButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        phoneBgView.addSubview(countryButton)
+        
+        countryButton.snp.makeConstraints { make in
+            make.left.equalTo(phoneBgView)
+            make.centerY.equalTo(phoneBgView)
+            make.width.equalTo(60)
+            make.height.equalTo(44)
+        }
+        
+        lineView1 = UIView()
+        lineView1.backgroundColor = .gray
+        phoneBgView.addSubview(lineView1)
+        lineView1.snp.makeConstraints { make in
+            make.left.equalTo(countryButton.snp.right)
+            make.centerY.equalTo(phoneBgView)
             make.width.equalTo(1)
-            make.height.equalTo(12.5)
-            make.centerX.equalTo(view)
-            make.bottom.equalTo(view).offset(-28.5)
+            make.height.equalTo(20)
         }
         
-        termsBtn = UIButton(type: .custom)
-        termsBtn.addTarget(self, action: #selector(termsAction), for: .touchUpInside)
-        termsBtn.setTitle("Terms", for: .normal)
-        termsBtn.setTitleColor(UIColor.hexColor(str: "FF31B6"), for: .normal)
-        termsBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        view.addSubview(termsBtn)
-        termsBtn.snp.makeConstraints { make in
-            make.centerY.equalTo(sepView)
-            make.right.equalTo(sepView).offset(-6.5)
+        
+        phoneTextField = UITextField()
+        let phoneTextPlace = NSMutableAttributedString(string: "Enter your phoneNumber")
+        
+        phoneTextPlace.addAttribute(.foregroundColor, value: UIColor.hexColor(str: "aeb3b9"), range: NSMakeRange(0, phoneTextPlace.length))
+        phoneTextPlace.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), range: NSMakeRange(0, phoneTextPlace.length))
+        phoneTextField.attributedPlaceholder = phoneTextPlace
+        phoneBgView.addSubview(phoneTextField)
+        phoneTextField.snp.makeConstraints { make in
+            make.left.equalTo(countryButton.snp.right).offset(9)
+            make.top.right.bottom.equalTo(phoneBgView)
+        }
+
+
+        
+        sendSmsButton = UIButton(type: .custom)
+        codeBgView.addSubview(sendSmsButton)
+        sendSmsButton.setTitle("获取验证码", for: .normal)
+        sendSmsButton.titleLabel?.font  = UIFont.systemFont(ofSize: 14)
+        sendSmsButton.setTitleColor(UIColor.hexColor(str: "ff6699"), for: .normal)
+        sendSmsButton.layer.masksToBounds = true
+//        view.layoutIfNeeded()
+        
+        sendSmsButton.snp.makeConstraints { make in
+            make.centerY.equalToSuperview()
+            make.height.equalTo(44)
+            make.width.equalTo(93)
+            make.right.equalToSuperview()
         }
         
-        privacyBtn = UIButton(type: .custom)
-        privacyBtn.addTarget(self, action: #selector(privacyAction), for: .touchUpInside)
-        privacyBtn.setTitle("Privacy", for: .normal)
-        privacyBtn.setTitleColor(UIColor.hexColor(str: "FF31B6"), for: .normal)
-        privacyBtn.titleLabel?.font = UIFont.systemFont(ofSize: 12)
-        view.addSubview(privacyBtn)
-        privacyBtn.snp.makeConstraints { make in
-            make.centerY.equalTo(sepView)
-            make.left.equalTo(sepView).offset(6.5)
+        lineView2 = UIView()
+        lineView2.backgroundColor = .gray
+        codeBgView.addSubview(lineView2)
+        lineView2.snp.makeConstraints { make in
+            make.width.equalTo(1)
+            make.height.equalTo(20)
+            make.centerY.equalToSuperview()
+            make.right.equalTo(sendSmsButton.snp.left).offset(-1)
         }
-        //添加通知
-//        NotificationCenter.default.addObserver(self, selector: #selector(signOut), name: NSNotification.Name(rawValue: "signout"), object: nil)
-}
-    
-    @objc func backAction() {
-        self.navigationController?.popViewController(animated: true)
-    }
-    
-    @objc func signInAction() {
-        //0.邮箱和密码判空
-        guard let email = emailTF.text,email.count > 0 else {
-//            KRProgressHUD.showMessage("email is empty")
-            return
+        
+        codeTextField = UITextField()
+        let pwdPlace = NSMutableAttributedString(string: "Enter your code")
+//        if let pwd = UserDefaults.standard.value(forKey: "loginPwd") as? String {
+//            codeTextField.text = pwd
+//        }
+        pwdPlace.addAttribute(.foregroundColor, value: UIColor.hexColor(str: "aeb3b9"), range: NSMakeRange(0, pwdPlace.length))
+        pwdPlace.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), range: NSMakeRange(0, pwdPlace.length))
+        codeTextField.attributedPlaceholder = pwdPlace
+        codeBgView.addSubview(codeTextField)
+        
+        codeTextField.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(12)
+            make.top.bottom.equalTo(codeBgView)
+            make.right.equalTo(lineView2.snp.left).offset(11)
         }
-        guard let pwd = pwdTF.text,pwd.count > 0 else {
-//            KRProgressHUD.showMessage("password is empty")
-            return
+        
+        loginButton = UIButton(type: .custom)
+        loginButton.backgroundColor = .hexColor(str: "e3e5e7")
+//        loginButton.addTarget(self, action: #selector(forgetAction), for: .touchUpInside)
+        loginButton.setTitle("验证登录", for: .normal)
+        loginButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        loginButton.setTitleColor(.hexColor(str: "9499a0"), for: .normal)
+        view.addSubview(loginButton)
+        loginButton.snp.makeConstraints { make in
+            make.left.right.equalTo(codeBgView)
+            make.top.equalTo(codeBgView.snp.bottom).offset(8)
+            make.height.equalTo(44)
         }
     }
     
-    @objc func forgetAction() {
-    }
-    
-    @objc func termsAction() {
-    }
-    
-    @objc func privacyAction() {
-    }
-    
-    @objc func signOut() {
-        //设置文本框的默认文字
-//        emailTF.text = AILoginManager.sharedLoginManager.currentUser?.email
-//        pwdTF.text = AILoginManager.sharedLoginManager.currentUser?.password
-    }
-    
-//    deinit {
-//        NotificationCenter.default.removeObserver(self)
-//    }
 }
 
-extension LoginViewController: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        if textField == emailTF {
-            let emailPlace = NSMutableAttributedString(string: "Enter your email")
-            emailPlace.addAttribute(.foregroundColor, value: UIColor.black, range: NSMakeRange(0, emailPlace.length))
-            emailPlace.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), range: NSMakeRange(0, emailPlace.length))
-            emailTF.attributedPlaceholder = emailPlace
-        }else {
-            let pwdPlace = NSMutableAttributedString(string: "Enter your password")
-            pwdPlace.addAttribute(.foregroundColor, value: UIColor.black, range: NSMakeRange(0, pwdPlace.length))
-            pwdPlace.addAttribute(.font, value: UIFont.systemFont(ofSize: 16), range: NSMakeRange(0, pwdPlace.length))
-            pwdTF.attributedPlaceholder = pwdPlace
-        }
-        return true
-    }
-}
+
 

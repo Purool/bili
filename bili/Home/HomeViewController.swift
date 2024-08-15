@@ -19,7 +19,7 @@ let kcarouselViewSelectedBANGUMINotification = NSNotification.Name(rawValue: "kc
 
 let kcarouselSelectedUrlKey = "kcarouselSelectedUrlKey"
 
-class HomeViewController: UIViewController {
+class HomeViewController: QBaseViewController {
 
     lazy var contentScrollView: UIScrollView = {[unowned self] in
         let contentScrollView = UIScrollView()
