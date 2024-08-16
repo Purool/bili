@@ -20,9 +20,19 @@ class BBPhoneUserCenterVC: QBaseViewController {
     }
     
     @objc func rowView1Tapped() {
-        let vc = UINavigationController(rootViewController: LoginViewController())
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: true)
+        /*      Get.toNamed(
+         '/webview',
+         parameters: {
+           'url': 'https://passport.bilibili.com/h5-app/passport/login',
+           'type': 'login',
+           'pageTitle': '登录bilibili',
+         },
+       );
+         */
+        let vc = QWebViewController(url: "https://passport.bilibili.com/h5-app/passport/login")
+        let nav = UINavigationController(rootViewController: vc)//LoginViewController())
+        nav.modalPresentationStyle = .fullScreen
+        self.present(nav, animated: true)
     }
     
     func setupUI() {
