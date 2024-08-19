@@ -52,7 +52,7 @@ enum ApiRequest {
     static func isLogin() -> Bool {
         return getUserInfo() != nil
     }
-    
+    //        "iphone_i" "phone" "iphone 12 mini"
     static func sign(for param: [String: Any]) -> [String: Any] {
         var newParam = param
         newParam["appkey"] = appkey
@@ -87,11 +87,11 @@ enum ApiRequest {
                             encoding: ParameterEncoding = URLEncoding.default,
                             complete: ((Result<JSON, RequestError>) -> Void)? = nil)
     {
-//        var parameters = parameters
-//        if auth {
-//            parameters["access_key"] = getUserInfo()?.accessToken
-//        }
-//        parameters = sign(for: parameters)
+        var parameters = parameters
+        if auth {
+            parameters["access_key"] = "access_key"//getUserInfo()?.accessToken
+        }
+        parameters = sign(for: parameters)
         
         var desURL = HttpString.apiBaseUrl
         
@@ -191,4 +191,54 @@ enum ApiRequest {
         let userInfo: UserInfoData = try await request(QApi.userInfo)
         return userInfo
     }
+    
+    static func rcmdVideoList(ps: Int, freshIdx: Int) async throws -> [RecVideoItemModel] {
+        struct Resp: Codable {
+            let list: [RecVideoItemModel]
+        }
+        let data = [
+          "version": 1,
+          "feed_version": "V8",
+          "homepage_ver": 1,
+          "ps": ps,
+          "fresh_idx": freshIdx,
+          "brush": freshIdx,
+          "fresh_type": 4
+        ] as [String : Any]
+        let res: Resp = try await request(QApi.recommendListWeb, parameters: data)
+        return res.list.filter({$0.goto == "av"})
+    }
+    
+//    static func rcmdVideoListApp(loginStatus: Bool, freshIdx: Int) async throws -> [RecVideoItemModel] {
+//        struct Resp: Codable {
+//            let list: [RecVideoItemModel]
+//        }
+//        let data = ["idx": idx, "flush": "0", "column": "2", "pull": freshIdx == "0" ? "1" : "0"] as [String : Any]
+//        let res: Resp = try await request(QApi.recommendListWeb, parameters: data)
+//        return res.list.filter({$0.goto == "av"})
+//    }
+//
+//
+//    static func queryRcmdFeed(type: String) async throws -> [RecVideoItemModel] {
+//        struct Resp: Codable {
+//            let list: [RecVideoItemModel]
+//        }
+//        let res: Resp = try await request(QApi.userInfo)
+//        return userInfo
+//    }
+    //d7ca7f5b6dc01ab11165b32ba05de421
+    static func getTVCode() async throws -> String{
+        struct Resp: Codable {
+            let auth_code: String
+        }
+        let res: Resp = try await request(QApi.getTVCode, method: .post)
+        return res.auth_code
+    }
+    // 获取access_key
+//    static func cookieToKey() async throws -> [RecVideoItemModel] {
+//        //getTVCode()
+//        let res: Resp = try await request(QApi.cookieToKey, method: .post)
+//        return userInfo
+//    }
+    
 }

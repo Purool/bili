@@ -46,12 +46,12 @@ class HomeRecommendViewController: QBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         edgesForExtendedLayout = .top
-        let items = Observable.just(titleArray)
-        items.asDriver(onErrorJustReturn: []).drive(collectionView.rx.items){
-            collectionView,row,element in
-            return UICollectionViewCell()
-            //_ cellFactory: @escaping (UICollectionView, Int, Sequence.Element) -> UICollectionViewCell
-        }.disposed(by: rx.disposeBag)
+//        let items = Observable.just(titleArray)
+//        items.asDriver(onErrorJustReturn: []).drive(collectionView.rx.items){
+//            collectionView,row,element in
+//            return UICollectionViewCell()
+//            //_ cellFactory: @escaping (UICollectionView, Int, Sequence.Element) -> UICollectionViewCell
+//        }.disposed(by: rx.disposeBag)
     }
      
     override func setupLayout() {
@@ -123,8 +123,9 @@ extension HomeRecommendViewController: UICollectionViewDelegateFlowLayout, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-
+        Task{
+            try await ApiRequest.getTVCode()
+        }
     }
 
 }

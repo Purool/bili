@@ -8,11 +8,11 @@
 import Foundation
 import SwiftyJSON
 
-struct Official: Codable, Hashable {
-    var title: String?
-    var role: Int?
-    var desc: String?
-    var type: Int?
+struct Official: Codable {
+    @Default<String> var title: String
+    @Default<Int> var role: Int
+    @Default<String> var desc: String
+    @Default<Int> var type: Int
 }
 
 struct UserInfoData: Codable {

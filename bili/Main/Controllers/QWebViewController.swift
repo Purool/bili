@@ -81,7 +81,6 @@ class QWebViewController: QBaseViewController {
                 let info = try await ApiRequest.requestLoginInfo()
                 if info.isLogin {
 //                    SmartDialog.showToast('登录成功');
-                    print("wowowo")
                     UserDefaults.standard.set(codable: info, forKey: "userInfoCache")
                 } else {
                     // 获取用户信息失败

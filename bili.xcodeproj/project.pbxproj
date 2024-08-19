@@ -25,6 +25,7 @@
 		3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AFA02C6CAB1700770034 /* LoginViewController.swift */; };
 		384AFDC82C6CE44F001E792C /* QwebCookieTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDC72C6CE44F001E792C /* QwebCookieTool.swift */; };
 		384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDCB2C6CE762001E792C /* QBaseViewController.swift */; };
+		384B950C2C73825C003D72A9 /* RecVideoItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B950B2C73825C003D72A9 /* RecVideoItemModel.swift */; };
 		38742E792C72E30300CC8514 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E782C72E30300CC8514 /* BaseModel.swift */; };
 		38742E7B2C72EBFE00CC8514 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E7A2C72EBFE00CC8514 /* ApiRequest.swift */; };
 		38742E7D2C72EC9E00CC8514 /* UserDefault+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E7C2C72EC9E00CC8514 /* UserDefault+ET.swift */; };
@@ -61,6 +62,7 @@
 		3821AFA02C6CAB1700770034 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		384AFDC72C6CE44F001E792C /* QwebCookieTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwebCookieTool.swift; sourceTree = "<group>"; };
 		384AFDCB2C6CE762001E792C /* QBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBaseViewController.swift; sourceTree = "<group>"; };
+		384B950B2C73825C003D72A9 /* RecVideoItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecVideoItemModel.swift; sourceTree = "<group>"; };
 		38742E782C72E30300CC8514 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		38742E7A2C72EBFE00CC8514 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
 		38742E7C2C72EC9E00CC8514 /* UserDefault+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+ET.swift"; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				38742E812C73208600CC8514 /* UserInfoData.swift */,
+				384B950B2C73825C003D72A9 /* RecVideoItemModel.swift */,
 				38742E832C7323D000CC8514 /* modelRes.geojson */,
 			);
 			path = Models;
@@ -457,6 +460,7 @@
 				3821AF5C2C6B317C00770034 /* AppDelegate.swift in Sources */,
 				3821AF7A2C6B343500770034 /* HomeViewController.swift in Sources */,
 				3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */,
+				384B950C2C73825C003D72A9 /* RecVideoItemModel.swift in Sources */,
 				38742E7F2C72F1B400CC8514 /* WebRequest.swift in Sources */,
 				3821AF972C6B6D2D00770034 /* BBPhoneUserCenterVC.swift in Sources */,
 				38DBB9D42C6EF2F100A1AFA6 /* QWebViewController.swift in Sources */,
