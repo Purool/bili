@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Api {
+enum QApi {
     // 推荐视频
     static let recommendListApp =
     "\(HttpString.appBaseUrl)/x/v2/feed/index"

@@ -76,11 +76,25 @@ class QWebViewController: QBaseViewController {
     
     @objc func confirmLogin() {
         Task{
-            await QNetworkTool.shared.setCookie()
+            await QwebCookieTool.shared.setCookie()
+            do {
+                let info = try await ApiRequest.requestLoginInfo()
+                if info.isLogin {
+//                    SmartDialog.showToast('登录成功');
+                    print("wowowo")
+                    UserDefaults.standard.set(codable: info, forKey: "userInfoCache")
+                } else {
+                    // 获取用户信息失败
+//                    SmartDialog.showToast(result['msg']);
+                }
+            } catch let err {
+                print(err)
+            }
         }
     }
     
     @objc func reload() {
+        ApiRequest.isLogin()
         webView.reload()
     }
     

@@ -1,5 +1,5 @@
 //
-//  QNetworkTool.swift
+//  QwebCookieTool.swift
 //  bili
 //
 //  Created by Purool on 14/8/2024.
@@ -11,34 +11,13 @@ import WebKit
 
 typealias FlutterResult = (_ result: [HTTPCookie]?) -> Void
 
-class QNetworkTool {
+class QwebCookieTool {
     //先简单加一层，后续看需求
-    static let shared = QNetworkTool()
+    static let shared = QwebCookieTool()
     var httpCookieStore: WKHTTPCookieStore?
     var baseUrlHeaders: HTTPHeaders?
     private init() {
         httpCookieStore = WKWebsiteDataStore.default().httpCookieStore
-    }
-    struct responseData {
-        var request:URLRequest?
-        var response:HTTPURLResponse?
-        var json:AnyObject?
-        var error:NSError?
-        var data:Data?
-    }
-    
-    public func requestWith(Method method:Alamofire.HTTPMethod, URL url:String, Parameter para:[String:Any]?, Headers headers:HTTPHeaders?, handler: @escaping (responseData) -> Void){
-       
-//        let headers:HTTPHeaders = ["Content-Type":"application/json;charset=utf-8"]
-        AF.sessionConfiguration.timeoutIntervalForRequest = 10
-        AF.request(url, method: method, parameters: para, encoding: URLEncoding.default, headers: self.baseUrlHeaders).response(completionHandler: { (response) in
-            switch response.result {
-            case .success(let value):
-                print(value)
-            case .failure(let error):
-                print(error)
-            }
-        })
     }
     
     public func getCookies(urlString: String?) async -> [HTTPCookie]{
@@ -85,9 +64,5 @@ class QNetworkTool {
         AF.session.configuration.httpCookieStorage?.setCookies(cookies, for: URL(string: HttpString.tUrl), mainDocumentURL: nil)
         
     }
-    
-}
-
-class UserHttp {
     
 }

@@ -1,0 +1,132 @@
+{
+    "type": "userinfo",
+}
+{
+  "message" : "账号未登录",
+  "data" : {
+    "isLogin" : false,
+    "wbi_img" : {
+      "img_url" : "https:\/\/i0.hdslb.com\/bfs\/wbi\/7cd084941338484aae1ad9425b84077c.png",
+      "sub_url" : "https:\/\/i0.hdslb.com\/bfs\/wbi\/4932caff0ff746eab6f01bf08b70ac45.png"
+    }
+  },
+  "code" : -101,
+  "ttl" : 1
+}
+{
+    "type1": "userinfo_logined",
+}
+{
+  "message" : "0",
+  "data" : {
+    "vip" : {
+      "nickname_color" : "",
+      "tv_due_date" : 0,
+      "tv_vip_pay_type" : 0,
+      "role" : 0,
+      "tv_vip_status" : 0,
+      "label" : {
+        "bg_style" : 0,
+        "path" : "",
+        "use_img_label" : true,
+        "img_label_uri_hant" : "",
+        "text_color" : "",
+        "label_theme" : "",
+        "text" : "",
+        "img_label_uri_hans_static" : "https:\/\/i0.hdslb.com\/bfs\/vip\/d7b702ef65a976b20ed854cbd04cb9e27341bb79.png",
+        "border_color" : "",
+        "img_label_uri_hans" : "",
+        "bg_color" : "",
+        "img_label_uri_hant_static" : "https:\/\/i0.hdslb.com\/bfs\/activity-plat\/static\/20220614\/e369244d0b14644f5e1a06431e22a4d5\/KJunwh19T5.png"
+      },
+      "avatar_subscript_url" : "",
+      "theme_type" : 0,
+      "vip_pay_type" : 0,
+      "type" : 0,
+      "due_date" : 0,
+      "avatar_icon" : {
+        "icon_resource" : {
+
+        }
+      },
+      "status" : 0,
+      "avatar_subscript" : 0
+    },
+    "shop_url" : "",
+    "allowance_count" : 0,
+    "vip_nickname_color" : "",
+    "official" : {
+      "title" : "",
+      "role" : 0,
+      "desc" : "",
+      "type" : -1
+    },
+    "vipType" : 0,
+    "name_render" : null,
+    "vipStatus" : 0,
+    "wbi_img" : {
+      "sub_url" : "https:\/\/i0.hdslb.com\/bfs\/wbi\/4932caff0ff746eab6f01bf08b70ac45.png",
+      "img_url" : "https:\/\/i0.hdslb.com\/bfs\/wbi\/7cd084941338484aae1ad9425b84077c.png"
+    },
+    "face_nft_type" : 0,
+    "answer_status" : 0,
+    "has_shop" : false,
+    "email_verified" : 1,
+    "money" : 2058,
+    "vip_theme_type" : 0,
+    "is_jury" : false,
+    "officialVerify" : {
+      "desc" : "",
+      "type" : -1
+    },
+    "wallet" : {
+      "mid" : 185908864,
+      "coupon_balance" : 0,
+      "bcoin_balance" : 0,
+      "coupon_due_time" : 0
+    },
+    "mobile_verified" : 1,
+    "vipDueDate" : 0,
+    "uname" : "purool",
+    "isLogin" : true,
+    "scores" : 0,
+    "vip_avatar_subscript" : 0,
+    "face" : "http:\/\/i1.hdslb.com\/bfs\/face\/ba2816ce713e1507e438113fd56793cb1970af4f.jpg",
+    "pendant" : {
+      "n_pid" : 0,
+      "expire" : 0,
+      "image_enhance" : "",
+      "image_enhance_frame" : "",
+      "image" : "",
+      "pid" : 0,
+      "name" : ""
+    },
+    "vip_label" : {
+      "bg_color" : "",
+      "border_color" : "",
+      "bg_style" : 0,
+      "img_label_uri_hant" : "",
+      "img_label_uri_hant_static" : "https:\/\/i0.hdslb.com\/bfs\/activity-plat\/static\/20220614\/e369244d0b14644f5e1a06431e22a4d5\/KJunwh19T5.png",
+      "use_img_label" : true,
+      "path" : "",
+      "label_theme" : "",
+      "text" : "",
+      "text_color" : "",
+      "img_label_uri_hans_static" : "https:\/\/i0.hdslb.com\/bfs\/vip\/d7b702ef65a976b20ed854cbd04cb9e27341bb79.png",
+      "img_label_uri_hans" : ""
+    },
+    "face_nft" : 0,
+    "is_senior_member" : 0,
+    "level_info" : {
+      "next_exp" : 28800,
+      "current_min" : 10800,
+      "current_exp" : 27125,
+      "current_level" : 5
+    },
+    "vip_pay_type" : 0,
+    "mid" : 185908864,
+    "moral" : 70
+  },
+  "ttl" : 1,
+  "code" : 0
+}

@@ -23,8 +23,14 @@
 		3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF992C6B79DB00770034 /* UIColor+ET.swift */; };
 		3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF9B2C6B7A8500770034 /* ImportHeader.swift */; };
 		3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AFA02C6CAB1700770034 /* LoginViewController.swift */; };
-		384AFDC82C6CE44F001E792C /* QNetworkTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDC72C6CE44F001E792C /* QNetworkTool.swift */; };
+		384AFDC82C6CE44F001E792C /* QwebCookieTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDC72C6CE44F001E792C /* QwebCookieTool.swift */; };
 		384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDCB2C6CE762001E792C /* QBaseViewController.swift */; };
+		38742E792C72E30300CC8514 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E782C72E30300CC8514 /* BaseModel.swift */; };
+		38742E7B2C72EBFE00CC8514 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E7A2C72EBFE00CC8514 /* ApiRequest.swift */; };
+		38742E7D2C72EC9E00CC8514 /* UserDefault+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E7C2C72EC9E00CC8514 /* UserDefault+ET.swift */; };
+		38742E7F2C72F1B400CC8514 /* WebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E7E2C72F1B400CC8514 /* WebRequest.swift */; };
+		38742E822C73208600CC8514 /* UserInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E812C73208600CC8514 /* UserInfoData.swift */; };
+		38742E872C7352A700CC8514 /* MineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E862C7352A700CC8514 /* MineCollectionViewCell.swift */; };
 		389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389D3ACC2C6E4C030066E20A /* QApi.swift */; };
 		38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */; };
 		38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */; };
@@ -53,8 +59,15 @@
 		3821AF992C6B79DB00770034 /* UIColor+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ET.swift"; sourceTree = "<group>"; };
 		3821AF9B2C6B7A8500770034 /* ImportHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportHeader.swift; sourceTree = "<group>"; };
 		3821AFA02C6CAB1700770034 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		384AFDC72C6CE44F001E792C /* QNetworkTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QNetworkTool.swift; sourceTree = "<group>"; };
+		384AFDC72C6CE44F001E792C /* QwebCookieTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwebCookieTool.swift; sourceTree = "<group>"; };
 		384AFDCB2C6CE762001E792C /* QBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBaseViewController.swift; sourceTree = "<group>"; };
+		38742E782C72E30300CC8514 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
+		38742E7A2C72EBFE00CC8514 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
+		38742E7C2C72EC9E00CC8514 /* UserDefault+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+ET.swift"; sourceTree = "<group>"; };
+		38742E7E2C72F1B400CC8514 /* WebRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRequest.swift; sourceTree = "<group>"; };
+		38742E812C73208600CC8514 /* UserInfoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoData.swift; sourceTree = "<group>"; };
+		38742E832C7323D000CC8514 /* modelRes.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = modelRes.geojson; sourceTree = "<group>"; };
+		38742E862C7352A700CC8514 /* MineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineCollectionViewCell.swift; sourceTree = "<group>"; };
 		389D3ACC2C6E4C030066E20A /* QApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QApi.swift; sourceTree = "<group>"; };
 		38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+ET.swift"; sourceTree = "<group>"; };
 		38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ET.swift"; sourceTree = "<group>"; };
@@ -97,6 +110,7 @@
 		3821AF5A2C6B317C00770034 /* bili */ = {
 			isa = PBXGroup;
 			children = (
+				38742E802C73207400CC8514 /* Models */,
 				384AFDC92C6CE71E001E792C /* QPublicComponent */,
 				384AFDC52C6CE440001E792C /* Helpers */,
 				3821AF9F2C6CAB0D00770034 /* Login */,
@@ -180,6 +194,8 @@
 		3821AF8D2C6B660600770034 /* Recommend */ = {
 			isa = PBXGroup;
 			children = (
+				38742E882C73620300CC8514 /* ViewModel */,
+				38742E852C73529900CC8514 /* View */,
 				3821AF8E2C6B661000770034 /* Controllers */,
 			);
 			path = Recommend;
@@ -223,6 +239,7 @@
 				3821AF992C6B79DB00770034 /* UIColor+ET.swift */,
 				38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */,
 				38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */,
+				38742E7C2C72EC9E00CC8514 /* UserDefault+ET.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -238,7 +255,10 @@
 		384AFDC52C6CE440001E792C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				384AFDC72C6CE44F001E792C /* QNetworkTool.swift */,
+				384AFDC72C6CE44F001E792C /* QwebCookieTool.swift */,
+				38742E782C72E30300CC8514 /* BaseModel.swift */,
+				38742E7A2C72EBFE00CC8514 /* ApiRequest.swift */,
+				38742E7E2C72F1B400CC8514 /* WebRequest.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -259,6 +279,30 @@
 				38DBB9D12C6E169C00A1AFA6 /* HLImagePositionButton.swift */,
 			);
 			path = SuperClasses;
+			sourceTree = "<group>";
+		};
+		38742E802C73207400CC8514 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				38742E812C73208600CC8514 /* UserInfoData.swift */,
+				38742E832C7323D000CC8514 /* modelRes.geojson */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		38742E852C73529900CC8514 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				38742E862C7352A700CC8514 /* MineCollectionViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		38742E882C73620300CC8514 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		6C38C4019730178D7B867AF2 /* Pods */ = {
@@ -393,15 +437,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38742E822C73208600CC8514 /* UserInfoData.swift in Sources */,
 				384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */,
 				3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */,
 				3821AF722C6B325500770034 /* MainTabbarViewController.swift in Sources */,
-				384AFDC82C6CE44F001E792C /* QNetworkTool.swift in Sources */,
+				384AFDC82C6CE44F001E792C /* QwebCookieTool.swift in Sources */,
 				389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */,
+				38742E872C7352A700CC8514 /* MineCollectionViewCell.swift in Sources */,
 				3821AF772C6B33B700770034 /* QUINavigationController.swift in Sources */,
 				38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */,
 				38DBB9D22C6E169C00A1AFA6 /* HLImagePositionButton.swift in Sources */,
 				3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */,
+				38742E792C72E30300CC8514 /* BaseModel.swift in Sources */,
+				38742E7D2C72EC9E00CC8514 /* UserDefault+ET.swift in Sources */,
 				3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */,
 				3821AF842C6B3D1300770034 /* SlideMenu.swift in Sources */,
 				38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */,
@@ -409,9 +457,11 @@
 				3821AF5C2C6B317C00770034 /* AppDelegate.swift in Sources */,
 				3821AF7A2C6B343500770034 /* HomeViewController.swift in Sources */,
 				3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */,
+				38742E7F2C72F1B400CC8514 /* WebRequest.swift in Sources */,
 				3821AF972C6B6D2D00770034 /* BBPhoneUserCenterVC.swift in Sources */,
 				38DBB9D42C6EF2F100A1AFA6 /* QWebViewController.swift in Sources */,
 				3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */,
+				38742E7B2C72EBFE00CC8514 /* ApiRequest.swift in Sources */,
 				3821AF8C2C6B65BB00770034 /* HomeLiveShowViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -568,9 +618,13 @@
 				DEVELOPMENT_TEAM = AN859R7DPD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bili/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "相机";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "麦克风";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -602,9 +656,13 @@
 				DEVELOPMENT_TEAM = AN859R7DPD;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = bili/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "相机";
+				INFOPLIST_KEY_NSMicrophoneUsageDescription = "麦克风";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UIRequiredDeviceCapabilities = armv7;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

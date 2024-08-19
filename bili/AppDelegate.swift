@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Alamofire
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -15,7 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // 初始化控制器
-        initMainController()  
+        initMainController()
+        AF.sessionConfiguration.timeoutIntervalForRequest = 15
+        AF.sessionConfiguration.timeoutIntervalForResource = 15
+        AF.sessionConfiguration.httpMaximumConnectionsPerHost = 3
         return true
     }
 
