@@ -22,7 +22,7 @@ class RecommendViewModel: BaseViewModel, VMInAndOutputs {
     let dataSource = BehaviorRelay<[Any]>(value: [])
     
     func loadData(page: Int) {
-        let task = Task {
+        Task {
             do {
                 let list: [Any] = ApiRequest.isLogin() ?
                 try await ApiRequest.rcmdVideoListApp(freshIdx: page) : try await ApiRequest.rcmdVideoList(freshIdx: page)

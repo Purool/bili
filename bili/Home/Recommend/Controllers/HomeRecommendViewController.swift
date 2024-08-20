@@ -26,7 +26,7 @@ class HomeRecommendViewController: QBaseViewController {
         lt.itemSize = CGSize(width: kscreenWidth*0.45, height: kscreenWidth*0.48)
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: lt)
         collectionView.backgroundColor = .hexColor(str: "f1f2f3")
-        collectionView.delegate = self
+//        collectionView.delegate = self
 //        collectionView.dataSource = self
         collectionView.alwaysBounceVertical = true
         return collectionView
@@ -42,7 +42,7 @@ class HomeRecommendViewController: QBaseViewController {
         viewModel.outputs.dataSource.asDriver(onErrorJustReturn: []).drive(collectionView.rx.items){
             collectionView,row,element in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendActivityCell.self.description(), for: IndexPath(row: row, section: 0)) as! RecommendActivityCell
-//            cell.info = info
+            cell.videoModel = element
             return cell
             //_ cellFactory: @escaping (UICollectionView, Int, Sequence.Element) -> UICollectionViewCell
         }.disposed(by: rx.disposeBag)
@@ -69,29 +69,3 @@ class HomeRecommendViewController: QBaseViewController {
     }
 }
 
-extension HomeRecommendViewController: UICollectionViewDelegateFlowLayout {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView.contentOffset.y >= 0 {
-            navigationController?.barStyle(.theme)
-            navigationItem.title = "我的"
-        } else {
-            navigationController?.barStyle(.clear)
-            navigationItem.title = ""
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = floor(Double(kScreenWidth - 40.0) / 3.0)
-        return CGSize(width: width, height: (width * 0.75 + 30))
-    }
-
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-
-    }
-
-}

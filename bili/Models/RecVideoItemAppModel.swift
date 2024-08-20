@@ -48,4 +48,5 @@ struct RecVideoItemAppModel: Codable {
     @Default<String> var cardType: String
     var adInfo: JSON?
     @Default<Int> var pubdate: Int
+    @Default<String> var card_goto: String
 }

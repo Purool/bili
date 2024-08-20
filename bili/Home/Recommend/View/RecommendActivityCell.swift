@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Kingfisher
 
 class RecommendActivityCell: UICollectionViewCell {
     
@@ -77,10 +77,11 @@ class RecommendActivityCell: UICollectionViewCell {
     var videoModel: Any? {
         didSet{
             if let model = videoModel as? RecVideoItemModel {
-                model
+                coverBgImgView.kf.setImage(with: URL(string:model.pic),placeholder: UIImage(named: "default_img"))
+                
             } else {
                 if let model = videoModel as? RecVideoItemAppModel{
-                    model
+                    coverBgImgView.kf.setImage(with: URL(string:model.pic),placeholder: UIImage(named: "default_img"))
                 }
             }
         }
@@ -114,6 +115,7 @@ class RecommendActivityCell: UICollectionViewCell {
         coverBgImgView.snp.makeConstraints { make in
 //            make.edges.equalTo(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
             make.left.right.top.equalToSuperview()
+            make.height.equalTo(kscreenWidth*0.29)
         }
         
     }

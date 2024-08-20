@@ -206,7 +206,7 @@ enum ApiRequest {
           "fresh_type": 4
         ] as [String : Any]
         let res: Resp = try await request(QApi.recommendListWeb, parameters: data)
-        return res.item.filter({$0.goto != "av"})
+        return res.item.filter({$0.goto == "av"})
     }
     
 //    static func queryRcmdFeed(type: String) async throws -> [RecVideoItemModel] {
@@ -249,6 +249,6 @@ enum ApiRequest {
         }
         let data = ["idx": freshIdx, "flush": "0", "column": "2", "pull": freshIdx == 0 ? "1" : "0"] as [String : Any]
         let res: Resp = try await request(QApi.recommendListApp, parameters: data)
-        return res.items.filter({$0.goto != "av"})
+        return res.items.filter({$0.card_goto != "ad_av"})
     }
 }
