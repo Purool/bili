@@ -38,4 +38,5 @@ struct UserInfoData: Codable {
     @Default<String> var vipNicknameColor: String
     @Default<Bool> var hasShop: Bool
     @Default<String> var shopUrl: String
+    @Default<String> var accessKey: String
 }

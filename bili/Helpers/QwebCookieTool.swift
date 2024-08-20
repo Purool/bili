@@ -65,4 +65,8 @@ class QwebCookieTool {
         
     }
     
+    static func csrf() -> String? {
+        let cookies = AF.session.configuration.httpCookieStorage?.cookies(for: URL(string: HttpString.baseUrl)!)
+        return cookies?.first(where: { $0.name == "bili_jct" })?.value
+    }
 }

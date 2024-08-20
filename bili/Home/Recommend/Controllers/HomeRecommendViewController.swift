@@ -11,6 +11,7 @@ import RxCocoa
 import RxSwift
 
 class HomeRecommendViewController: QBaseViewController {
+    private let currentPage = 0
     private let headHeight: CGFloat = 300
     
     private lazy var titleArray: Array = {
@@ -46,6 +47,11 @@ class HomeRecommendViewController: QBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         edgesForExtendedLayout = .top
+        Task{
+            let list: [RecVideoItemModel] = ApiRequest.isLogin() ?
+            try await ApiRequest.rcmdVideoListApp(freshIdx: currentPage) : try await ApiRequest.rcmdVideoList(freshIdx: currentPage)
+            print(list)
+        }
 //        let items = Observable.just(titleArray)
 //        items.asDriver(onErrorJustReturn: []).drive(collectionView.rx.items){
 //            collectionView,row,element in
@@ -124,7 +130,7 @@ extension HomeRecommendViewController: UICollectionViewDelegateFlowLayout, UICol
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         Task{
-            try await ApiRequest.getTVCode()
+            try await ApiRequest.cookieToKey()
         }
     }
 
