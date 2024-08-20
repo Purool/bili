@@ -31,7 +31,11 @@
 		38742E7D2C72EC9E00CC8514 /* UserDefault+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E7C2C72EC9E00CC8514 /* UserDefault+ET.swift */; };
 		38742E7F2C72F1B400CC8514 /* WebRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E7E2C72F1B400CC8514 /* WebRequest.swift */; };
 		38742E822C73208600CC8514 /* UserInfoData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E812C73208600CC8514 /* UserInfoData.swift */; };
-		38742E872C7352A700CC8514 /* MineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E862C7352A700CC8514 /* MineCollectionViewCell.swift */; };
+		38742E872C7352A700CC8514 /* RecommendActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E862C7352A700CC8514 /* RecommendActivityCell.swift */; };
+		38742E8A2C74326000CC8514 /* RecommendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E892C74326000CC8514 /* RecommendViewModel.swift */; };
+		38742E8C2C74352B00CC8514 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E8B2C74352B00CC8514 /* ViewModelProtocol.swift */; };
+		38742E8F2C74927700CC8514 /* normalBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E8E2C74927700CC8514 /* normalBaseCell.swift */; };
+		38742E912C74AC8500CC8514 /* RecVideoItemAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E902C74AC8500CC8514 /* RecVideoItemAppModel.swift */; };
 		389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389D3ACC2C6E4C030066E20A /* QApi.swift */; };
 		38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */; };
 		38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */; };
@@ -69,7 +73,11 @@
 		38742E7E2C72F1B400CC8514 /* WebRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebRequest.swift; sourceTree = "<group>"; };
 		38742E812C73208600CC8514 /* UserInfoData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoData.swift; sourceTree = "<group>"; };
 		38742E832C7323D000CC8514 /* modelRes.geojson */ = {isa = PBXFileReference; lastKnownFileType = text; path = modelRes.geojson; sourceTree = "<group>"; };
-		38742E862C7352A700CC8514 /* MineCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineCollectionViewCell.swift; sourceTree = "<group>"; };
+		38742E862C7352A700CC8514 /* RecommendActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendActivityCell.swift; sourceTree = "<group>"; };
+		38742E892C74326000CC8514 /* RecommendViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendViewModel.swift; sourceTree = "<group>"; };
+		38742E8B2C74352B00CC8514 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
+		38742E8E2C74927700CC8514 /* normalBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = normalBaseCell.swift; sourceTree = "<group>"; };
+		38742E902C74AC8500CC8514 /* RecVideoItemAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecVideoItemAppModel.swift; sourceTree = "<group>"; };
 		389D3ACC2C6E4C030066E20A /* QApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QApi.swift; sourceTree = "<group>"; };
 		38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+ET.swift"; sourceTree = "<group>"; };
 		38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ET.swift"; sourceTree = "<group>"; };
@@ -261,6 +269,7 @@
 				38742E782C72E30300CC8514 /* BaseModel.swift */,
 				38742E7A2C72EBFE00CC8514 /* ApiRequest.swift */,
 				38742E7E2C72F1B400CC8514 /* WebRequest.swift */,
+				38742E8B2C74352B00CC8514 /* ViewModelProtocol.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -288,6 +297,7 @@
 			children = (
 				38742E812C73208600CC8514 /* UserInfoData.swift */,
 				384B950B2C73825C003D72A9 /* RecVideoItemModel.swift */,
+				38742E902C74AC8500CC8514 /* RecVideoItemAppModel.swift */,
 				38742E832C7323D000CC8514 /* modelRes.geojson */,
 			);
 			path = Models;
@@ -296,7 +306,8 @@
 		38742E852C73529900CC8514 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				38742E862C7352A700CC8514 /* MineCollectionViewCell.swift */,
+				38742E862C7352A700CC8514 /* RecommendActivityCell.swift */,
+				38742E8E2C74927700CC8514 /* normalBaseCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -304,6 +315,7 @@
 		38742E882C73620300CC8514 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				38742E892C74326000CC8514 /* RecommendViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -446,13 +458,14 @@
 				3821AF722C6B325500770034 /* MainTabbarViewController.swift in Sources */,
 				384AFDC82C6CE44F001E792C /* QwebCookieTool.swift in Sources */,
 				389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */,
-				38742E872C7352A700CC8514 /* MineCollectionViewCell.swift in Sources */,
+				38742E872C7352A700CC8514 /* RecommendActivityCell.swift in Sources */,
 				3821AF772C6B33B700770034 /* QUINavigationController.swift in Sources */,
 				38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */,
 				38DBB9D22C6E169C00A1AFA6 /* HLImagePositionButton.swift in Sources */,
 				3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */,
 				38742E792C72E30300CC8514 /* BaseModel.swift in Sources */,
 				38742E7D2C72EC9E00CC8514 /* UserDefault+ET.swift in Sources */,
+				38742E8A2C74326000CC8514 /* RecommendViewModel.swift in Sources */,
 				3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */,
 				3821AF842C6B3D1300770034 /* SlideMenu.swift in Sources */,
 				38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */,
@@ -460,7 +473,10 @@
 				3821AF5C2C6B317C00770034 /* AppDelegate.swift in Sources */,
 				3821AF7A2C6B343500770034 /* HomeViewController.swift in Sources */,
 				3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */,
+				38742E8F2C74927700CC8514 /* normalBaseCell.swift in Sources */,
+				38742E8C2C74352B00CC8514 /* ViewModelProtocol.swift in Sources */,
 				384B950C2C73825C003D72A9 /* RecVideoItemModel.swift in Sources */,
+				38742E912C74AC8500CC8514 /* RecVideoItemAppModel.swift in Sources */,
 				38742E7F2C72F1B400CC8514 /* WebRequest.swift in Sources */,
 				3821AF972C6B6D2D00770034 /* BBPhoneUserCenterVC.swift in Sources */,
 				38DBB9D42C6EF2F100A1AFA6 /* QWebViewController.swift in Sources */,

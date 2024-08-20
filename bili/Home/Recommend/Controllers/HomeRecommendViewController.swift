@@ -10,54 +10,42 @@ import NSObject_Rx
 import RxCocoa
 import RxSwift
 
+let kpadding:CGFloat = 15
+let klinePadding:CGFloat = 0
+
 class HomeRecommendViewController: QBaseViewController {
     private let currentPage = 0
     private let headHeight: CGFloat = 300
-    
-    private lazy var titleArray: Array = {
-        return [["icon":"sep_register", "title": "签到"],
-                ["icon":"sep_mywallet", "title": "钱包"],
-                ["icon":"sep_subscription", "title": "订阅"],
-                ["icon":"sep_fengyintu", "title": "封印图"],
-                ["icon":"sep_theme", "title": "皮肤"],
-                ["icon":"myvotebiao", "title": "我的投票"],
-                ["icon":"sep_help", "title": "帮助反馈"],
-                ["icon":"sep_beijing", "title": "首都网警"],
-                ["icon":"sep_auther", "title": "作者中心"],
-                ["icon":"sep_setting", "title": "设置"]]
-    }()
+    let allClass: [UICollectionViewCell.Type] = [UICollectionViewCell.self,
+                                                 RecommendActivityCell.self,]
     
     private lazy var collectionView: UICollectionView = {
         let lt = UICollectionViewFlowLayout()
-        lt.minimumInteritemSpacing = 10
-        lt.minimumLineSpacing = 10
+        lt.minimumInteritemSpacing = 8
+        lt.minimumLineSpacing = 8
+        lt.itemSize = CGSize(width: kscreenWidth*0.45, height: kscreenWidth*0.48)
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: lt)
-        collectionView.backgroundColor = UIColor.white
+        collectionView.backgroundColor = .hexColor(str: "f1f2f3")
         collectionView.delegate = self
-        collectionView.dataSource = self
+//        collectionView.dataSource = self
         collectionView.alwaysBounceVertical = true
         return collectionView
 
     }()
 
-    private lazy var navigationBarY: CGFloat = {
-        return navigationController?.navigationBar.frame.maxY ?? 0
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         edgesForExtendedLayout = .top
-        Task{
-            let list: [RecVideoItemModel] = ApiRequest.isLogin() ?
-            try await ApiRequest.rcmdVideoListApp(freshIdx: currentPage) : try await ApiRequest.rcmdVideoList(freshIdx: currentPage)
-            print(list)
-        }
-//        let items = Observable.just(titleArray)
-//        items.asDriver(onErrorJustReturn: []).drive(collectionView.rx.items){
-//            collectionView,row,element in
-//            return UICollectionViewCell()
-//            //_ cellFactory: @escaping (UICollectionView, Int, Sequence.Element) -> UICollectionViewCell
-//        }.disposed(by: rx.disposeBag)
+        _ = allClass.map{collectionView.register($0, forCellWithReuseIdentifier: $0.description())}
+        let viewModel = RecommendViewModel()
+        viewModel.inputs.loadData(page: 0)
+        viewModel.outputs.dataSource.asDriver(onErrorJustReturn: []).drive(collectionView.rx.items){
+            collectionView,row,element in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendActivityCell.self.description(), for: IndexPath(row: row, section: 0)) as! RecommendActivityCell
+//            cell.info = info
+            return cell
+            //_ cellFactory: @escaping (UICollectionView, Int, Sequence.Element) -> UICollectionViewCell
+        }.disposed(by: rx.disposeBag)
     }
      
     override func setupLayout() {
@@ -66,7 +54,6 @@ class HomeRecommendViewController: QBaseViewController {
             make.edges.equalTo(self.view.snp.edges).priority(.low)
             make.top.equalToSuperview()
         }
-        collectionView.register(MineCollectionViewCell.self, forCellWithReuseIdentifier: "MineCollectionViewCell")
     }
     
     override func configNavigationBar() {
@@ -74,21 +61,15 @@ class HomeRecommendViewController: QBaseViewController {
         navigationController?.barStyle(.clear)
 //        collectionView.contentOffset = CGPoint(x: 0, y: -collectionView.parallaxHeader.height)
     }
-    private func collectionViewLayout1() -> UICollectionViewLayout {
-        let layout = UICollectionViewFlowLayout()
-        layout.scrollDirection = .vertical
-//        layout.itemSize = Dimensions.photosItemSize
-//        let numberOfCellsInRow = floor(Dimensions.screenWidth / Dimensions.photosItemSize.width)
-//        let inset = (Dimensions.screenWidth - (numberOfCellsInRow * Dimensions.photosItemSize.width)) / (numberOfCellsInRow + 1)
-//        layout.sectionInset = .init(top: inset,
-//                                    left: inset,
-//                                    bottom: inset,
-//                                    right: inset)
-        return layout
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        Task{
+            try await ApiRequest.cookieToKey()
+        }
     }
 }
 
-extension HomeRecommendViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
+extension HomeRecommendViewController: UICollectionViewDelegateFlowLayout {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y >= 0 {
@@ -97,25 +78,6 @@ extension HomeRecommendViewController: UICollectionViewDelegateFlowLayout, UICol
         } else {
             navigationController?.barStyle(.clear)
             navigationItem.title = ""
-        }
-    }
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return titleArray.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MineCollectionViewCell", for: indexPath) as! MineCollectionViewCell? {
-            cell.dict = titleArray[indexPath.row]
-            return cell
-        } else {
-            let cell = MineCollectionViewCell(frame: CGRectZero)
-            cell.dict = titleArray[indexPath.row]
-            return cell
         }
     }
     
@@ -129,9 +91,7 @@ extension HomeRecommendViewController: UICollectionViewDelegateFlowLayout, UICol
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        Task{
-            try await ApiRequest.cookieToKey()
-        }
+
     }
 
 }

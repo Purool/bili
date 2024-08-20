@@ -194,7 +194,7 @@ enum ApiRequest {
     
     static func rcmdVideoList(freshIdx: Int) async throws -> [RecVideoItemModel] {
         struct Resp: Codable {
-            let list: [RecVideoItemModel]
+            let item: [RecVideoItemModel]
         }
         let data = [
           "version": 1,
@@ -206,7 +206,7 @@ enum ApiRequest {
           "fresh_type": 4
         ] as [String : Any]
         let res: Resp = try await request(QApi.recommendListWeb, parameters: data)
-        return res.list.filter({$0.goto == "av"})
+        return res.item.filter({$0.goto != "av"})
     }
     
 //    static func queryRcmdFeed(type: String) async throws -> [RecVideoItemModel] {
@@ -243,12 +243,12 @@ enum ApiRequest {
 //        SmartDialog.dismiss();
     }
     //MARK: VideoHttp
-    static func rcmdVideoListApp(freshIdx: Int) async throws -> [RecVideoItemModel] {
+    static func rcmdVideoListApp(freshIdx: Int) async throws -> [RecVideoItemAppModel] {
         struct Resp: Codable {
-            let list: [RecVideoItemModel]
+            let items: [RecVideoItemAppModel]
         }
         let data = ["idx": freshIdx, "flush": "0", "column": "2", "pull": freshIdx == 0 ? "1" : "0"] as [String : Any]
-        let res: Resp = try await request(QApi.recommendListWeb, parameters: data)
-        return res.list.filter({$0.goto == "av"})
+        let res: Resp = try await request(QApi.recommendListApp, parameters: data)
+        return res.items.filter({$0.goto != "av"})
     }
 }
