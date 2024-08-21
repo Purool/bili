@@ -3,6 +3,7 @@ PODS:
   - Differentiator (5.0.0)
   - DynamicBlurView (5.0.3)
   - HandyJSON (5.0.2)
+  - HMSegmentedControl (1.5.6)
   - Kingfisher (6.3.1)
   - LookinServer/Core (1.2.8)
   - LookinServer/Swift (1.2.8):
@@ -33,6 +34,7 @@ DEPENDENCIES:
   - Alamofire (~> 5.7.1)
   - DynamicBlurView (~> 5.0.0)
   - HandyJSON (~> 5.0.2)
+  - HMSegmentedControl
   - Kingfisher (~> 6.3.1)
   - LookinServer/Swift
   - MJRefresh
@@ -53,6 +55,7 @@ SPEC REPOS:
     - Differentiator
     - DynamicBlurView
     - HandyJSON
+    - HMSegmentedControl
     - Kingfisher
     - LookinServer
     - MJRefresh
@@ -73,6 +76,7 @@ SPEC CHECKSUMS:
   Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
   DynamicBlurView: b57e2f6aa33f85b2bcca272265162a3c7c5cc499
   HandyJSON: 9e4e236f5d2dbefad5155a77417bbea438201c03
+  HMSegmentedControl: 34c1f54d822d8308e7b24f5d901ec674dfa31352
   Kingfisher: 016c8b653a35add51dd34a3aba36b580041acc74
   LookinServer: 1b2b61c6402ae29fa22182d48f5cd067b4e99e80
   MJRefresh: ff9e531227924c84ce459338414550a05d2aea78
@@ -88,6 +92,6 @@ SPEC CHECKSUMS:
   SwiftDate: bbc26e26fc8c0c33fbee8c140c5e8a68293a148a
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
 
-PODFILE CHECKSUM: 4ced0f59b38b9c74152f9a353e0cd90a65074c57
+PODFILE CHECKSUM: 318b6a355beee70d958d6dfba9c0dfec87ae1a0f
 
 COCOAPODS: 1.15.2

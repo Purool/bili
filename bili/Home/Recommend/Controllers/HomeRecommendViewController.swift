@@ -23,7 +23,7 @@ class HomeRecommendViewController: QBaseViewController {
         let lt = UICollectionViewFlowLayout()
         lt.minimumInteritemSpacing = 8
         lt.minimumLineSpacing = 8
-        lt.itemSize = CGSize(width: kscreenWidth*0.45, height: kscreenWidth*0.48)
+        lt.itemSize = CGSize(width: kScreenWidth*0.46, height: kScreenWidth*0.29+32+30)
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: lt)
         collectionView.backgroundColor = .hexColor(str: "f1f2f3")
 //        collectionView.delegate = self
@@ -38,20 +38,19 @@ class HomeRecommendViewController: QBaseViewController {
         edgesForExtendedLayout = .top
         _ = allClass.map{collectionView.register($0, forCellWithReuseIdentifier: $0.description())}
         let viewModel = RecommendViewModel()
-        viewModel.inputs.loadData(page: 0)
+//        viewModel.inputs.loadData(page: 0)
         viewModel.outputs.dataSource.asDriver(onErrorJustReturn: []).drive(collectionView.rx.items){
             collectionView,row,element in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendActivityCell.self.description(), for: IndexPath(row: row, section: 0)) as! RecommendActivityCell
             cell.videoModel = element
             return cell
-            //_ cellFactory: @escaping (UICollectionView, Int, Sequence.Element) -> UICollectionViewCell
         }.disposed(by: rx.disposeBag)
     }
      
     override func setupLayout() {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {(make) in
-            make.edges.equalTo(self.view.snp.edges).priority(.low)
+            make.edges.equalTo(UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)).priority(.low)
             make.top.equalToSuperview()
         }
     }

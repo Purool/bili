@@ -64,3 +64,53 @@ extension Double: DefaultValue {
 //print(p, p.name, p.age)
 //Person(_name: Default<Swift.String>(wrappedValue: "unknown"), _age: Default<Swift.Int>(wrappedValue: -1))
 //unknown  -1
+
+
+/*model嵌套改层级
+struct UserResponse: Decodable {
+    let sexStatus: String
+    let anotherValue: String
+
+    enum CodingKeys: String, CodingKey {
+        case sexStatus
+        case details
+    }
+
+    enum DetailsKeys: String, CodingKey {
+        case anotherValue = "another_value"
+    }
+
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        sexStatus = try container.decode(String.self, forKey: .sexStatus)
+
+        // 处理嵌套的 details
+        let detailsContainer = try container.nestedContainer(keyedBy: DetailsKeys.self, forKey: .details)
+        anotherValue = try detailsContainer.decode(String.self, forKey: .anotherValue)
+    }
+}
+
+// 使用示例
+let jsonData = """
+{
+    "user": {
+        "sexStatus": "male",
+        "details": {
+            "another_value": "some_value"
+        }
+    }
+}
+""".data(using: .utf8)!
+
+struct Response: Decodable {
+    let user: UserResponse
+}
+
+do {
+    let response = try JSONDecoder().decode(Response.self, from: jsonData)
+    print(response.user.sexStatus) // 输出: male
+    print(response.user.anotherValue) // 输出: some_value
+} catch {
+    print("Error decoding JSON: \(error)")
+}
+ */

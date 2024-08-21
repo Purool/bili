@@ -7,6 +7,11 @@
 
 import UIKit
 
-class HomeLiveShowViewController: UIViewController {
+class HomeLiveShowViewController: QBaseViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .orange
+    }
     
 }

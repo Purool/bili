@@ -11,6 +11,7 @@ target 'bili' do
   pod 'NSObject+Rx' #rx.disposebag
   pod 'R.swift'
   pod 'MJRefresh'
+  pod 'HMSegmentedControl'
   pod "DynamicBlurView", '~> 5.0.0'
   pod 'ReachabilitySwift', '~> 5.2.1'
   pod 'SDWebImage', '~> 5.0'

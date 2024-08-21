@@ -38,7 +38,7 @@ class BBPhoneUserCenterVC: QBaseViewController {
     func setupUI() {
         view.backgroundColor = .hexColor(str: "f1f2f3")
         
-        rowView1 = UIView(frame: CGRectMake(0, 50, kscreenWidth, 100))
+        rowView1 = UIView(frame: CGRectMake(0, 50, kScreenWidth, 100))
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(rowView1Tapped))
         rowView1.addGestureRecognizer(tapGesture)
         view.addSubview(rowView1)

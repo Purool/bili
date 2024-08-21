@@ -21,10 +21,7 @@ import UIKit
  */
 // MARK: - 长宽
 // 自定义tabbar的高度
-let KtabbarHeight:CGFloat = 50
-// 屏幕的宽度高度
-var kscreenWidth = UIScreen.main.bounds.width
-let kscreenHeight = UIScreen.main.bounds.height
+let kHomeHeaderHeight:CGFloat = 77
 // 轮播的高度
 let kcarouselHeight:CGFloat = 110
 let knormalHeadeHeight:CGFloat = 40

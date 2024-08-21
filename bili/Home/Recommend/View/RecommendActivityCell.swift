@@ -19,11 +19,13 @@ class RecommendActivityCell: UICollectionViewCell {
     
     private lazy var coverBgImgView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = UIImage(named: "default_img")
         return imageView
     }()
     
     private lazy var coverLeftIcon1: UIImageView = {
         let imageView = UIImageView()
+        imageView.tintColor = .white
         imageView.contentMode = .center
         return imageView
     }()
@@ -36,6 +38,7 @@ class RecommendActivityCell: UICollectionViewCell {
     
     private lazy var coverLeftIcon2: UIImageView = {
         let imageView = UIImageView()
+        imageView.tintColor = .white
         imageView.contentMode = .center
         return imageView
     }()
@@ -63,26 +66,42 @@ class RecommendActivityCell: UICollectionViewCell {
     
     private lazy var descButton: UIButton = {
         let button = UIButton(type: .custom)
+        button.tintColor = .hexColor(str: "9499a0")
         button.titleLabel?.font = .systemFont(ofSize: 12)
-        button.backgroundColor = .hexColor(str: "9499a0")
+        button.setTitleColor(.hexColor(str: "9499a0"), for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: 0)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 0)
         return button
     }()
     private lazy var moreHandleButton: UIButton = {
         let button = UIButton(type: .custom)
+        button.tintColor = .hexColor(str: "9499a0")
         button.titleLabel?.font = .systemFont(ofSize: 12)
-        button.backgroundColor = .hexColor(str: "9499a0")
+        button.setTitleColor(.hexColor(str: "9499a0"), for: .normal)
         return button
     }()
     
     var videoModel: Any? {
         didSet{
             if let model = videoModel as? RecVideoItemModel {
-                coverBgImgView.kf.setImage(with: URL(string:model.pic),placeholder: UIImage(named: "default_img"))
+                coverBgImgView.kf.setImage(with: URL(string:model.pic))
                 
-            } else {
-                if let model = videoModel as? RecVideoItemAppModel{
-                    coverBgImgView.kf.setImage(with: URL(string:model.pic),placeholder: UIImage(named: "default_img"))
-                }
+            } else if let model = videoModel as? RecVideoItemAppModel{
+                coverBgImgView.kf.setImage(with: URL(string:model.cover))
+                coverLeftIcon1.image = UIImage(systemName: "play.rectangle")
+                var coverText = model.cover_left_text_2
+                coverText.removeLast(2)
+                coverLeftLabel1.text = coverText
+                coverLeftIcon2.image = UIImage(systemName: "list.dash.header.rectangle")
+                coverText = model.cover_left_text_3
+                coverText.removeLast(2)
+                coverLeftLabel2.text = coverText
+                coverRightLabel.text = QUtils.timeFormat(model.player_args?.duration ?? "")
+                titleLabel.text = model.title
+                descButton.setImage(UIImage(systemName: "person.circle"), for: .normal)
+                descButton.setTitle(model.args?.up_name ?? "-", for: .normal)
+                moreHandleButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
             }
         }
     }
@@ -99,7 +118,9 @@ class RecommendActivityCell: UICollectionViewCell {
         contentView.addSubview(descButton)
         contentView.addSubview(moreHandleButton)
         
-        self.backgroundColor = kHomeBackColor
+        self.layer.cornerRadius = 6
+        self.layer.masksToBounds = true
+        self.backgroundColor = .white
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -115,9 +136,67 @@ class RecommendActivityCell: UICollectionViewCell {
         coverBgImgView.snp.makeConstraints { make in
 //            make.edges.equalTo(UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0))
             make.left.right.top.equalToSuperview()
-            make.height.equalTo(kscreenWidth*0.29)
+            make.height.equalTo(kScreenWidth*0.29)
         }
         
+        let coverBottomView = UIView(frame: CGRect(x: 0, y: 0, width: 180, height: 26))
+        coverBottomView.setupGradientShadow()
+        contentView.insertSubview(coverBottomView, aboveSubview: coverBgImgView)
+        coverBottomView.snp.makeConstraints { make in
+            make.left.right.bottom.equalTo(coverBgImgView)
+            make.height.equalTo(26)
+        }
+        
+        coverLeftIcon1.snp.makeConstraints { make in
+            make.left.equalToSuperview().offset(8)
+            make.centerY.equalTo(coverBottomView)
+            make.width.height.equalTo(18)
+        }
+        
+        coverLeftLabel1.snp.makeConstraints { make in
+            make.left.equalTo(coverLeftIcon1.snp.right).offset(3)
+            make.centerY.equalTo(coverBottomView)
+            make.height.equalTo(coverLeftIcon1)
+        }
+        
+        coverLeftIcon2.snp.makeConstraints { make in
+            make.left.equalTo(coverLeftLabel1.snp.right).offset(12)
+            make.centerY.equalTo(coverBottomView)
+            make.width.height.equalTo(coverLeftIcon1)
+        }
+        
+        coverLeftLabel2.snp.makeConstraints { make in
+            make.left.equalTo(coverLeftIcon2.snp.right).offset(3)
+            make.centerY.equalTo(coverBottomView)
+            make.height.equalTo(coverLeftIcon1)
+        }
+        
+        coverRightLabel.snp.makeConstraints { make in
+            make.right.equalToSuperview().offset(-8)
+            make.centerY.equalTo(coverBottomView)
+            make.height.equalTo(coverLeftIcon1)
+        }
+        
+        titleLabel.snp.makeConstraints { make in
+            make.top.equalTo(coverBgImgView.snp.bottom).offset(8)
+            make.left.equalTo(coverBgImgView).offset(8)
+            make.right.equalTo(coverBgImgView).offset(-8)
+//            make.height.equalTo(32)
+        }
+        
+        descButton.snp.makeConstraints { make in
+            make.left.bottom.equalToSuperview()
+            make.right.equalToSuperview().offset(-30)
+            make.height.equalTo(30)
+        }
+        
+        moreHandleButton.snp.makeConstraints { make in
+            make.top.bottom.equalTo(descButton)
+            make.left.equalTo(descButton.snp.right)
+            make.width.height.equalTo(30)
+        }
+        
+        //cell_height = kScreenWidth*0.29+32+30
     }
     
 }

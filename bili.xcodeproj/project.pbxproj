@@ -36,6 +36,7 @@
 		38742E8C2C74352B00CC8514 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E8B2C74352B00CC8514 /* ViewModelProtocol.swift */; };
 		38742E8F2C74927700CC8514 /* normalBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E8E2C74927700CC8514 /* normalBaseCell.swift */; };
 		38742E912C74AC8500CC8514 /* RecVideoItemAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E902C74AC8500CC8514 /* RecVideoItemAppModel.swift */; };
+		38742E932C75C81700CC8514 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E922C75C81700CC8514 /* Utils.swift */; };
 		389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389D3ACC2C6E4C030066E20A /* QApi.swift */; };
 		38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */; };
 		38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */; };
@@ -78,6 +79,7 @@
 		38742E8B2C74352B00CC8514 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
 		38742E8E2C74927700CC8514 /* normalBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = normalBaseCell.swift; sourceTree = "<group>"; };
 		38742E902C74AC8500CC8514 /* RecVideoItemAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecVideoItemAppModel.swift; sourceTree = "<group>"; };
+		38742E922C75C81700CC8514 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		389D3ACC2C6E4C030066E20A /* QApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QApi.swift; sourceTree = "<group>"; };
 		38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+ET.swift"; sourceTree = "<group>"; };
 		38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ET.swift"; sourceTree = "<group>"; };
@@ -270,6 +272,7 @@
 				38742E7A2C72EBFE00CC8514 /* ApiRequest.swift */,
 				38742E7E2C72F1B400CC8514 /* WebRequest.swift */,
 				38742E8B2C74352B00CC8514 /* ViewModelProtocol.swift */,
+				38742E922C75C81700CC8514 /* Utils.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */,
 				38742E8F2C74927700CC8514 /* normalBaseCell.swift in Sources */,
 				38742E8C2C74352B00CC8514 /* ViewModelProtocol.swift in Sources */,
+				38742E932C75C81700CC8514 /* Utils.swift in Sources */,
 				384B950C2C73825C003D72A9 /* RecVideoItemModel.swift in Sources */,
 				38742E912C74AC8500CC8514 /* RecVideoItemAppModel.swift in Sources */,
 				38742E7F2C72F1B400CC8514 /* WebRequest.swift in Sources */,

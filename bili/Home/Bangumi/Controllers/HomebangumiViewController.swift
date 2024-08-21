@@ -7,6 +7,11 @@
 
 import UIKit
 
-class HomebangumiViewController: UIViewController {
+class HomebangumiViewController: QBaseViewController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        view.backgroundColor = .blue
+    }
     
 }

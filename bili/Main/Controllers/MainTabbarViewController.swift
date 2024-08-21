@@ -69,6 +69,18 @@ class MainTabbarViewController: UITabBarController,UITabBarControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13, *) {
+            let appearance = UITabBarAppearance()
+            appearance.configureWithOpaqueBackground()
+            appearance.shadowColor = .clear    //removing navigationbar 1 px bottom border.
+//            self.tabBar.appearance().standardAppearance = appearance
+//            self.tabBar.appearance().scrollEdgeAppearance = appearance
+            self.tabBar.standardAppearance = appearance
+            if #available(iOS 15.0, *) {
+                self.tabBar.scrollEdgeAppearance = appearance
+            }
+        }
+        
         // 1. 添加控制器
         for (index,value) in controllersArray.enumerated() {
             let item = tabbarItemsArray[index]
@@ -80,7 +92,7 @@ class MainTabbarViewController: UITabBarController,UITabBarControllerDelegate {
             self.addChild(value)
         }
         
-        self.tabBar.tintColor = knavibarcolor
+        self.tabBar.tintColor = .gray//temp
     }
     
     // 和statusbar的旋转相呼应

@@ -8,45 +8,40 @@ import SwiftyJSON
 
 
 struct RecVideoItemAppModel: Codable {
-    struct Owner: Codable {
-        @Default<Int> var mid: Int
-        @Default<String> var name: String
-        @Default<String> var face: String
+    
+    struct PlayerArgs: Codable {
+        @Default<Int> var aid: Int// IdUtils.av2bv()
+        @Default<Int> var duration: Int
+        @Default<String> var type: String
+        @Default<Int> var cid: Int
     }
-
-    struct Stat: Codable {
-        @Default<Int> var view: Int
-        @Default<Int> var like: Int
-        @Default<Int> var danmaku: Int
-        enum CodingKeys: String, CodingKey {
-            case view = "cover_left_text_1"
-            case like
-            case danmaku = "cover_left_text_2"
-        }
+    
+    struct Args: Codable {
+        @Default<Int> var up_id: Int
+        @Default<String> var up_name: String
     }
 
     struct RcmdReason: Codable {
-        @Default<Int> var reason_type: Int
-        @Default<String> var content: String
+        @Default<String> var content: String//isFollowed
+        @Default<String> var text: String
     }
-    @Default<Int> var id: Int
-    @Default<Int> var aid: Int
-    @Default<String> var bvid: String
-    @Default<Int> var cid: Int
-    @Default<String> var pic: String
-    var stat: Stat?
+    
+    @Default<String> var param: String //id
+    var player_args: PlayerArgs?
+    @Default<String> var cover: String
+    @Default<String> var cover_left_text_1: String
+    @Default<Int> var like: Int
+    @Default<String> var cover_left_text_2: String
+    @Default<String> var cover_left_text_3: String
+    var rcmd_reason_style: RcmdReason?
     @Default<String> var title: String
     @Default<Int> var is_followed: Int//app端无此字段，待处理
-    var owner: Owner?
-    var rcmd_reason: RcmdReason?
+    var args: Args?
     @Default<String> var goto: String
-    @Default<Int> var param: Int
     @Default<String> var uri: String
-    @Default<String> var talkBack: String
-    @Default<String> var bangumiFollow: String
-    @Default<String> var bangumiBadge: String
-    @Default<String> var cardType: String
-    var adInfo: JSON?
+    @Default<String> var talk_back: String
+    @Default<String> var card_type: String
+    var ad_info: JSON?
     @Default<Int> var pubdate: Int
     @Default<String> var card_goto: String
 }

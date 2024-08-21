@@ -8,61 +8,43 @@
 
 import UIKit
 import MJRefresh
-
-/// 点击了各个轮播的通知
-///1.直播
-let kcarouselViewSelectedLiVENotification = NSNotification.Name(rawValue: "kcarouselViewSelectedLiVENotification")
-///2.推荐
-let kcarouselViewSelectedRECOMMENDNotification = NSNotification.Name(rawValue: "kcarouselViewSelectedLRECOMMENDNotification")
-///3.番剧
-let kcarouselViewSelectedBANGUMINotification = NSNotification.Name(rawValue: "kcarouselViewSelectedBANGUMINotification")
-
-let kcarouselSelectedUrlKey = "kcarouselSelectedUrlKey"
+import HMSegmentedControl
 
 class HomeViewController: QBaseViewController {
-
-    lazy var contentScrollView: UIScrollView = {[unowned self] in
-        let contentScrollView = UIScrollView()
-        contentScrollView.frame = self.view.bounds
-        contentScrollView.contentSize = CGSize(width: self.view.frame.width*3, height: self.view.frame.height)
-        contentScrollView.isPagingEnabled = true
-        contentScrollView.backgroundColor = knavibarcolor
-        return contentScrollView
+    
+    lazy var segmentedControl: HMSegmentedControl = {[unowned self] in
+        let segmentedView = HMSegmentedControl(sectionTitles: ["热门","推荐","番剧"])
+        segmentedView.frame = CGRect(x: (kScreenWidth - 180)/2, y: statusBarHeight, width: 180, height: 30)
+        segmentedView.backgroundColor = .clear
+        segmentedView.selectionIndicatorColor = .hexColor(str: "ff6699")
+        segmentedView.selectionIndicatorHeight = 3
+        segmentedView.selectionIndicatorLocation = .bottom
+        segmentedView.selectedTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.hexColor(str: "ff6699"),
+                                                        NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: .medium)]
+        segmentedView.selectedSegmentIndex = 1
+        segmentedView.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.hexColor(str: "61666d"),
+                                                NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16, weight: .medium)]
+        segmentedView.addTarget(self, action: #selector(segmentedControlChangedValue(segmentedControl:)), for: .valueChanged)
+        return segmentedView
     }()
     
-//    lazy var titleMenu: slideMenu = {[unowned self] in
-//       
-//        // 1.frame
-//        let width:CGFloat = 150
-//        let height:CGFloat = 30
-//        let x = (self.view.mj_w - width)/2
-//        let y = KtabbarHeight - 26
-//        let rect = CGRect(x: x, y: y, width: width, height: height)
-//       
-//        // 2.平常的颜色
-//        let normalColor = slideMenu.slideMenuTitleColor(red: 230, green: 230, blue: 230)
-//        
-//        // 3.显示的颜色
-//        let hightLightColor = slideMenu.slideMenuTitleColor(red: 255, green: 255, blue: 255)
-//        
-//        // 4.生成slidemenu
-//        let menu = slideMenu(frame: rect, titles: ["直播","推荐","番剧"], padding: 15, normalColr: normalColor, hightLightColor: hightLightColor, font: 16, sliderColor: UIColor.white, onlyHorizon: false, scrollView: self.contentScrollView, autoPadding: true)
-//
-//        return menu
-//    }()
+    lazy var contentScrollView: UIScrollView = {[unowned self] in
+        let contentScrollView = UIScrollView()
+        contentScrollView.frame = CGRect(x: 0, y: statusBarHeight + 30, width: kScreenWidth, height: kScreenHeight - statusBarHeight - 30)
+        contentScrollView.contentSize = CGSize(width: kScreenWidth*3, height: contentScrollView.mj_h)
+        contentScrollView.isPagingEnabled = true
+//        contentScrollView.backgroundColor = knavibarcolor
+        return contentScrollView
+    }()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // 初始化ui
+        navigationController?.setNavigationBarHidden(true, animated: true)
         setupui()
-        
+        print(kScreenHeight)
         // 默认选中中间的推荐
-        self.contentScrollView.contentOffset = CGPoint(x: kscreenWidth, y: 0)
-        
-        // 监听通知
-//        NotificationCenter.default.addObserver(self, selector: #selector(showLive), name: khomeViewControllerShowLIVEnotification, object: nil)
+        self.contentScrollView.contentOffset = CGPoint(x: kScreenWidth, y: 0)
     }
     
     deinit {
@@ -70,9 +52,6 @@ class HomeViewController: QBaseViewController {
     }
 }
 
-//======================================================================
-// MARK:- 私有方法
-//======================================================================
 extension HomeViewController {
     
     fileprivate func setupui(){
@@ -81,7 +60,10 @@ extension HomeViewController {
         
 //        view.addSubview(titleMenu)
         
+        
         addChildVCs()
+
+        view.addSubview(segmentedControl)
     }
     
     fileprivate func addChildVCs() {
@@ -90,29 +72,32 @@ extension HomeViewController {
         let liveVC = HomeLiveShowViewController()
         self.addChild(liveVC)
         contentScrollView.addSubview(liveVC.view)
-        liveVC.view.frame = view.bounds
+        liveVC.view.frame = CGRect(x: 0, y: 0, width: view.mj_w, height: kScreenHeight - kHomeHeaderHeight)
         
         // 2 推荐
         let recommondVC = HomeRecommendViewController()
         self.addChild(recommondVC)
         contentScrollView.addSubview(recommondVC.view)
-        recommondVC.view.frame = CGRect(x: view.mj_w, y: 0, width: view.mj_w, height: view.mj_h)
+        recommondVC.view.frame = CGRect(x: view.mj_w, y: 0, width: view.mj_w, height: kScreenHeight - kHomeHeaderHeight)
         
         // 3 番剧
         let serialVC = HomebangumiViewController()
         self.addChild(serialVC)
         contentScrollView.addSubview(serialVC.view)
-        serialVC.view.frame = CGRect(x: view.mj_w*2, y: 0, width: view.mj_w, height: view.mj_h)
+        serialVC.view.frame = CGRect(x: view.mj_w*2, y: 0, width: view.mj_w, height: kScreenHeight - kHomeHeaderHeight)
+    }
+    
+    
+    @objc func segmentedControlChangedValue(segmentedControl: HMSegmentedControl) {
+        print("Selected index \(segmentedControl.selectedSegmentIndex)")
+        self.contentScrollView.scrollRectToVisible(CGRect(x: kScreenWidth * CGFloat(segmentedControl.selectedSegmentIndex), y: 0, width: kScreenWidth, height: 100), animated: true)
     }
 }
 
-//======================================================================
-// MARK:- notification
-//======================================================================
 extension HomeViewController {
     @objc func showLive() {
         DispatchQueue.main.async {
-          self.contentScrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: kscreenWidth, height: 100), animated: false)
+          self.contentScrollView.scrollRectToVisible(CGRect(x: 0, y: 0, width: kScreenWidth, height: 100), animated: false)
         }
     }
 }
