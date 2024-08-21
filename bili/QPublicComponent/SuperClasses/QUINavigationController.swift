@@ -19,9 +19,20 @@ class QUINavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-//        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
+        UINavigationBar.appearance().shadowImage = UIImage()
 //        self.isNavigationBarHidden = true
+        // 导航栏背景颜色
+        let navBarBgColor = UIColor.red
+        if #available(iOS 15.0, *) {
+            let appearance = UINavigationBarAppearance()
+            appearance.backgroundColor = navBarBgColor
+            navigationController?.navigationBar.standardAppearance = appearance
+            navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        } else {
+            navigationController?.navigationBar.barTintColor = navBarBgColor
+        }
+        
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {

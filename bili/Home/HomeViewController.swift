@@ -11,10 +11,11 @@ import MJRefresh
 import HMSegmentedControl
 
 class HomeViewController: QBaseViewController {
+    var customNavView = UIView()
     
     lazy var segmentedControl: HMSegmentedControl = {[unowned self] in
         let segmentedView = HMSegmentedControl(sectionTitles: ["热门","推荐","番剧"])
-        segmentedView.frame = CGRect(x: (kScreenWidth - 180)/2, y: statusBarHeight, width: 180, height: 30)
+        segmentedView.frame = CGRect(x: (kScreenWidth - 180)/2, y: kTopMargin, width: 180, height: 30)
         segmentedView.backgroundColor = .clear
         segmentedView.selectionIndicatorColor = .hexColor(str: "ff6699")
         segmentedView.selectionIndicatorHeight = 3
@@ -30,7 +31,7 @@ class HomeViewController: QBaseViewController {
     
     lazy var contentScrollView: UIScrollView = {[unowned self] in
         let contentScrollView = UIScrollView()
-        contentScrollView.frame = CGRect(x: 0, y: statusBarHeight + 30, width: kScreenWidth, height: kScreenHeight - statusBarHeight - 30)
+        contentScrollView.frame = CGRect(x: 0, y: CGRectGetMaxY(segmentedControl.frame), width: kScreenWidth, height: kScreenHeight - CGRectGetMaxY(segmentedControl.frame))
         contentScrollView.contentSize = CGSize(width: kScreenWidth*3, height: contentScrollView.mj_h)
         contentScrollView.isPagingEnabled = true
 //        contentScrollView.backgroundColor = knavibarcolor
@@ -41,7 +42,7 @@ class HomeViewController: QBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
-        setupui()
+        setupUI()
         print(kScreenHeight)
         // 默认选中中间的推荐
         self.contentScrollView.contentOffset = CGPoint(x: kScreenWidth, y: 0)
@@ -54,16 +55,18 @@ class HomeViewController: QBaseViewController {
 
 extension HomeViewController {
     
-    fileprivate func setupui(){
+    fileprivate func setupUI(){
+        customNavView.backgroundColor = .blue
+        view.addSubview(customNavView)
+        customNavView.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: kTopMargin)
         
+        view.addSubview(segmentedControl)
         view.addSubview(contentScrollView)
-        
 //        view.addSubview(titleMenu)
         
         
         addChildVCs()
 
-        view.addSubview(segmentedControl)
     }
     
     fileprivate func addChildVCs() {
@@ -72,24 +75,33 @@ extension HomeViewController {
         let liveVC = HomeLiveShowViewController()
         self.addChild(liveVC)
         contentScrollView.addSubview(liveVC.view)
-        liveVC.view.frame = CGRect(x: 0, y: 0, width: view.mj_w, height: kScreenHeight - kHomeHeaderHeight)
+        liveVC.view.frame = CGRect(x: 0, y: 0, width: view.mj_w, height: kScreenHeight - CGRectGetMaxY(segmentedControl.frame))
         
         // 2 推荐
         let recommondVC = HomeRecommendViewController()
         self.addChild(recommondVC)
         contentScrollView.addSubview(recommondVC.view)
-        recommondVC.view.frame = CGRect(x: view.mj_w, y: 0, width: view.mj_w, height: kScreenHeight - kHomeHeaderHeight)
+        recommondVC.view.frame = CGRect(x: view.mj_w, y: 0, width: view.mj_w, height: kScreenHeight - CGRectGetMaxY(segmentedControl.frame))
         
         // 3 番剧
         let serialVC = HomebangumiViewController()
         self.addChild(serialVC)
         contentScrollView.addSubview(serialVC.view)
-        serialVC.view.frame = CGRect(x: view.mj_w*2, y: 0, width: view.mj_w, height: kScreenHeight - kHomeHeaderHeight)
+        serialVC.view.frame = CGRect(x: view.mj_w*2, y: 0, width: view.mj_w, height: kScreenHeight - CGRectGetMaxY(segmentedControl.frame))
     }
     
     
     @objc func segmentedControlChangedValue(segmentedControl: HMSegmentedControl) {
         print("Selected index \(segmentedControl.selectedSegmentIndex)")
+        UIView.animate(withDuration: 0.2) {
+            self.customNavView.mj_y -= 44
+            self.segmentedControl.mj_y -= 44
+            self.contentScrollView.mj_y -= 44
+        } completion: { status in
+            if status {
+                print("ok")
+            }
+        }
         self.contentScrollView.scrollRectToVisible(CGRect(x: kScreenWidth * CGFloat(segmentedControl.selectedSegmentIndex), y: 0, width: kScreenWidth, height: 100), animated: true)
     }
 }

@@ -48,7 +48,7 @@ class LoginViewController: QBaseViewController {
         phoneBgView.snp.makeConstraints { make in
             make.left.equalTo(view).offset(12)
             make.right.equalTo(view).offset(-12)
-            make.top.equalTo(view).offset(topSafeAreaHeight + statusBarHeight + 16)
+            make.top.equalTo(view).offset(topSafeAreaHeight + kStatusBarHeight + 16)
             make.height.equalTo(44)
         }
         

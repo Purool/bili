@@ -20,8 +20,6 @@ import UIKit
  
  */
 // MARK: - 长宽
-// 自定义tabbar的高度
-let kHomeHeaderHeight:CGFloat = 77
 // 轮播的高度
 let kcarouselHeight:CGFloat = 110
 let knormalHeadeHeight:CGFloat = 40
@@ -86,14 +84,9 @@ let kBottomMargin = kSafeBottomMargin + kTabbarHeight
 //顶部的安全距离
 let topSafeAreaHeight: CGFloat = (kSafeBottomMargin == 0 ? 0 : 24)
 
-//状态栏高度
-let statusBarHeight: CGFloat = window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0.0
-
 //导航栏高度
 let navigationHeight: CGFloat = (kSafeBottomMargin == 0 ? 64 :88)
 
-//tabbar 高度
-let tabBarHeight: CGFloat = (kSafeBottomMargin + 49)
 
 
 enum HttpString {
