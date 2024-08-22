@@ -9,6 +9,8 @@
 import UIKit
 import MJRefresh
 import HMSegmentedControl
+import RxSwift
+import RxCocoa
 
 class HomeViewController: QBaseViewController {
     var customNavView = UIView()
@@ -34,18 +36,76 @@ class HomeViewController: QBaseViewController {
         contentScrollView.frame = CGRect(x: 0, y: CGRectGetMaxY(segmentedControl.frame), width: kScreenWidth, height: kScreenHeight - CGRectGetMaxY(segmentedControl.frame))
         contentScrollView.contentSize = CGSize(width: kScreenWidth*3, height: contentScrollView.mj_h)
         contentScrollView.isPagingEnabled = true
+        contentScrollView.bounces = false
+//        contentScrollView.isDirectionalLockEnabled = false
 //        contentScrollView.backgroundColor = knavibarcolor
         return contentScrollView
     }()
     
+    lazy var avatarCoverBtn: UIButton = {
+        let button = UIButton(type: .custom)
+        button.frame = CGRect(x: 8, y: 0, width: kNavigationBarHeight, height: kNavigationBarHeight)
+        button.setImage(UIImage(named: "common_profile_default"), for: .normal)
+        button.layer.cornerRadius = 22
+        return button
+    }()
+    
+    lazy var searchBgBtn: UIButton = {
+        let button = UIButton(type: .custom)
+        button.frame = CGRect(x: 64, y: 7, width: kScreenWidth - 64 - 10 - kNavigationBarHeight, height: 30)
+        button.backgroundColor = .hexColor(str: "f1f2f3")
+        button.layer.cornerRadius = 15
+        button.layer.borderWidth = 0.67
+        button.layer.borderColor = UIColor.hexColor(str: "9499a0").cgColor
+        button.tintColor = .hexColor(str: "61666d")
+        button.contentEdgeInsets = UIEdgeInsets(top: 7, left: 10, bottom: 7, right: 10)
+        button.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+        button.contentHorizontalAlignment = .left
+        button.setTitle(" 么么么。。。", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 13, weight: .bold)
+        button.setTitleColor(.hexColor(str: "61666d"), for: .normal)
+        return button
+    }()
+    
+    lazy var messageBtn: UIButton = {
+        let button = UIButton(type: .custom)
+        button.frame = CGRect(x: kScreenWidth - kNavigationBarHeight, y: 7, width: kNavigationBarHeight, height: 30)
+        button.setImage(UIImage(systemName: "envelope"), for: .normal)//envelope.badge
+        button.tintColor = .hexColor(str: "61666d")
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationController?.setNavigationBarHidden(true, animated: true)
         setupUI()
-        print(kScreenHeight)
         // 默认选中中间的推荐
-        self.contentScrollView.contentOffset = CGPoint(x: kScreenWidth, y: 0)
+        contentScrollView.contentOffset = CGPoint(x: kScreenWidth, y: 0)
+//        contentScrollView.rx.contentOffset.subscribe(onNext: {(point : CGPoint)  in
+//            print(point)
+//        }).disposed(by: rx.disposeBag)
+        contentScrollView.rx.didEndDecelerating.subscribe(onNext: { [weak self] _ in
+            guard let self = self else { return }
+            let page = round(self.contentScrollView.contentOffset.x / kScreenWidth)
+            if page.isNaN || page.isInfinite { return }
+            self.segmentedControl.setSelectedSegmentIndex(UInt(page), animated: true)
+        }).disposed(by: rx.disposeBag)
+    }
+    
+    func setNavViewHideStatus(by scrollUp: Bool) {
+        if self.customNavView.isHidden != scrollUp {
+            UIView.animate(withDuration: 0.2) {
+                let factor = scrollUp ? -1.0 : 1.0
+                self.customNavView.isHidden = scrollUp
+//                self.customNavView.mj_y += (kNavigationBarHeight*factor)
+                self.segmentedControl.mj_y += (kNavigationBarHeight*factor)
+                self.contentScrollView.mj_y += (kNavigationBarHeight*factor)
+            } completion: { status in
+                if status {
+                    print("ok")
+                }
+            }
+        }
     }
     
     deinit {
@@ -56,9 +116,12 @@ class HomeViewController: QBaseViewController {
 extension HomeViewController {
     
     fileprivate func setupUI(){
-        customNavView.backgroundColor = .blue
+//        customNavView.backgroundColor = .blue
+        customNavView.frame = CGRect(x: 0, y: kStatusBarHeight, width: kScreenWidth, height: kTopMargin)
+        customNavView.addSubview(avatarCoverBtn)
+        customNavView.addSubview(searchBgBtn)
+        customNavView.addSubview(messageBtn)
         view.addSubview(customNavView)
-        customNavView.frame = CGRect(x: 0, y: 0, width: kScreenWidth, height: kTopMargin)
         
         view.addSubview(segmentedControl)
         view.addSubview(contentScrollView)
@@ -90,18 +153,9 @@ extension HomeViewController {
         serialVC.view.frame = CGRect(x: view.mj_w*2, y: 0, width: view.mj_w, height: kScreenHeight - CGRectGetMaxY(segmentedControl.frame))
     }
     
-    
     @objc func segmentedControlChangedValue(segmentedControl: HMSegmentedControl) {
         print("Selected index \(segmentedControl.selectedSegmentIndex)")
-        UIView.animate(withDuration: 0.2) {
-            self.customNavView.mj_y -= 44
-            self.segmentedControl.mj_y -= 44
-            self.contentScrollView.mj_y -= 44
-        } completion: { status in
-            if status {
-                print("ok")
-            }
-        }
+
         self.contentScrollView.scrollRectToVisible(CGRect(x: kScreenWidth * CGFloat(segmentedControl.selectedSegmentIndex), y: 0, width: kScreenWidth, height: 100), animated: true)
     }
 }

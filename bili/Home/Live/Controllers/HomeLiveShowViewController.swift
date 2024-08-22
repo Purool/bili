@@ -12,6 +12,7 @@ class HomeLiveShowViewController: QBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .orange
+        self.parent
     }
     
 }

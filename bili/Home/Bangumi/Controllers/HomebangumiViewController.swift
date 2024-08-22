@@ -12,6 +12,8 @@ class HomebangumiViewController: QBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
+        
+        print(self.parent)
     }
     
 }
