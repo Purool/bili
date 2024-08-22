@@ -93,17 +93,17 @@ class HomeViewController: QBaseViewController {
     }
     
     func setNavViewHideStatus(by scrollUp: Bool) {
-        if self.customNavView.isHidden != scrollUp {
+        var animating = false
+        if (self.customNavView.alpha == 1) == scrollUp, !animating {
+            animating = true
             UIView.animate(withDuration: 0.2) {
                 let factor = scrollUp ? -1.0 : 1.0
-                self.customNavView.isHidden = scrollUp
-//                self.customNavView.mj_y += (kNavigationBarHeight*factor)
+                self.customNavView.alpha = factor
+                self.customNavView.mj_y += (kNavigationBarHeight*factor)
                 self.segmentedControl.mj_y += (kNavigationBarHeight*factor)
                 self.contentScrollView.mj_y += (kNavigationBarHeight*factor)
-            } completion: { status in
-                if status {
-                    print("ok")
-                }
+            } completion: { _ in
+                animating = false
             }
         }
     }

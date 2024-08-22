@@ -43,12 +43,18 @@ class HomeRecommendViewController: QBaseViewController {
             cell.videoModel = element
             return cell
         }.disposed(by: rx.disposeBag)
-        //
-        collectionView.rx.contentOffset.buffer(timeSpan: .seconds(1), count: 2, scheduler: MainScheduler.instance).debounce(.milliseconds(50), scheduler: MainScheduler.instance)
+        
+        
+        collectionView.rx.contentOffset.buffer(timeSpan: .milliseconds(100), count: 2, scheduler: MainScheduler.instance)
         .subscribe(onNext: { [weak self] (points) in
             guard let self = self, let pointA = points.first, let pointB = points.last else {return}
+//            print("\(pointB)=====\(pointA)")
             let result = pointB.y - pointA.y
-            (self.parent as! HomeViewController).setNavViewHideStatus(by: result > 0)
+            if (pointA.y < 0) || (pointB.y < 0){
+                (self.parent as! HomeViewController).setNavViewHideStatus(by: false)
+            }else if result != 0, result < 20 {
+                (self.parent as! HomeViewController).setNavViewHideStatus(by: result > 0)
+            }
         }).disposed(by: rx.disposeBag)
         
     }

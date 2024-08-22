@@ -38,5 +38,26 @@ enum QUtils {
         
         return "-x"
     }
+    
+    static func numFormat(_ number: Any?) -> String {
+        guard let number = number else {
+            return "0"
+        }
+        
+        if let numberString = number as? String {
+            return numberString
+        }
+        
+        if let numberDouble = number as? Double {
+            let res = numberDouble / 10000
+            if Int(res) >= 1 {
+                return String(format: "%.1f万", res)
+            } else {
+                return String(numberDouble)
+            }
+        }
+        
+        return String(describing: number)
+    }
 }
 

@@ -86,23 +86,29 @@ class RecommendActivityCell: UICollectionViewCell {
         didSet{
             if let model = videoModel as? RecVideoItemModel {
                 coverBgImgView.kf.setImage(with: URL(string:model.pic))
-                
+                var coverText = model.stat?.view
+                coverLeftLabel1.text = QUtils.numFormat(coverText)
+                coverText = model.stat?.danmaku
+                coverLeftLabel2.text = QUtils.numFormat(coverText)
+                coverRightLabel.text = QUtils.timeFormat(model.duration)
+                titleLabel.text = model.title
+                descButton.setTitle(model.owner?.name ?? "-", for: .normal)
             } else if let model = videoModel as? RecVideoItemAppModel{
                 coverBgImgView.kf.setImage(with: URL(string:model.cover))
-                coverLeftIcon1.image = UIImage(systemName: "play.rectangle")
                 var coverText = model.cover_left_text_2
                 coverText.removeLast(2)
                 coverLeftLabel1.text = coverText
-                coverLeftIcon2.image = UIImage(systemName: "list.dash.header.rectangle")
                 coverText = model.cover_left_text_3
                 coverText.removeLast(2)
                 coverLeftLabel2.text = coverText
                 coverRightLabel.text = QUtils.timeFormat(model.player_args?.duration ?? "")
                 titleLabel.text = model.title
-                descButton.setImage(UIImage(systemName: "person.circle"), for: .normal)
                 descButton.setTitle(model.args?.up_name ?? "-", for: .normal)
-                moreHandleButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
             }
+            coverLeftIcon1.image = UIImage(systemName: "play.rectangle")
+            coverLeftIcon2.image = UIImage(systemName: "list.dash.header.rectangle")
+            descButton.setImage(UIImage(systemName: "person.circle"), for: .normal)
+            moreHandleButton.setImage(UIImage(systemName: "ellipsis"), for: .normal)
         }
     }
     
