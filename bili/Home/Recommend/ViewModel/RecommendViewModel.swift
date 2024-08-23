@@ -21,14 +21,36 @@ class RecommendViewModel: BaseViewModel, VMInAndOutputs {
     
     let dataSource = BehaviorRelay<[Any]>(value: [])
     
-    func loadData(page: Int) {
+    var pageNum: Int = 0
+    
+    let refreshSubject = PublishSubject<MJRefreshAction>()
+    
+    func loadData(actionType: ScrollViewActionType) {
+        switch actionType {
+        case .refresh:
+            pageNum = 0
+        case .loadMore:
+            pageNum += 1
+        }
+        
         Task {
             do {
                 let list: [Any] = ApiRequest.isLogin() ?
-                try await ApiRequest.rcmdVideoListApp(freshIdx: page) : try await ApiRequest.rcmdVideoList(freshIdx: page)
-                self.dataSource.accept(list)
+                try await ApiRequest.rcmdVideoListApp(freshIdx: pageNum) : try await ApiRequest.rcmdVideoList(freshIdx: pageNum)
+                if actionType == .loadMore {
+                    self.dataSource.accept(self.dataSource.value + list)
+                    refreshSubject.onNext(.stopLoadmore)
+                } else {
+                    self.dataSource.accept(list)
+                    refreshSubject.onNext(.stopRefresh)
+                }
             } catch {
-                
+                if actionType == .loadMore {
+                    pageNum -= 1
+                    refreshSubject.onNext(.stopLoadmore)
+                } else {
+                    refreshSubject.onNext(.stopRefresh)
+                }
             }
         }
     }

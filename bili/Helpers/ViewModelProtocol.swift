@@ -16,7 +16,7 @@ enum ScrollViewActionType {
 /// vm接受页面输入行为
 protocol VMInAndOutputs {
     /// - Parameter actionType: 操作行为
-    func loadData(page: Int)
+    func loadData(actionType: ScrollViewActionType)
     
     associatedtype T
             

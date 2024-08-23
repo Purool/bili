@@ -15,7 +15,7 @@
 		3821AF752C6B32A400770034 /* Configs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF742C6B32A400770034 /* Configs.swift */; };
 		3821AF772C6B33B700770034 /* QUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF762C6B33B700770034 /* QUINavigationController.swift */; };
 		3821AF7A2C6B343500770034 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF792C6B343500770034 /* HomeViewController.swift */; };
-		3821AF842C6B3D1300770034 /* SlideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF832C6B3D1300770034 /* SlideMenu.swift */; };
+		3821AF842C6B3D1300770034 /* QFreshHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF832C6B3D1300770034 /* QFreshHeader.swift */; };
 		3821AF8C2C6B65BB00770034 /* HomeLiveShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF8B2C6B65BB00770034 /* HomeLiveShowViewController.swift */; };
 		3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF8F2C6B661800770034 /* HomeRecommendViewController.swift */; };
 		3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF932C6B663800770034 /* HomebangumiViewController.swift */; };
@@ -37,7 +37,10 @@
 		38742E8F2C74927700CC8514 /* normalBaseCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E8E2C74927700CC8514 /* normalBaseCell.swift */; };
 		38742E912C74AC8500CC8514 /* RecVideoItemAppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E902C74AC8500CC8514 /* RecVideoItemAppModel.swift */; };
 		38742E932C75C81700CC8514 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E922C75C81700CC8514 /* Utils.swift */; };
+		389321352C78A7B0001ED5D0 /* UEmptyDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389321342C78A7B0001ED5D0 /* UEmptyDataSet.swift */; };
 		389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389D3ACC2C6E4C030066E20A /* QApi.swift */; };
+		38D97DFF2C7826B2002C99A6 /* UIimageView+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97DFE2C7826B2002C99A6 /* UIimageView+ET.swift */; };
+		38D97E012C785F32002C99A6 /* MJRefresh+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E002C785F32002C99A6 /* MJRefresh+Rx.swift */; };
 		38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */; };
 		38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */; };
 		38DBB9D22C6E169C00A1AFA6 /* HLImagePositionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9D12C6E169C00A1AFA6 /* HLImagePositionButton.swift */; };
@@ -57,7 +60,7 @@
 		3821AF742C6B32A400770034 /* Configs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Configs.swift; sourceTree = "<group>"; };
 		3821AF762C6B33B700770034 /* QUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QUINavigationController.swift; sourceTree = "<group>"; };
 		3821AF792C6B343500770034 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
-		3821AF832C6B3D1300770034 /* SlideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideMenu.swift; sourceTree = "<group>"; };
+		3821AF832C6B3D1300770034 /* QFreshHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QFreshHeader.swift; sourceTree = "<group>"; };
 		3821AF8B2C6B65BB00770034 /* HomeLiveShowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeLiveShowViewController.swift; sourceTree = "<group>"; };
 		3821AF8F2C6B661800770034 /* HomeRecommendViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeRecommendViewController.swift; sourceTree = "<group>"; };
 		3821AF932C6B663800770034 /* HomebangumiViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomebangumiViewController.swift; sourceTree = "<group>"; };
@@ -80,7 +83,10 @@
 		38742E8E2C74927700CC8514 /* normalBaseCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = normalBaseCell.swift; sourceTree = "<group>"; };
 		38742E902C74AC8500CC8514 /* RecVideoItemAppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecVideoItemAppModel.swift; sourceTree = "<group>"; };
 		38742E922C75C81700CC8514 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		389321342C78A7B0001ED5D0 /* UEmptyDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UEmptyDataSet.swift; sourceTree = "<group>"; };
 		389D3ACC2C6E4C030066E20A /* QApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QApi.swift; sourceTree = "<group>"; };
+		38D97DFE2C7826B2002C99A6 /* UIimageView+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIimageView+ET.swift"; sourceTree = "<group>"; };
+		38D97E002C785F32002C99A6 /* MJRefresh+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MJRefresh+Rx.swift"; sourceTree = "<group>"; };
 		38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+ET.swift"; sourceTree = "<group>"; };
 		38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ET.swift"; sourceTree = "<group>"; };
 		38DBB9D12C6E169C00A1AFA6 /* HLImagePositionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HLImagePositionButton.swift; sourceTree = "<group>"; };
@@ -182,7 +188,8 @@
 		3821AF7B2C6B375700770034 /* Customuis */ = {
 			isa = PBXGroup;
 			children = (
-				3821AF832C6B3D1300770034 /* SlideMenu.swift */,
+				3821AF832C6B3D1300770034 /* QFreshHeader.swift */,
+				389321342C78A7B0001ED5D0 /* UEmptyDataSet.swift */,
 			);
 			path = Customuis;
 			sourceTree = "<group>";
@@ -252,6 +259,8 @@
 				38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */,
 				38DBB9CF2C6E125400A1AFA6 /* UIButton+ET.swift */,
 				38742E7C2C72EC9E00CC8514 /* UserDefault+ET.swift */,
+				38D97DFE2C7826B2002C99A6 /* UIimageView+ET.swift */,
+				38D97E002C785F32002C99A6 /* MJRefresh+Rx.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -456,12 +465,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				38742E822C73208600CC8514 /* UserInfoData.swift in Sources */,
+				38D97DFF2C7826B2002C99A6 /* UIimageView+ET.swift in Sources */,
 				384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */,
 				3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */,
 				3821AF722C6B325500770034 /* MainTabbarViewController.swift in Sources */,
 				384AFDC82C6CE44F001E792C /* QwebCookieTool.swift in Sources */,
 				389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */,
 				38742E872C7352A700CC8514 /* RecommendActivityCell.swift in Sources */,
+				38D97E012C785F32002C99A6 /* MJRefresh+Rx.swift in Sources */,
 				3821AF772C6B33B700770034 /* QUINavigationController.swift in Sources */,
 				38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */,
 				38DBB9D22C6E169C00A1AFA6 /* HLImagePositionButton.swift in Sources */,
@@ -470,7 +481,7 @@
 				38742E7D2C72EC9E00CC8514 /* UserDefault+ET.swift in Sources */,
 				38742E8A2C74326000CC8514 /* RecommendViewModel.swift in Sources */,
 				3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */,
-				3821AF842C6B3D1300770034 /* SlideMenu.swift in Sources */,
+				3821AF842C6B3D1300770034 /* QFreshHeader.swift in Sources */,
 				38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */,
 				3821AF752C6B32A400770034 /* Configs.swift in Sources */,
 				3821AF5C2C6B317C00770034 /* AppDelegate.swift in Sources */,
@@ -483,6 +494,7 @@
 				38742E912C74AC8500CC8514 /* RecVideoItemAppModel.swift in Sources */,
 				38742E7F2C72F1B400CC8514 /* WebRequest.swift in Sources */,
 				3821AF972C6B6D2D00770034 /* BBPhoneUserCenterVC.swift in Sources */,
+				389321352C78A7B0001ED5D0 /* UEmptyDataSet.swift in Sources */,
 				38DBB9D42C6EF2F100A1AFA6 /* QWebViewController.swift in Sources */,
 				3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */,
 				38742E7B2C72EBFE00CC8514 /* ApiRequest.swift in Sources */,

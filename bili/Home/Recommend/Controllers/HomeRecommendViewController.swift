@@ -9,13 +9,13 @@ import UIKit
 import NSObject_Rx
 import RxCocoa
 import RxSwift
+import MJRefresh
 
 let kpadding:CGFloat = 15
 let klinePadding:CGFloat = 0
 
 class HomeRecommendViewController: QBaseViewController {
-    private let currentPage = 0
-    private let headHeight: CGFloat = 300
+    
     let allClass: [UICollectionViewCell.Type] = [UICollectionViewCell.self,
                                                  RecommendActivityCell.self,]
     
@@ -28,7 +28,6 @@ class HomeRecommendViewController: QBaseViewController {
         collectionView.backgroundColor = .hexColor(str: "f1f2f3")
         collectionView.alwaysBounceVertical = true
         return collectionView
-
     }()
 
     override func viewDidLoad() {
@@ -36,7 +35,7 @@ class HomeRecommendViewController: QBaseViewController {
         edgesForExtendedLayout = .top
         _ = allClass.map{collectionView.register($0, forCellWithReuseIdentifier: $0.description())}
         let viewModel = RecommendViewModel()
-        viewModel.inputs.loadData(page: 0)
+//        viewModel.inputs.loadData(page: 0)
         viewModel.outputs.dataSource.asDriver(onErrorJustReturn: []).drive(collectionView.rx.items){
             collectionView,row,element in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendActivityCell.self.description(), for: IndexPath(row: row, section: 0)) as! RecommendActivityCell
@@ -44,7 +43,26 @@ class HomeRecommendViewController: QBaseViewController {
             return cell
         }.disposed(by: rx.disposeBag)
         
+        collectionView.uempty?.allowShow = true
         
+        collectionView.uempty = UEmptyView { viewModel.inputs.loadData(actionType: .refresh) }
+        
+        QFreshHeader {
+            viewModel.inputs.loadData(actionType: .refresh)
+        }.link(to: collectionView)
+        MJRefreshAutoFooter {
+            viewModel.inputs.loadData(actionType: .loadMore)
+        }.link(to: collectionView)
+        //以下方法感觉不如上面的方便
+//        collectionView.mj_header?.rx.refreshing.asDriver().startWith((0)).drive(onNext: viewModel.inputs.loadData).disposed(by: rx.disposeBag)
+//        collectionView.mj_footer?.rx.refreshing.asDriver().map{$0+1}.drive(onNext: viewModel.inputs.loadData).disposed(by: rx.disposeBag)
+        
+        if let header = collectionView.mj_header, let footer = collectionView.mj_footer {
+            viewModel.outputs.refreshSubject.bind(to: header.rx.refreshAction).disposed(by: rx.disposeBag)
+            viewModel.outputs.refreshSubject.bind(to: footer.rx.refreshAction).disposed(by: rx.disposeBag)
+        }
+        
+     
         collectionView.rx.contentOffset.buffer(timeSpan: .milliseconds(100), count: 2, scheduler: MainScheduler.instance)
         .subscribe(onNext: { [weak self] (points) in
             guard let self = self, let pointA = points.first, let pointB = points.last else {return}
@@ -56,14 +74,12 @@ class HomeRecommendViewController: QBaseViewController {
                 (self.parent as! HomeViewController).setNavViewHideStatus(by: result > 0)
             }
         }).disposed(by: rx.disposeBag)
-        
     }
      
     override func setupLayout() {
         view.addSubview(collectionView)
         collectionView.snp.makeConstraints {(make) in
             make.edges.equalTo(UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)).priority(.low)
-            make.top.equalToSuperview()
         }
     }
     
