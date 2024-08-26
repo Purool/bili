@@ -82,10 +82,12 @@ class RecommendActivityCell: UICollectionViewCell {
         return button
     }()
     
+    let coverBottomView = UIView(frame: CGRect(x: 0, y: 0, width: kScreenWidth*0.46, height: 26))
+    
     var videoModel: Any? {
         didSet{
             if let model = videoModel as? RecVideoItemModel {
-                coverBgImgView.kf.setImage(with: URL(string:model.pic))
+//                coverBgImgView.kf.setImage(with: URL(string:model.pic))
                 var coverText = model.stat?.view
                 coverLeftLabel1.text = QUtils.numFormat(coverText)
                 coverText = model.stat?.danmaku
@@ -94,7 +96,7 @@ class RecommendActivityCell: UICollectionViewCell {
                 titleLabel.text = model.title
                 descButton.setTitle(model.owner?.name ?? "-", for: .normal)
             } else if let model = videoModel as? RecVideoItemAppModel{
-                coverBgImgView.kf.setImage(with: URL(string:model.cover))
+//                coverBgImgView.kf.setImage(with: URL(string:model.cover))
                 var coverText = model.cover_left_text_2
                 coverText.removeLast(2)
                 coverLeftLabel1.text = coverText
@@ -123,6 +125,8 @@ class RecommendActivityCell: UICollectionViewCell {
         contentView.addSubview(titleLabel)
         contentView.addSubview(descButton)
         contentView.addSubview(moreHandleButton)
+        contentView.insertSubview(coverBottomView, aboveSubview: coverBgImgView)
+        coverBottomView.setupGradientShadow()
         
         self.layer.cornerRadius = 6
         self.layer.masksToBounds = true
@@ -145,9 +149,6 @@ class RecommendActivityCell: UICollectionViewCell {
             make.height.equalTo(kScreenWidth*0.29)
         }
         
-        let coverBottomView = UIView(frame: CGRect(x: 0, y: 0, width: 180, height: 26))
-        coverBottomView.setupGradientShadow()
-        contentView.insertSubview(coverBottomView, aboveSubview: coverBgImgView)
         coverBottomView.snp.makeConstraints { make in
             make.left.right.bottom.equalTo(coverBgImgView)
             make.height.equalTo(26)

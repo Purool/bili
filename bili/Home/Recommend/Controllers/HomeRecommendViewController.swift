@@ -23,7 +23,7 @@ class HomeRecommendViewController: QBaseViewController {
         let lt = UICollectionViewFlowLayout()
         lt.minimumInteritemSpacing = 8
         lt.minimumLineSpacing = 8
-        lt.itemSize = CGSize(width: kScreenWidth*0.46, height: kScreenWidth*0.29+32+30)//item高度由其组件决定
+        lt.itemSize = CGSize(width: kScreenWidth*0.46, height: kScreenWidth*0.29+32+30)//item高度由其cell自己决定
         let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: lt)
         collectionView.backgroundColor = .hexColor(str: "f1f2f3")
         collectionView.alwaysBounceVertical = true
@@ -35,7 +35,7 @@ class HomeRecommendViewController: QBaseViewController {
         edgesForExtendedLayout = .top
         _ = allClass.map{collectionView.register($0, forCellWithReuseIdentifier: $0.description())}
         let viewModel = RecommendViewModel()
-//        viewModel.inputs.loadData(page: 0)
+        viewModel.inputs.loadData(actionType: .refresh)
         viewModel.outputs.dataSource.asDriver(onErrorJustReturn: []).drive(collectionView.rx.items){
             collectionView,row,element in
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RecommendActivityCell.self.description(), for: IndexPath(row: row, section: 0)) as! RecommendActivityCell
@@ -43,9 +43,9 @@ class HomeRecommendViewController: QBaseViewController {
             return cell
         }.disposed(by: rx.disposeBag)
         
-        collectionView.uempty?.allowShow = true
-        
         collectionView.uempty = UEmptyView { viewModel.inputs.loadData(actionType: .refresh) }
+        collectionView.uempty?.allowShow = true
+        collectionView.reloadData()
         
         QFreshHeader {
             viewModel.inputs.loadData(actionType: .refresh)
@@ -61,6 +61,16 @@ class HomeRecommendViewController: QBaseViewController {
             viewModel.outputs.refreshSubject.bind(to: header.rx.refreshAction).disposed(by: rx.disposeBag)
             viewModel.outputs.refreshSubject.bind(to: footer.rx.refreshAction).disposed(by: rx.disposeBag)
         }
+        collectionView.rx.modelSelected((Any).self).subscribe(onNext: {
+            [weak self] videoModel in
+            guard let self else { return }
+            if let model = videoModel as? RecVideoItemModel {
+                print("没处理RecVideoItemModel的点击")
+            } else if let model = videoModel as? RecVideoItemAppModel{
+                let heroTag = QUtils.makeHeroTag(model.param)
+                    (self.parent as! HomeViewController).onPushDetail(heroTag: heroTag, videoItem: model)
+            }
+        }).disposed(by: rx.disposeBag)
         
      
         collectionView.rx.contentOffset.buffer(timeSpan: .milliseconds(100), count: 2, scheduler: MainScheduler.instance)

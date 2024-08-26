@@ -39,7 +39,7 @@ class QFreshHeader: MJRefreshHeader {
     // MARK - 控件的初始化
     override func prepare() {
         super.prepare()
-        self.mj_h = 85
+        self.mj_h = 90
         self.addSubview(gifImageView)
         self.addSubview(arrowImageView)
         self.addSubview(noticeLabel)

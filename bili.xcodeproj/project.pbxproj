@@ -26,6 +26,8 @@
 		384AFDC82C6CE44F001E792C /* QwebCookieTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDC72C6CE44F001E792C /* QwebCookieTool.swift */; };
 		384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDCB2C6CE762001E792C /* QBaseViewController.swift */; };
 		384B950C2C73825C003D72A9 /* RecVideoItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B950B2C73825C003D72A9 /* RecVideoItemModel.swift */; };
+		386D5F612C7C9586009D65FA /* BBVDDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D5F602C7C9586009D65FA /* BBVDDetailVC.swift */; };
+		386D5F642C7C95E7009D65FA /* RenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 386D5F632C7C95E7009D65FA /* RenderView.swift */; };
 		38742E792C72E30300CC8514 /* BaseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E782C72E30300CC8514 /* BaseModel.swift */; };
 		38742E7B2C72EBFE00CC8514 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E7A2C72EBFE00CC8514 /* ApiRequest.swift */; };
 		38742E7D2C72EC9E00CC8514 /* UserDefault+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E7C2C72EC9E00CC8514 /* UserDefault+ET.swift */; };
@@ -71,6 +73,8 @@
 		384AFDC72C6CE44F001E792C /* QwebCookieTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwebCookieTool.swift; sourceTree = "<group>"; };
 		384AFDCB2C6CE762001E792C /* QBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBaseViewController.swift; sourceTree = "<group>"; };
 		384B950B2C73825C003D72A9 /* RecVideoItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecVideoItemModel.swift; sourceTree = "<group>"; };
+		386D5F602C7C9586009D65FA /* BBVDDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BBVDDetailVC.swift; sourceTree = "<group>"; };
+		386D5F632C7C95E7009D65FA /* RenderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RenderView.swift; sourceTree = "<group>"; };
 		38742E782C72E30300CC8514 /* BaseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModel.swift; sourceTree = "<group>"; };
 		38742E7A2C72EBFE00CC8514 /* ApiRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
 		38742E7C2C72EC9E00CC8514 /* UserDefault+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefault+ET.swift"; sourceTree = "<group>"; };
@@ -128,6 +132,7 @@
 		3821AF5A2C6B317C00770034 /* bili */ = {
 			isa = PBXGroup;
 			children = (
+				386D5F5D2C7C9537009D65FA /* Player */,
 				38742E802C73207400CC8514 /* Models */,
 				384AFDC92C6CE71E001E792C /* QPublicComponent */,
 				384AFDC52C6CE440001E792C /* Helpers */,
@@ -302,6 +307,39 @@
 				38DBB9D12C6E169C00A1AFA6 /* HLImagePositionButton.swift */,
 			);
 			path = SuperClasses;
+			sourceTree = "<group>";
+		};
+		386D5F5D2C7C9537009D65FA /* Player */ = {
+			isa = PBXGroup;
+			children = (
+				386D5F5E2C7C9553009D65FA /* Normalplayer */,
+			);
+			path = Player;
+			sourceTree = "<group>";
+		};
+		386D5F5E2C7C9553009D65FA /* Normalplayer */ = {
+			isa = PBXGroup;
+			children = (
+				386D5F622C7C9594009D65FA /* View */,
+				386D5F5F2C7C9567009D65FA /* Controller */,
+			);
+			path = Normalplayer;
+			sourceTree = "<group>";
+		};
+		386D5F5F2C7C9567009D65FA /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				386D5F602C7C9586009D65FA /* BBVDDetailVC.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		386D5F622C7C9594009D65FA /* View */ = {
+			isa = PBXGroup;
+			children = (
+				386D5F632C7C95E7009D65FA /* RenderView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		38742E802C73207400CC8514 /* Models */ = {
@@ -479,6 +517,7 @@
 				3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */,
 				38742E792C72E30300CC8514 /* BaseModel.swift in Sources */,
 				38742E7D2C72EC9E00CC8514 /* UserDefault+ET.swift in Sources */,
+				386D5F612C7C9586009D65FA /* BBVDDetailVC.swift in Sources */,
 				38742E8A2C74326000CC8514 /* RecommendViewModel.swift in Sources */,
 				3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */,
 				3821AF842C6B3D1300770034 /* QFreshHeader.swift in Sources */,
@@ -488,6 +527,7 @@
 				3821AF7A2C6B343500770034 /* HomeViewController.swift in Sources */,
 				3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */,
 				38742E8F2C74927700CC8514 /* normalBaseCell.swift in Sources */,
+				386D5F642C7C95E7009D65FA /* RenderView.swift in Sources */,
 				38742E8C2C74352B00CC8514 /* ViewModelProtocol.swift in Sources */,
 				38742E932C75C81700CC8514 /* Utils.swift in Sources */,
 				384B950C2C73825C003D72A9 /* RecVideoItemModel.swift in Sources */,
