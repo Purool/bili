@@ -113,12 +113,11 @@ class HomeViewController: QBaseViewController {
         case "bangumi":
             break
         case "av":
-            guard let player_args = videoItem.player_args else { break }
-            if player_args.aid != -1 {
-                let bvid = QUtils.av2bv(avid: player_args.aid)
-            }
-            let vc = BBVDDetailVC(type: self.type, tab: tab)
-            self.navigationController?.pushViewController(vc, animated: true)
+            guard let player_args = videoItem.player_args, player_args.aid != -1 else { break }
+            let bvid = QUtils.av2bv(avid: UInt64(player_args.aid))
+            
+//            let vc = BBVDDetailVC(type: self.type, tab: tab)
+//            self.navigationController?.pushViewController(vc, animated: true)
         case "picture":
             break
         default:

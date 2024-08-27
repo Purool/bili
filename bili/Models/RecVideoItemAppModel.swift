@@ -10,7 +10,7 @@ import SwiftyJSON
 struct RecVideoItemAppModel: Codable {
     
     struct PlayerArgs: Codable {
-        @Default<Int> var aid: UInt64// IdUtils.av2bv()
+        @Default<Int> var aid: Int// IdUtils.av2bv()
         @Default<Int> var duration: Int
         @Default<String> var type: String
         @Default<Int> var cid: Int

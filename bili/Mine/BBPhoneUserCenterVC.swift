@@ -62,7 +62,7 @@ class BBPhoneUserCenterVC: QBaseViewController {
             
             //TODO: login
         }else {
-            myInfoTips.text = "Tap to Login"
+            myInfoTips.text = "Tap to Login。。Tap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to Login"
             myInfoTips.font = UIFont.systemFont(ofSize: 18, weight: .medium)
             myInfoTips.snp.makeConstraints { make in
                 make.centerY.equalToSuperview()
