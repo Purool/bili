@@ -77,7 +77,7 @@ class HomeViewController: QBaseViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationController?.setNavigationBarHidden(true, animated: true)
+//        navigationController?.setNavigationBarHidden(true, animated: true)
         setupUI()
         // 默认选中中间的推荐
         contentScrollView.contentOffset = CGPoint(x: kScreenWidth, y: 0)
@@ -113,11 +113,12 @@ class HomeViewController: QBaseViewController {
         case "bangumi":
             break
         case "av":
-            guard let player_args = videoItem.player_args, player_args.aid != -1 else { break }
+            guard let player_args = videoItem.player_args, player_args.aid != Int.defaultValue else { break }
             let bvid = QUtils.av2bv(avid: UInt64(player_args.aid))
-            
-//            let vc = BBVDDetailVC(type: self.type, tab: tab)
-//            self.navigationController?.pushViewController(vc, animated: true)
+            let dic: [String : Any] = ["bvid":bvid, "cid":videoItem.player_args?.cid ?? "", "pic":videoItem.cover, "heroTag":heroTag]
+            let vc = BBVDDetailVC()
+            vc.param = dic
+            navigationController?.pushViewController(vc, animated: true)
         case "picture":
             break
         default:

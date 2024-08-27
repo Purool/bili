@@ -19,6 +19,8 @@ class QUINavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.interactivePopGestureRecognizer?.delegate = self
+        
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
 //        self.isNavigationBarHidden = true
@@ -36,11 +38,27 @@ class QUINavigationController: UINavigationController {
     }
     
     override func pushViewController(_ viewController: UIViewController, animated: Bool) {
-        
         if children.count > 0 {
             viewController.hidesBottomBarWhenPushed = true
         }
         super.pushViewController(viewController, animated: animated)
+    }
+    
+    override func popViewController(animated: Bool) -> UIViewController? {
+        return super.popViewController(animated: animated)
+    }
+}
+
+extension QUINavigationController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let isLeftToRight = UIApplication.shared.userInterfaceLayoutDirection == .leftToRight
+        guard let ges = gestureRecognizer as? UIPanGestureRecognizer else { return true }
+        if ges.translation(in: gestureRecognizer.view).x * (isLeftToRight ? 1 : -1) <= 0
+            || disablePopGesture {
+            return false
+        }
+        return viewControllers.count != 1;
     }
 }
 

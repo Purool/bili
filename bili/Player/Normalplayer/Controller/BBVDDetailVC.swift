@@ -9,11 +9,12 @@ import UIKit
 
 class BBVDDetailVC: QBaseViewController {
     
-//    init(pic: String, heroTag: String)
+    var param: Dictionary<String, Any> = Dictionary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
+        title = "立即播放"
     }
     
 }

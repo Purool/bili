@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class QBaseViewController: UIViewController {
+class QBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,6 +42,7 @@ class QBaseViewController: UIViewController {
                 navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(systemName: "chevron.left"),
                                                                    target: self,
                                                                    action: #selector(pressBack))
+                navigationController?.interactivePopGestureRecognizer?.delegate = navi.viewControllers.count > 1 ? self : nil
             }
         }
     }

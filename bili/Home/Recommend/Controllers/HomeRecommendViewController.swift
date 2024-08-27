@@ -68,7 +68,7 @@ class HomeRecommendViewController: QBaseViewController {
                 print("没处理RecVideoItemModel的点击")
             } else if let model = videoModel as? RecVideoItemAppModel{
                 let heroTag = QUtils.makeHeroTag(model.param)
-                    (self.parent as! HomeViewController).onPushDetail(heroTag: heroTag, videoItem: model)
+                (self.parent as! HomeViewController).onPushDetail(heroTag: heroTag, videoItem: model)
             }
         }).disposed(by: rx.disposeBag)
         
