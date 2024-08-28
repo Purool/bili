@@ -131,6 +131,8 @@ class RecommendActivityCell: UICollectionViewCell {
         self.layer.cornerRadius = 6
         self.layer.masksToBounds = true
         self.backgroundColor = .white
+        
+        setupUI()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -139,7 +141,6 @@ class RecommendActivityCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        setupUI()
     }
     
     private func setupUI() {

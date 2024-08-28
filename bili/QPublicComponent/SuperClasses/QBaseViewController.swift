@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class QBaseViewController: UIViewController, UIGestureRecognizerDelegate {
+class QBaseViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +28,11 @@ class QBaseViewController: UIViewController, UIGestureRecognizerDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         configNavigationBar()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
     }
     
     func setupLayout() {}
@@ -55,4 +60,12 @@ class QBaseViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
+
+}
+
+extension QBaseViewController: UIGestureRecognizerDelegate {
+    
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        return navigationController?.viewControllers.count != 1;
+    }
 }

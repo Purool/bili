@@ -19,7 +19,7 @@ class QUINavigationController: UINavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.interactivePopGestureRecognizer?.delegate = self
+//        self.interactivePopGestureRecognizer?.delegate = self
         
         UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
         UINavigationBar.appearance().shadowImage = UIImage()
@@ -49,18 +49,6 @@ class QUINavigationController: UINavigationController {
     }
 }
 
-extension QUINavigationController: UIGestureRecognizerDelegate {
-    
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let isLeftToRight = UIApplication.shared.userInterfaceLayoutDirection == .leftToRight
-        guard let ges = gestureRecognizer as? UIPanGestureRecognizer else { return true }
-        if ges.translation(in: gestureRecognizer.view).x * (isLeftToRight ? 1 : -1) <= 0
-            || disablePopGesture {
-            return false
-        }
-        return viewControllers.count != 1;
-    }
-}
 
 extension UINavigationController {
     
@@ -77,7 +65,7 @@ extension UINavigationController {
         }
     }
     
-    func barStyle(_ style: NavigationBarStyle) {
+    func barStyle(_ style: NavigationBarStyle = .white) {
         switch style {
         case .theme:
             navigationBar.barStyle = .black
