@@ -7,6 +7,116 @@
 
 import Foundation
 
+let VideoQualityList: [Int] = [6,16,32,64,74,80,112,116,120,125,126,127];
+
+enum VideoQuality: Int {
+    case speed240 = 6
+    case flunt360 = 16
+    case clear480 = 32
+    case high720 = 64
+    case high72060 = 74
+    case high1080 = 80
+    case high1080plus = 112
+    case high108060 = 116
+    case super4K = 120
+    case hdr = 125
+    case dolbyVision = 126
+    case super8k = 127
+}
+
+enum AudioQuality: Int {
+    case k64 = 30216
+    case k132 = 30232
+    case k192 = 30280
+    case dolby = 30250
+    case hiRes = 30251
+}
+
+enum VideoDecodeFormats: String {
+    case DVH1 = "dvh1"
+    case AV1 = "av01"
+    case HEVC = "hev1"
+    case AVC = "avc1"
+}
+
+extension VideoQuality {
+    var description: String {
+        switch self {
+        case.speed240:
+            return "240P 极速"
+        case.flunt360:
+            return "360P 流畅"
+        case.clear480:
+            return "480P 清晰"
+        case.high720:
+            return "720P 高清"
+        case.high72060:
+            return "720P60 高帧率"
+        case.high1080:
+            return "1080P 高清"
+        case.high1080plus:
+            return "1080P+ 高码率"
+        case.high108060:
+            return "1080P60 高帧率"
+        case.super4K:
+            return "4K 超清"
+        case.hdr:
+            return "HDR 真彩色"
+        case.dolbyVision:
+            return "杜比视界"
+        case.super8k:
+            return "8K 超高清"
+        }
+    }
+}
+
+extension AudioQuality {
+    var description: String {
+        switch self {
+        case.k64:
+            return "64K"
+        case.k132:
+            return "132K"
+        case.k192:
+            return "192K"
+        case.dolby:
+            return "杜比全景声"
+        case.hiRes:
+            return "Hi-Res无损"
+        }
+    }
+}
+
+extension VideoDecodeFormats {
+    var description: String {
+        return rawValue
+    }
+    
+    static func fromCode(_ code: String) -> VideoDecodeFormats? {
+        return VideoDecodeFormats(rawValue: code)
+    }
+    
+    static func fromString(_ val: String) -> VideoDecodeFormats? {
+//        for format in VideoDecodeFormats {
+//            if val.hasPrefix(format.rawValue) {
+//                return format
+//            }
+//        }
+        return nil
+    }
+}
+/*
+ let videoQuality = VideoQuality.speed240
+ print(videoQuality.description) // 输出: 240P 极速
+
+ let audioQuality = AudioQuality.hiRes
+ print(audioQuality.description) // 输出: Hi-Res无损
+
+ let videoDecodeFormat = VideoDecodeFormats.fromString("hev1")
+ if let format = videoDecodeFormat {
+     print(format.description) // 输出: hev1
+ }
+ */
 struct VideoItem: Codable {
     @Default var id: Int
     @Default var baseUrl: String

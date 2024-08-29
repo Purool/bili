@@ -119,5 +119,32 @@ struct QUtils {
         return (tmp & MASK_CODE) ^ XOR_CODE
     }
 
+    static func findClosestNumber(target: Int, numbers: [Int]) -> Int{
+        var minDiff = 127;
+        var closestNumber = 0; // 初始化为0，表示没有找到比目标值小的整数
+        
+        // 向下查找
+        for num in numbers {
+            if (num < target) {
+                let diff = target - num; // 计算目标值与当前整数的差值
+                
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    closestNumber = num;
+                }
+            }
+        }
+        // 向上查找
+        if (closestNumber == 0) {
+            for num in numbers {
+                var diff = abs(num - target);
+                if (diff < minDiff) {
+                    minDiff = diff;
+                    closestNumber = num;
+                }
+            }
+        }
+        return closestNumber;
+    }
 }
 

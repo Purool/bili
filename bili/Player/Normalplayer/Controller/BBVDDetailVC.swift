@@ -12,6 +12,11 @@ import MBProgressHUD
 class BBVDDetailVC: QBaseViewController {
     
     var param: Dictionary<String, Any> = Dictionary()
+    var videoUrl: String = ""
+    var audioUrl: String = ""
+    var firstVideo: VideoItem?
+    var cacheVideoQa: Int?
+    var currentVideoQa: VideoQuality?
     
     private var playerVC: BBVDPlayerVC!
     private var TabVC: BBMPTabController!
@@ -79,41 +84,41 @@ class BBVDDetailVC: QBaseViewController {
         
     }
     
-    func queryVideoUrl() async {
+    func queryVideoUrl() async -> PlayUrlModel{
+        let param = param
         guard let model = await ApiRequest.videoUrl(bvid: param["bvid"] as? String, cid: param["cid"] as! Int) else { return }
         if model.accept_description.contains("试看") {
             EWMBProgressHud.showTextHudTips(message: "该视频为专属视频，仅提供试看", isTranslucent: true)
-                videoUrl = data["durl"] as! [AnyObject].first.url
-                audioUrl = ""
-                defaultST = Duration.zero
-                firstVideo = VideoItem()
-                if autoPlay.value {
-                    try await playerInit()
-                    isShowCover.value = false
-                }
-                return result
-            }
-            let allVideosList = data["dash"] as! [String: Any]["video"] as! [VideoItem]
+            videoUrl = model.durl?.first?.url ?? ""
+            audioUrl = ""
+//            defaultST = Duration.zero
+//            firstVideo = VideoItem()
+//                if autoPlay.value {
+//                    try await playerInit()
+//                    isShowCover.value = false
+//                }
+            return model
+        }
+        let allVideosList:[VideoItem] = model.dash?.video ?? []
             do {
                 // 当前可播放的最高质量视频
-                let currentHighVideoQa = allVideosList.first.quality.code
+                let currentHighVideoQa = VideoQualityList[allVideosList.first?.quality ?? 0]
                 // 预设的画质为null，则当前可用的最高质量
-                cacheVideoQa = cacheVideoQa?? currentHighVideoQa
+                cacheVideoQa = cacheVideoQa ?? currentHighVideoQa
                 var resVideoQa = currentHighVideoQa
                 if cacheVideoQa! <= currentHighVideoQa {
                     // 如果预设的画质低于当前最高
-                    let numbers = data["acceptQuality"] as! [Int].filter { $0 <= currentHighVideoQa }
-                    resVideoQa = Utils.findClosestNumber(cacheVideoQa!, numbers)
+                    let numbers = model.accept_quality.filter { $0 <= currentHighVideoQa }
+                    resVideoQa = QUtils.findClosestNumber(target: cacheVideoQa!, numbers: numbers)
                 }
-                currentVideoQa = VideoQualityCode.fromCode(resVideoQa)!
+                currentVideoQa = VideoQuality.init(rawValue: resVideoQa)
 
                 /// 取出符合当前画质的videoList
-                let videosList = allVideosList.filter { $0.quality.code == resVideoQa }
+                let videosList = allVideosList.filter { VideoQualityList[$0.quality] == resVideoQa }
 
                 /// 优先顺序 设置中指定解码格式 -> 当前可选的首个解码格式
-                let supportFormats = data["supportFormats"] as! [FormatItem]
                 // 根据画质选编码格式
-                let supportDecodeFormats = supportFormats.first(where: { $0.quality == resVideoQa }).codecs
+                let supportDecodeFormats = model.support_formats?.filter{ $0.quality == resVideoQa }.codecs
                 // 默认从设置中取AVC
                 currentDecodeFormats = VideoDecodeFormatsCode.fromString(cacheDecode)!
                 do {
