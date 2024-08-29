@@ -43,6 +43,8 @@
 		38742E932C75C81700CC8514 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38742E922C75C81700CC8514 /* Utils.swift */; };
 		389321352C78A7B0001ED5D0 /* UEmptyDataSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389321342C78A7B0001ED5D0 /* UEmptyDataSet.swift */; };
 		389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 389D3ACC2C6E4C030066E20A /* QApi.swift */; };
+		38D4AFE42C801950004EA87E /* PlayUrlModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D4AFE32C801950004EA87E /* PlayUrlModel.swift */; };
+		38D4AFE62C80991A004EA87E /* EWMBProgressHUD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D4AFE52C80991A004EA87E /* EWMBProgressHUD.swift */; };
 		38D97DFF2C7826B2002C99A6 /* UIimageView+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97DFE2C7826B2002C99A6 /* UIimageView+ET.swift */; };
 		38D97E012C785F32002C99A6 /* MJRefresh+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38D97E002C785F32002C99A6 /* MJRefresh+Rx.swift */; };
 		38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */; };
@@ -93,6 +95,8 @@
 		38742E922C75C81700CC8514 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		389321342C78A7B0001ED5D0 /* UEmptyDataSet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UEmptyDataSet.swift; sourceTree = "<group>"; };
 		389D3ACC2C6E4C030066E20A /* QApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QApi.swift; sourceTree = "<group>"; };
+		38D4AFE32C801950004EA87E /* PlayUrlModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayUrlModel.swift; sourceTree = "<group>"; };
+		38D4AFE52C80991A004EA87E /* EWMBProgressHUD.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EWMBProgressHUD.swift; sourceTree = "<group>"; };
 		38D97DFE2C7826B2002C99A6 /* UIimageView+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIimageView+ET.swift"; sourceTree = "<group>"; };
 		38D97E002C785F32002C99A6 /* MJRefresh+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MJRefresh+Rx.swift"; sourceTree = "<group>"; };
 		38DBB9CD2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarButtonItem+ET.swift"; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 			children = (
 				3821AF832C6B3D1300770034 /* QFreshHeader.swift */,
 				389321342C78A7B0001ED5D0 /* UEmptyDataSet.swift */,
+				38D4AFE52C80991A004EA87E /* EWMBProgressHUD.swift */,
 			);
 			path = Customuis;
 			sourceTree = "<group>";
@@ -351,6 +356,7 @@
 		38742E802C73207400CC8514 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				38D4AFE32C801950004EA87E /* PlayUrlModel.swift */,
 				38742E812C73208600CC8514 /* UserInfoData.swift */,
 				384B950B2C73825C003D72A9 /* RecVideoItemModel.swift */,
 				38742E902C74AC8500CC8514 /* RecVideoItemAppModel.swift */,
@@ -511,7 +517,9 @@
 				38742E822C73208600CC8514 /* UserInfoData.swift in Sources */,
 				38D97DFF2C7826B2002C99A6 /* UIimageView+ET.swift in Sources */,
 				384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */,
+				38D4AFE42C801950004EA87E /* PlayUrlModel.swift in Sources */,
 				3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */,
+				38D4AFE62C80991A004EA87E /* EWMBProgressHUD.swift in Sources */,
 				3821AF722C6B325500770034 /* MainTabbarViewController.swift in Sources */,
 				384AFDC82C6CE44F001E792C /* QwebCookieTool.swift in Sources */,
 				389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */,

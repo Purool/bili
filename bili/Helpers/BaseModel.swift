@@ -8,19 +8,18 @@
 import Foundation
 
 protocol DefaultValue {
-    associatedtype Value: Codable
-    static var defaultValue: Value { get }
+    static var defaultValue: Self { get }
 }
 
 @propertyWrapper
-struct Default<T: DefaultValue> {
-    var wrappedValue: T.Value
+struct Default<T: DefaultValue & Codable> {
+    var wrappedValue: T
 }
 
 extension Default: Codable {
     init(from decoder: Decoder) throws {
         let container = try decoder.singleValueContainer()
-        wrappedValue = (try? container.decode(T.Value.self)) ?? T.defaultValue
+        wrappedValue = (try? container.decode(T.self)) ?? T.defaultValue
     }
     func encode(to encoder: Encoder) throws {
         var container = encoder.singleValueContainer()
@@ -36,6 +35,14 @@ extension KeyedDecodingContainer {
     
 }
 
+/// 数组相关的处理，含义和 KeyedDecodingContainer 的处理一样
+extension UnkeyedDecodingContainer {
+    mutating func decode<T>(
+        _ type: Default<T>.Type
+    ) throws -> Default<T> where T: DefaultValue {
+            try decodeIfPresent(type) ?? Default(wrappedValue: T.defaultValue)
+    }
+}
 
 extension Int: DefaultValue {
     static var defaultValue = -1
@@ -52,7 +59,9 @@ extension Bool: DefaultValue {
 extension Double: DefaultValue {
     static var defaultValue = 0.0
 }
+extension Array: DefaultValue{ static var defaultValue: [Element] { [] } }
 
+extension Dictionary: DefaultValue{ static var defaultValue: [Key: Value] { [:] } }
 //struct Person: Decodable {
 //    @Default<String> var name: String
 //    @Default<Int> var age: Int

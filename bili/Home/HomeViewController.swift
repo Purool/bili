@@ -115,7 +115,7 @@ class HomeViewController: QBaseViewController {
         case "av":
             guard let player_args = videoItem.player_args, player_args.aid != Int.defaultValue else { break }
             let bvid = QUtils.av2bv(avid: UInt64(player_args.aid))
-            let dic: [String : Any] = ["bvid":bvid, "cid":videoItem.player_args?.cid ?? "", "pic":videoItem.cover, "heroTag":heroTag]
+            let dic: [String : Any] = ["bvid":bvid, "cid":videoItem.player_args?.cid ?? 0, "pic":videoItem.cover, "heroTag":heroTag]
             let vc = BBVDDetailVC()
             vc.param = dic
             navigationController?.pushViewController(vc, animated: true)
