@@ -146,5 +146,44 @@ struct QUtils {
         }
         return closestNumber;
     }
+    //MARK: VideoUtils
+    static func getCdnUrl(item: Any) -> String {
+        var backupUrl = ""
+        var videoUrl = ""
+        
+        // 先获取backupUrl 一般是upgcxcode地址 播放更稳定
+        if item is VideoItem{
+            backupUrl = (item as! VideoItem).backupUrl
+            videoUrl = backupUrl.contains("http") ? backupUrl : ((item as! VideoItem).baseUrl)
+        } else if item is AudioItem {
+            backupUrl = (item as! AudioItem).backupUrl
+            videoUrl = backupUrl.contains("http") ? backupUrl : ((item as! AudioItem).baseUrl)
+//        } else if item is CodecItem {//直播用
+//            backupUrl = (item.urlInfo?.first.host)! + item.baseUrl! + item.urlInfo!.first.extra!
+//            videoUrl = backupUrl.contains("http")? backupUrl : (item.baseUrl?? "")
+        } else {
+            return ""
+        }
+        
+        // issues #70
+        if videoUrl.contains(".mcdn.bilivideo") {
+            videoUrl = "https://proxy-tf-all-ws.bilivideo.com/?url=\(videoUrl)"
+        } else if videoUrl.contains("/upgcxcode/") {
+            // CDN列表
+            let cdnList = [
+                "ali": "upos-sz-mirrorali.bilivideo.com",
+                "cos": "upos-sz-mirrorcos.bilivideo.com",
+                "hw": "upos-sz-mirrorhw.bilivideo.com",
+            ]
+            
+            // 取一个CDN
+            let cdn = cdnList["ali"] ?? ""
+            if let reg = try? NSRegularExpression(pattern: "(http|https)://(.*?)/upgcxcode/"){
+                videoUrl = reg.stringByReplacingMatches(in: videoUrl, options: [], range: NSRange(location: 0, length: videoUrl.utf16.count), withTemplate: "https://$cdn/upgcxcode/")
+            }
+        }
+        
+        return videoUrl
+    }
 }
 

@@ -14,9 +14,17 @@ class BBVDDetailVC: QBaseViewController {
     var param: Dictionary<String, Any> = Dictionary()
     var videoUrl: String = ""
     var audioUrl: String = ""
-    var firstVideo: VideoItem?
+    var firstVideoItem: VideoItem?
     var cacheVideoQa: Int?
     var currentVideoQa: VideoQuality?
+    var currentDecodeFormats: VideoDecodeFormats?
+    var autoPlay: Bool = false
+    var cacheDecode: String = "av01"
+    var enableCDN: Bool = false
+    var defaultAudioQa: Int = 0
+    var currentAudioQa: AudioQuality?
+    var defaultST: DispatchTimeInterval = .never
+    var isShowCover: Bool = false
     
     private var playerVC: BBVDPlayerVC!
     private var TabVC: BBMPTabController!
@@ -42,6 +50,7 @@ class BBVDDetailVC: QBaseViewController {
         super.viewDidLoad()
         view.backgroundColor = .black
         setUpUI()
+        Task { await queryVideoUrl() }
     }
     
     override func viewDidLayoutSubviews() {
@@ -84,115 +93,99 @@ class BBVDDetailVC: QBaseViewController {
         
     }
     
-    func queryVideoUrl() async -> PlayUrlModel{
+    func queryVideoUrl() async -> PlayUrlModel?{
         let param = param
-        guard let model = await ApiRequest.videoUrl(bvid: param["bvid"] as? String, cid: param["cid"] as! Int) else { return }
+        guard let model = await ApiRequest.videoUrl(bvid: param["bvid"] as? String, cid: param["cid"] as! Int) else {
+            isShowCover = false
+            EWMBProgressHud.showTextHudTips(message: "PlayUrlModel获取失败", isTranslucent: true)
+            return nil
+        }
         if model.accept_description.contains("试看") {
             EWMBProgressHud.showTextHudTips(message: "该视频为专属视频，仅提供试看", isTranslucent: true)
             videoUrl = model.durl?.first?.url ?? ""
             audioUrl = ""
-//            defaultST = Duration.zero
-//            firstVideo = VideoItem()
-//                if autoPlay.value {
-//                    try await playerInit()
-//                    isShowCover.value = false
-//                }
+            //            defaultST = Duration.zero
+            //            firstVideo = VideoItem()
+            if autoPlay {
+//                try await playerInit()
+                isShowCover = false
+            }
             return model
         }
-        let allVideosList:[VideoItem] = model.dash?.video ?? []
-            do {
-                // 当前可播放的最高质量视频
-                let currentHighVideoQa = VideoQualityList[allVideosList.first?.quality ?? 0]
-                // 预设的画质为null，则当前可用的最高质量
-                cacheVideoQa = cacheVideoQa ?? currentHighVideoQa
-                var resVideoQa = currentHighVideoQa
-                if cacheVideoQa! <= currentHighVideoQa {
-                    // 如果预设的画质低于当前最高
-                    let numbers = model.accept_quality.filter { $0 <= currentHighVideoQa }
-                    resVideoQa = QUtils.findClosestNumber(target: cacheVideoQa!, numbers: numbers)
-                }
-                currentVideoQa = VideoQuality.init(rawValue: resVideoQa)
-
-                /// 取出符合当前画质的videoList
-                let videosList = allVideosList.filter { VideoQualityList[$0.quality] == resVideoQa }
-
-                /// 优先顺序 设置中指定解码格式 -> 当前可选的首个解码格式
-                // 根据画质选编码格式
-                let supportDecodeFormats = model.support_formats?.filter{ $0.quality == resVideoQa }.codecs
-                // 默认从设置中取AVC
-                currentDecodeFormats = VideoDecodeFormatsCode.fromString(cacheDecode)!
-                do {
-                    // 当前视频没有对应格式返回第一个
-                    var flag = false
-                    for i in supportDecodeFormats {
-                        if i.starts(with: currentDecodeFormats.code) {
-                            flag = true
-                        }
-                    }
-                    currentDecodeFormats = flag? currentDecodeFormats : VideoDecodeFormatsCode.fromString(supportDecodeFormats.first)!
-                } catch {
-                    SmartDialog.showToast("DecodeFormats error: \(error)")
-                }
-
-                /// 取出符合当前解码格式的videoItem
-                do {
-                    firstVideo = videosList.first(where: { $0.codecs.starts(with: currentDecodeFormats.code) })!
-                } catch {
-                    firstVideo = videosList.first
-                }
-                videoUrl = enableCDN? VideoUtils.getCdnUrl(firstVideo) : (firstVideo.backupUrl?? firstVideo.baseUrl)!
-            } catch {
-                SmartDialog.showToast("firstVideo error: \(error)")
+        let allVideosList: [VideoItem] = model.dash?.video ?? []
+        // 当前可播放的最高质量视频
+        let currentHighVideoQa = VideoQualityList[allVideosList.first?.quality ?? 1]
+        // 预设的画质为null，则当前可用的最高质量
+        cacheVideoQa = cacheVideoQa ?? currentHighVideoQa
+        var resVideoQa = currentHighVideoQa
+        if cacheVideoQa! <= currentHighVideoQa {
+            // 如果预设的画质低于当前最高
+            let numbers = model.accept_quality.filter { $0 <= currentHighVideoQa }
+            resVideoQa = QUtils.findClosestNumber(target: cacheVideoQa!, numbers: numbers)
+        }
+        currentVideoQa = VideoQuality.init(rawValue: resVideoQa)
+        
+        /// 取出符合当前画质的videoList
+        let videosList = allVideosList.filter { VideoQualityList[$0.quality ?? 1] == resVideoQa }
+        
+        /// 优先顺序 设置中指定解码格式 -> 当前可选的首个解码格式
+        // 根据画质选编码格式
+        let supportDecodeFormats = model.support_formats?.filter{ $0.quality == resVideoQa }.flatMap({ item in
+            item.codecs
+        }) ?? []
+        // 默认从设置中取AVC
+        currentDecodeFormats = VideoDecodeFormats.init(rawValue: cacheDecode)
+        // 当前视频没有对应格式返回第一个
+        var flag = false
+        for i in supportDecodeFormats {
+            if i.starts(with: currentDecodeFormats!.rawValue) {
+                flag = true
             }
+        }
+        currentDecodeFormats = flag ? currentDecodeFormats : VideoDecodeFormats.init(rawValue: supportDecodeFormats.first ?? cacheDecode)
+        /// 取出符合当前解码格式的videoItem
+        if let firstVideo = videosList.first(where: { $0.codecs.starts(with: currentDecodeFormats!.rawValue) }) ?? videosList.first {
+            firstVideoItem = firstVideo
+            videoUrl = enableCDN ? QUtils.getCdnUrl(item: firstVideo) : (firstVideo.backupUrl.count > 0 ? firstVideo.backupUrl : firstVideo.baseUrl)
+        } else {
+            EWMBProgressHud.showTextHudTips(message: "firstVideo error", isTranslucent: true)
+        }
 
             /// 优先顺序 设置中指定质量 -> 当前可选的最高质量
-            var firstAudio: AudioItem?
-            let audiosList = data["dash"] as! [String: Any]["audio"] as! [AudioItem]
-
-            do {
-                if data["dash"] as! [String: Any]["dolby"]?["audio"]?.isEmpty == false {
-                    // 杜比
-                    audiosList.insert(data["dash"] as! [String: Any]["dolby"]!.audio!.first, at: 0)
-                }
-
-                if data["dash"] as! [String: Any]["flac"]?["audio"]!= nil {
-                    // 无损
-                    audiosList.insert(data["dash"] as! [String: Any]["flac"]!.audio!, at: 0)
-                }
-
-                if audiosList.isEmpty {
-                    let numbers = audiosList.map { $0.id! }
-                    let closestNumber = Utils.findClosestNumber(defaultAudioQa, numbers)
-                    if!numbers.contains(defaultAudioQa) && numbers.contains(where: { $0 > defaultAudioQa }) {
-                        closestNumber = 30280
-                    }
-                    firstAudio = audiosList.first(where: { $0.id == closestNumber })
-                } else {
-                    firstAudio = AudioItem()
-                }
-            } catch {
-                firstAudio = audiosList.isEmpty? audiosList.first : AudioItem()
-                SmartDialog.showToast("firstAudio error: \(error)")
-            }
-
-            audioUrl = enableCDN? VideoUtils.getCdnUrl(firstAudio!) : (firstAudio!.backupUrl?? firstAudio!.baseUrl)!
-            //
-            if firstAudio?.id!= nil {
-                currentAudioQa = AudioQualityCode.fromCode(firstAudio!.id!)!
-            }
-            defaultST = Duration(milliseconds: data["lastPlayTime"] as! Int)
-            if autoPlay.value {
-                try await playerInit()
-                isShowCover.value = false
-            }
-        } else {
-            if result["code"] as! Int == -404 {
-                isShowCover.value = false
-            }
-            SmartDialog.showToast(result["msg"] as! String)
+        var firstAudio: AudioItem?
+        var audiosList = model.dash?.audio ?? []
+        
+        if let audioItem = model.dash?.dolby?.audio {
+            // 杜比
+            audiosList.insert(audioItem.first!, at: 0)
         }
-        return result
-    }
+        if let audioItem = model.dash?.flac?.audio {
+            // 无损
+            audiosList.insert(audioItem, at: 0)
+        }
+        if !audiosList.isEmpty {
+            let numbers = audiosList.map { $0.id }
+            var closestNumber = QUtils.findClosestNumber(target: defaultAudioQa, numbers: numbers)
+            if !numbers.contains(defaultAudioQa), numbers.contains(where: { $0 > defaultAudioQa }) {
+                closestNumber = 30280
+            }
+            firstAudio = audiosList.first(where: { $0.id == closestNumber })
+        } else {
+            firstAudio = nil
+            EWMBProgressHud.showTextHudTips(message: "firstAudio error", isTranslucent: true)
+        }
 
+        audioUrl = enableCDN ? QUtils.getCdnUrl(item: firstAudio!) : (firstAudio!.backupUrl.count > 0 ? firstAudio!.backupUrl : firstAudio!.baseUrl)
+            //
+            if let audioId = firstAudio?.id {
+                currentAudioQa = AudioQuality.init(rawValue: audioId)
+            }
+        defaultST = .seconds(model.last_play_time)
+        if autoPlay {
+//            try await playerInit()
+            isShowCover = false
+        }
+        return model
+    }
     
 }

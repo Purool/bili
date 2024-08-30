@@ -49,7 +49,7 @@ extension Int: DefaultValue {
 }
 
 extension String: DefaultValue {
-    static var defaultValue = "unknown"
+    static var defaultValue = ""
 }
 
 extension Bool: DefaultValue {

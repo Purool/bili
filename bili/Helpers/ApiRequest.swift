@@ -78,10 +78,11 @@ enum ApiRequest {
                 "Referer": "https://www.bilibili.com/"
             ]
             let json = try await ApiRequest.requestGetJson(QApi.userInfo, auth: false, headers: headers)
-            let imgURL = json["data"]["wbi_img"]["img_url"].string ?? ""
-            let subURL = json["data"]["wbi_img"]["sub_url"].string ?? ""
+            let imgURL = json["wbi_img"]["img_url"].string ?? ""
+            let subURL = json["wbi_img"]["sub_url"].string ?? ""
             let imgKey = imgURL.components(separatedBy: "/").last?.components(separatedBy: ".").first ?? ""
             let subKey = subURL.components(separatedBy: "/").last?.components(separatedBy: ".").first ?? ""
+            UserDefaults.standard.set(codable: ["imgKey": imgKey, "subKey": subKey, "timeStamp": String(Date().timeIntervalSince1970)], forKey: "wbiKeys")
             return (imgKey, subKey)
        }
 
@@ -104,9 +105,10 @@ enum ApiRequest {
         
         do {
             let keys = try await getWbiKeys()
-            
-            let signedParams = encWbi(params: spdDicParam, imgKey: keys.imgKey, subKey: keys.subKey)
-            return signedParams
+            if keys.imgKey.count > 0, keys.subKey.count > 0 {
+                let signedParams = encWbi(params: spdDicParam, imgKey: keys.imgKey, subKey: keys.subKey)
+                return signedParams
+            }else { return nil}
         } catch let error {
             print("Error getting keys: \(error)")
             return nil
@@ -165,10 +167,12 @@ enum ApiRequest {
             }
         } catch {
             print("Error: \(error)")
+            complete?(.failure(.networkFail))
             return
         }
         
         AF.request(desURL, method: method, parameters: parameters, encoding: encoding, headers: headers).responseData { response in
+            print("---URL: \(response.request?.url?.absoluteString ?? "")")
             switch response.result {
             case let .success(data):
                 let json = JSON(data)
@@ -235,22 +239,6 @@ enum ApiRequest {
                 }
             }
         }
-    }
-    
-    struct UpSpaceListData: Codable, Hashable {
-        var pic: URL? { return cover }
-
-        var aid: Int { return Int(param) ?? 0 }
-
-        let title: String
-        let author: String
-        let param: String
-        let cover: URL?
-        var ownerName: String {
-            return author
-        }
-
-        var cid: Int { return 0 }
     }
     
     static func requestLoginInfo() async throws -> UserInfoData {
@@ -339,13 +327,9 @@ enum ApiRequest {
         do {
             if let params = try await biliWbiSign(spdDicParam: data.merging(["fourk": 1, "voice_balance": 1, "gaia_source": "pre-load", "web_location": 1550101]) { $1 }) {
                 let res = try await ApiRequest.requestGetJson(QApi.videoUrl, parameters: params)
-                if res["code"].intValue == 0 {
-                    let data = try res["data"].rawData()
-                    let playUrlModel = try JSONDecoder().decode(PlayUrlModel.self, from: data)
-                    return playUrlModel
-                } else {
-                    print("请求出错了")
-                }
+                let data = try res.rawData()
+                let playUrlModel = try JSONDecoder().decode(PlayUrlModel.self, from: data)
+                return playUrlModel
             }
         } catch let error {
             print(error)

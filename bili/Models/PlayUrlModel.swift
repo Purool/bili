@@ -8,6 +8,7 @@
 import Foundation
 
 let VideoQualityList: [Int] = [6,16,32,64,74,80,112,116,120,125,126,127];
+let DecodeList: [String]  = ["dvh1", "av01", "hev1", "avc1"];
 
 enum VideoQuality: Int {
     case speed240 = 6
@@ -131,7 +132,7 @@ struct VideoItem: Codable {
     @Default var startWithSap: Int
     @Default var segmentBase: String
     @Default var codecid: Int
-    @Default var quality: Int
+    var quality: Int?
 }
 
 struct Dash: Codable {
@@ -188,7 +189,7 @@ struct FormatItem: Codable {
     @Default var format: String
     @Default var new_description: String
     @Default var display_desc: String
-//    var codecs: [Any]
+    var codecs: [String]
 }
 
 // Dolby类
