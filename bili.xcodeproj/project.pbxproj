@@ -23,6 +23,18 @@
 		3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF992C6B79DB00770034 /* UIColor+ET.swift */; };
 		3821AF9C2C6B7A8500770034 /* ImportHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF9B2C6B7A8500770034 /* ImportHeader.swift */; };
 		3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AFA02C6CAB1700770034 /* LoginViewController.swift */; };
+		383C0FFA2C87F787005CDDC6 /* VideoPlayerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C0FF92C87F787005CDDC6 /* VideoPlayerViewModel.swift */; };
+		383C0FFD2C880A38005CDDC6 /* CommonPlayerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C0FFC2C880A38005CDDC6 /* CommonPlayerPlugin.swift */; };
+		383C0FFF2C880CAD005CDDC6 /* PlayVideoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C0FFE2C880CAD005CDDC6 /* PlayVideoModel.swift */; };
+		383C10072C883766005CDDC6 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C10062C883766005CDDC6 /* Settings.swift */; };
+		383C100A2C884735005CDDC6 /* BVideoPlayPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C10092C884735005CDDC6 /* BVideoPlayPlugin.swift */; };
+		383C100C2C884A48005CDDC6 /* BUpnpPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C100B2C884A48005CDDC6 /* BUpnpPlugin.swift */; };
+		383C100E2C884AD0005CDDC6 /* BVideoClipsPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C100D2C884AD0005CDDC6 /* BVideoClipsPlugin.swift */; };
+		383C10112C884B78005CDDC6 /* BVideoInfoPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C10102C884B78005CDDC6 /* BVideoInfoPlugin.swift */; };
+		383C10132C884C5F005CDDC6 /* String+ET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C10122C884C5F005CDDC6 /* String+ET.swift */; };
+		383C10152C884E12005CDDC6 /* BilibiliVideoResourceLoaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C10142C884E12005CDDC6 /* BilibiliVideoResourceLoaderDelegate.swift */; };
+		383C10172C884F77005CDDC6 /* SidxParseUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C10162C884F77005CDDC6 /* SidxParseUtil.swift */; };
+		383C10192C88608D005CDDC6 /* CommonPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 383C10182C88608D005CDDC6 /* CommonPlayerViewController.swift */; };
 		384AFDC82C6CE44F001E792C /* QwebCookieTool.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDC72C6CE44F001E792C /* QwebCookieTool.swift */; };
 		384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384AFDCB2C6CE762001E792C /* QBaseViewController.swift */; };
 		384B950C2C73825C003D72A9 /* RecVideoItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 384B950B2C73825C003D72A9 /* RecVideoItemModel.swift */; };
@@ -74,6 +86,18 @@
 		3821AF992C6B79DB00770034 /* UIColor+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ET.swift"; sourceTree = "<group>"; };
 		3821AF9B2C6B7A8500770034 /* ImportHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportHeader.swift; sourceTree = "<group>"; };
 		3821AFA02C6CAB1700770034 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		383C0FF92C87F787005CDDC6 /* VideoPlayerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewModel.swift; sourceTree = "<group>"; };
+		383C0FFC2C880A38005CDDC6 /* CommonPlayerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonPlayerPlugin.swift; sourceTree = "<group>"; };
+		383C0FFE2C880CAD005CDDC6 /* PlayVideoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayVideoModel.swift; sourceTree = "<group>"; };
+		383C10062C883766005CDDC6 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		383C10092C884735005CDDC6 /* BVideoPlayPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BVideoPlayPlugin.swift; sourceTree = "<group>"; };
+		383C100B2C884A48005CDDC6 /* BUpnpPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BUpnpPlugin.swift; sourceTree = "<group>"; };
+		383C100D2C884AD0005CDDC6 /* BVideoClipsPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BVideoClipsPlugin.swift; sourceTree = "<group>"; };
+		383C10102C884B78005CDDC6 /* BVideoInfoPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BVideoInfoPlugin.swift; sourceTree = "<group>"; };
+		383C10122C884C5F005CDDC6 /* String+ET.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ET.swift"; sourceTree = "<group>"; };
+		383C10142C884E12005CDDC6 /* BilibiliVideoResourceLoaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BilibiliVideoResourceLoaderDelegate.swift; sourceTree = "<group>"; };
+		383C10162C884F77005CDDC6 /* SidxParseUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidxParseUtil.swift; sourceTree = "<group>"; };
+		383C10182C88608D005CDDC6 /* CommonPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonPlayerViewController.swift; sourceTree = "<group>"; };
 		384AFDC72C6CE44F001E792C /* QwebCookieTool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QwebCookieTool.swift; sourceTree = "<group>"; };
 		384AFDCB2C6CE762001E792C /* QBaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QBaseViewController.swift; sourceTree = "<group>"; };
 		384B950B2C73825C003D72A9 /* RecVideoItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecVideoItemModel.swift; sourceTree = "<group>"; };
@@ -275,6 +299,7 @@
 				38742E7C2C72EC9E00CC8514 /* UserDefault+ET.swift */,
 				38D97DFE2C7826B2002C99A6 /* UIimageView+ET.swift */,
 				38D97E002C785F32002C99A6 /* MJRefresh+Rx.swift */,
+				383C10122C884C5F005CDDC6 /* String+ET.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -287,6 +312,34 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		383C0FF82C87F777005CDDC6 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				383C0FF92C87F787005CDDC6 /* VideoPlayerViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		383C0FFB2C880A2E005CDDC6 /* Plugins */ = {
+			isa = PBXGroup;
+			children = (
+				383C10082C884709005CDDC6 /* Video */,
+				383C0FFC2C880A38005CDDC6 /* CommonPlayerPlugin.swift */,
+			);
+			path = Plugins;
+			sourceTree = "<group>";
+		};
+		383C10082C884709005CDDC6 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				383C10092C884735005CDDC6 /* BVideoPlayPlugin.swift */,
+				383C10102C884B78005CDDC6 /* BVideoInfoPlugin.swift */,
+				383C100B2C884A48005CDDC6 /* BUpnpPlugin.swift */,
+				383C100D2C884AD0005CDDC6 /* BVideoClipsPlugin.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		384AFDC52C6CE440001E792C /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,6 +349,7 @@
 				38742E7E2C72F1B400CC8514 /* WebRequest.swift */,
 				38742E8B2C74352B00CC8514 /* ViewModelProtocol.swift */,
 				38742E922C75C81700CC8514 /* Utils.swift */,
+				383C10062C883766005CDDC6 /* Settings.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -321,7 +375,10 @@
 		386D5F5D2C7C9537009D65FA /* Player */ = {
 			isa = PBXGroup;
 			children = (
+				383C0FFB2C880A2E005CDDC6 /* Plugins */,
 				386D5F5E2C7C9553009D65FA /* Normalplayer */,
+				383C10142C884E12005CDDC6 /* BilibiliVideoResourceLoaderDelegate.swift */,
+				383C10162C884F77005CDDC6 /* SidxParseUtil.swift */,
 			);
 			path = Player;
 			sourceTree = "<group>";
@@ -329,8 +386,10 @@
 		386D5F5E2C7C9553009D65FA /* Normalplayer */ = {
 			isa = PBXGroup;
 			children = (
+				383C0FF82C87F777005CDDC6 /* ViewModel */,
 				386D5F622C7C9594009D65FA /* View */,
 				386D5F5F2C7C9567009D65FA /* Controller */,
+				383C10182C88608D005CDDC6 /* CommonPlayerViewController.swift */,
 			);
 			path = Normalplayer;
 			sourceTree = "<group>";
@@ -361,6 +420,7 @@
 				384B950B2C73825C003D72A9 /* RecVideoItemModel.swift */,
 				38742E902C74AC8500CC8514 /* RecVideoItemAppModel.swift */,
 				38742E832C7323D000CC8514 /* modelRes.geojson */,
+				383C0FFE2C880CAD005CDDC6 /* PlayVideoModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -516,7 +576,11 @@
 			files = (
 				38742E822C73208600CC8514 /* UserInfoData.swift in Sources */,
 				38D97DFF2C7826B2002C99A6 /* UIimageView+ET.swift in Sources */,
+				383C0FFD2C880A38005CDDC6 /* CommonPlayerPlugin.swift in Sources */,
 				384AFDCC2C6CE762001E792C /* QBaseViewController.swift in Sources */,
+				383C0FFA2C87F787005CDDC6 /* VideoPlayerViewModel.swift in Sources */,
+				383C100E2C884AD0005CDDC6 /* BVideoClipsPlugin.swift in Sources */,
+				383C100A2C884735005CDDC6 /* BVideoPlayPlugin.swift in Sources */,
 				38D4AFE42C801950004EA87E /* PlayUrlModel.swift in Sources */,
 				3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */,
 				38D4AFE62C80991A004EA87E /* EWMBProgressHUD.swift in Sources */,
@@ -528,14 +592,18 @@
 				3821AF772C6B33B700770034 /* QUINavigationController.swift in Sources */,
 				38DBB9CE2C6E0A6C00A1AFA6 /* UIBarButtonItem+ET.swift in Sources */,
 				38DBB9D22C6E169C00A1AFA6 /* HLImagePositionButton.swift in Sources */,
+				383C10192C88608D005CDDC6 /* CommonPlayerViewController.swift in Sources */,
 				3821AF902C6B661800770034 /* HomeRecommendViewController.swift in Sources */,
 				38742E792C72E30300CC8514 /* BaseModel.swift in Sources */,
 				38742E7D2C72EC9E00CC8514 /* UserDefault+ET.swift in Sources */,
 				386D5F612C7C9586009D65FA /* BBVDDetailVC.swift in Sources */,
 				38742E8A2C74326000CC8514 /* RecommendViewModel.swift in Sources */,
 				3821AF942C6B663800770034 /* HomebangumiViewController.swift in Sources */,
+				383C10112C884B78005CDDC6 /* BVideoInfoPlugin.swift in Sources */,
 				3821AF842C6B3D1300770034 /* QFreshHeader.swift in Sources */,
 				38DBB9D02C6E125400A1AFA6 /* UIButton+ET.swift in Sources */,
+				383C10072C883766005CDDC6 /* Settings.swift in Sources */,
+				383C100C2C884A48005CDDC6 /* BUpnpPlugin.swift in Sources */,
 				3821AF752C6B32A400770034 /* Configs.swift in Sources */,
 				3821AF5C2C6B317C00770034 /* AppDelegate.swift in Sources */,
 				3821AF7A2C6B343500770034 /* HomeViewController.swift in Sources */,
@@ -553,8 +621,12 @@
 				386D5F672C7ECD29009D65FA /* BBVDPlayerVC.swift in Sources */,
 				38DBB9D42C6EF2F100A1AFA6 /* QWebViewController.swift in Sources */,
 				3821AFA12C6CAB1700770034 /* LoginViewController.swift in Sources */,
+				383C10152C884E12005CDDC6 /* BilibiliVideoResourceLoaderDelegate.swift in Sources */,
+				383C10172C884F77005CDDC6 /* SidxParseUtil.swift in Sources */,
+				383C0FFF2C880CAD005CDDC6 /* PlayVideoModel.swift in Sources */,
 				38742E7B2C72EBFE00CC8514 /* ApiRequest.swift in Sources */,
 				3821AF8C2C6B65BB00770034 /* HomeLiveShowViewController.swift in Sources */,
+				383C10132C884C5F005CDDC6 /* String+ET.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

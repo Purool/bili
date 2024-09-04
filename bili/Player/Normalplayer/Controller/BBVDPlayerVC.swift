@@ -6,8 +6,12 @@
 //
 
 import UIKit
+import Combine
 
-class BBVDPlayerVC: UIViewController {
+class BBVDPlayerVC: CommonPlayerViewController {
+    
+    private let viewModel: VideoPlayerViewModel
+    private var cancelable = Set<AnyCancellable>()
     
     lazy var playBtn: UIButton = {
         let button = UIButton(type: .custom)
@@ -35,6 +39,16 @@ class BBVDPlayerVC: UIViewController {
         return button
     }()
     
+    init(playInfo: PlayInfo) {
+        viewModel = VideoPlayerViewModel(playInfo: playInfo)
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.frame = CGRectMake(0, 0, kScreenWidth, kScreenWidth_9_16)
@@ -56,6 +70,27 @@ class BBVDPlayerVC: UIViewController {
             make.centerY.equalTo(backBtn)
         }
 
+//        viewModel.nextProvider = nextProvider
+        viewModel.onPluginReady.receive(on: DispatchQueue.main).sink { [weak self] completion in
+            switch completion {
+            case let .failure(err):
+//                self?.showErrorAlertAndExit(message: err)
+                EWMBProgressHud.showTextHudTips(message: err, isTranslucent: true)
+            default:
+                break
+            }
+        } receiveValue: { [weak self] plugins in
+            plugins.forEach { self?.addPlugin(plugin: $0) }
+        }.store(in: &cancelable)
+        viewModel.onPluginRemove.sink { [weak self] in
+            self?.removePlugin(plugin: $0)
+        }.store(in: &cancelable)
+        viewModel.onExit = { [weak self] in
+            self?.dismiss(animated: true)
+        }
+        Task {
+            await viewModel.load()
+        }
     }
     
     override func viewDidLayoutSubviews() {

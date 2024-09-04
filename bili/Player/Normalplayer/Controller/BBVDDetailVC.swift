@@ -9,12 +9,19 @@ import UIKit
 import RxSwift
 import MBProgressHUD
 
+struct PlayInfo {
+    let aid: Int
+    var cid: Int? = 0
+    var epid: Int? = 0 // 港澳台解锁需要
+    var isBangumi: Bool = false
+    var seasonId: Int? = 0
+}
 class BBVDDetailVC: QBaseViewController {
     
     var param: Dictionary<String, Any> = Dictionary()
     var videoUrl: String = ""
     var audioUrl: String = ""
-    var firstVideoItem: VideoItem?
+    var firstVideoItem: MediaItem?
     var cacheVideoQa: Int?
     var currentVideoQa: VideoQuality?
     var currentDecodeFormats: VideoDecodeFormats?
@@ -25,6 +32,7 @@ class BBVDDetailVC: QBaseViewController {
     var currentAudioQa: AudioQuality?
     var defaultST: DispatchTimeInterval = .never
     var isShowCover: Bool = false
+    var detailInfo: PlayInfo?
     
     private var playerVC: BBVDPlayerVC!
     private var TabVC: BBMPTabController!
@@ -49,8 +57,9 @@ class BBVDDetailVC: QBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
+//        Task { await fetchData() }
         setUpUI()
-        Task { await queryVideoUrl() }
+//        Task { await queryVideoUrl() }
     }
     
     override func viewDidLayoutSubviews() {
@@ -70,8 +79,8 @@ class BBVDDetailVC: QBaseViewController {
     
     private func setUpUI() {
         view.addSubview(contentScrollView)
-        
-        playerVC = BBVDPlayerVC()
+        guard let info = detailInfo else { return }
+        playerVC = BBVDPlayerVC(playInfo: info)
         self.addChild(playerVC)
         view.addSubview(playerVC.view)
         
@@ -93,9 +102,12 @@ class BBVDDetailVC: QBaseViewController {
         
     }
     
+}
+
+extension BBVDDetailVC {
     func queryVideoUrl() async -> PlayUrlModel?{
         let param = param
-        guard let model = await ApiRequest.videoUrl(bvid: param["bvid"] as? String, cid: param["cid"] as! Int) else {
+        guard let model = try? await ApiRequest.videoUrl(bvid: param["bvid"] as? String, cid: param["cid"] as! Int) else {
             isShowCover = false
             EWMBProgressHud.showTextHudTips(message: "PlayUrlModel获取失败", isTranslucent: true)
             return nil
@@ -112,7 +124,7 @@ class BBVDDetailVC: QBaseViewController {
             }
             return model
         }
-        let allVideosList: [VideoItem] = model.dash?.video ?? []
+        let allVideosList: [MediaItem] = model.dash?.video ?? []
         // 当前可播放的最高质量视频
         let currentHighVideoQa = VideoQualityList[allVideosList.first?.quality ?? 1]
         // 预设的画质为null，则当前可用的最高质量
@@ -146,13 +158,13 @@ class BBVDDetailVC: QBaseViewController {
         /// 取出符合当前解码格式的videoItem
         if let firstVideo = videosList.first(where: { $0.codecs.starts(with: currentDecodeFormats!.rawValue) }) ?? videosList.first {
             firstVideoItem = firstVideo
-            videoUrl = enableCDN ? QUtils.getCdnUrl(item: firstVideo) : (firstVideo.backupUrl.count > 0 ? firstVideo.backupUrl : firstVideo.baseUrl)
+            videoUrl = enableCDN ? QUtils.getCdnUrl(item: firstVideo) : (firstVideo.backupUrl.count > 0 ? firstVideo.backupUrl.first! : firstVideo.baseUrl)
         } else {
             EWMBProgressHud.showTextHudTips(message: "firstVideo error", isTranslucent: true)
         }
 
             /// 优先顺序 设置中指定质量 -> 当前可选的最高质量
-        var firstAudio: AudioItem?
+        var firstAudio: MediaItem?
         var audiosList = model.dash?.audio ?? []
         
         if let audioItem = model.dash?.dolby?.audio {
@@ -175,7 +187,7 @@ class BBVDDetailVC: QBaseViewController {
             EWMBProgressHud.showTextHudTips(message: "firstAudio error", isTranslucent: true)
         }
 
-        audioUrl = enableCDN ? QUtils.getCdnUrl(item: firstAudio!) : (firstAudio!.backupUrl.count > 0 ? firstAudio!.backupUrl : firstAudio!.baseUrl)
+        audioUrl = enableCDN ? QUtils.getCdnUrl(item: firstAudio!) : (firstAudio!.backupUrl.count > 0 ? firstAudio!.backupUrl.first! : firstAudio!.baseUrl)
             //
             if let audioId = firstAudio?.id {
                 currentAudioQa = AudioQuality.init(rawValue: audioId)
@@ -187,5 +199,4 @@ class BBVDDetailVC: QBaseViewController {
         }
         return model
     }
-    
 }

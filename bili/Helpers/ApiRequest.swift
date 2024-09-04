@@ -23,6 +23,15 @@ enum ApiRequest {
     static let appkey = "5ae412b53418aac5"
     static let appsec = "5b9cf6c9786efd204dcf0c1ce2d08436"
     
+    enum Keys {
+        static let userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15"
+        static let liveReferer = "https://live.bilibili.com"
+        static let referer = "https://www.bilibili.com"
+        static func referer(for aid: Int) -> String {
+            return "https://www.bilibili.com/video/av\(aid)"
+        }
+    }
+    
     enum EndPoint {
         static let loginQR = "https://passport.bilibili.com/x/passport-tv-login/qrcode/auth_code"
         static let verifyQR = "https://passport.bilibili.com/x/passport-tv-login/qrcode/poll"
@@ -54,7 +63,7 @@ enum ApiRequest {
         return getUserInfo() != nil
     }
 
-    static func biliWbiSign(spdDicParam: [String: Any] ) async throws -> [String: Any]? {
+    static func biliWbiSign(spdDicParam: [String: Any] ) async throws -> [String: Any] {
         func getMixinKey(orig: String) -> String {
             return String(mixinKeyEncTab.map { orig[orig.index(orig.startIndex, offsetBy: $0)] }.prefix(32))
         }
@@ -103,15 +112,12 @@ enum ApiRequest {
             36, 20, 34, 44, 52
         ]
         
-        do {
-            let keys = try await getWbiKeys()
-            if keys.imgKey.count > 0, keys.subKey.count > 0 {
-                let signedParams = encWbi(params: spdDicParam, imgKey: keys.imgKey, subKey: keys.subKey)
-                return signedParams
-            }else { return nil}
-        } catch let error {
-            print("Error getting keys: \(error)")
-            return nil
+        let keys = try await getWbiKeys()
+        if keys.imgKey.count > 0, keys.subKey.count > 0 {
+            let signedParams = encWbi(params: spdDicParam, imgKey: keys.imgKey, subKey: keys.subKey)
+            return signedParams
+        }else {
+            throw RequestError.statusFail(code: 101, message: "getWbiKeys failed")
         }
     }
     //        "iphone_i" "phone" "iphone 12 mini"
@@ -307,7 +313,7 @@ enum ApiRequest {
         return res.items.filter({$0.card_goto != "ad_av"})
     }
     
-    static func videoUrl(avid: Int? = nil, bvid: String? = nil, cid: Int, qn: Int? = nil) async -> PlayUrlModel? {
+    static func videoUrl(avid: Int? = nil, bvid: String? = nil, cid: Int, qn: Int? = nil) async throws -> PlayUrlModel {
         var data: [String: Any] = [
             "cid": cid,
             "qn": qn ?? 80,
@@ -324,17 +330,10 @@ enum ApiRequest {
         if ApiRequest.getUserInfo() == nil {//&& setting["p1080"] as? Bool?? true {//默认是1080p
             data["try_look"] = 1
         }
-        do {
-            if let params = try await biliWbiSign(spdDicParam: data.merging(["fourk": 1, "voice_balance": 1, "gaia_source": "pre-load", "web_location": 1550101]) { $1 }) {
-                let res = try await ApiRequest.requestGetJson(QApi.videoUrl, parameters: params)
-                let data = try res.rawData()
-                let playUrlModel = try JSONDecoder().decode(PlayUrlModel.self, from: data)
-                return playUrlModel
-            }
-        } catch let error {
-            print(error)
-        }
-        return nil
+        let params = try await biliWbiSign(spdDicParam: data.merging(["fourk": 1, "voice_balance": 1, "gaia_source": "pre-load", "web_location": 1550101]) { $1 })
+//        let res = try await ApiRequest.requestGetJson(QApi.videoUrl, parameters: params)
+        let model: PlayUrlModel = try await ApiRequest.requestGetObj(QApi.videoUrl, parameters: params)
+        return model
     }
-
+    
 }

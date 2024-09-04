@@ -21,7 +21,7 @@ struct EWScreenInfo {
     }
 }
 /// 默认hub显示时间
-private let hudShowTime = 1.5
+private let hudShowTime = 2.5
 
 class EWMBProgressHud {
     static var hud : MBProgressHUD?

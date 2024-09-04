@@ -19,11 +19,13 @@ enum QApi {
     // 视频流
     // https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/video/videostream_url.md
     static let videoUrl = "/x/player/wbi/playurl"
-    
+    static let pcgPlayUrl = "/pgc/player/web/playurl"
     // 视频详情
     // 竖屏 https://api.bilibili.com/x/web-interface/view?aid=527403921
     // https://api.bilibili.com/x/web-interface/view/detail  获取视频超详细信息(web端)
     static let videoIntro = "/x/web-interface/view"
+    static let videoIntroDetail = "/x/web-interface/view/detail"
+    static let reportHistory = "/x/v2/history/report"
     // 视频详情 超详细
     // https://api.bilibili.com/x/web-interface/view/detail?aid=527403921
     

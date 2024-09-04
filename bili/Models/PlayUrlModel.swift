@@ -118,39 +118,81 @@ extension VideoDecodeFormats {
      print(format.description) // 输出: hev1
  }
  */
-struct VideoItem: Codable {
+struct MediaItem: Codable, Hashable {
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+    static func == (lhs: MediaItem, rhs: MediaItem) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    struct DashSegmentBase: Codable, Hashable {
+        var Initialization: String
+        var indexRange: String
+    }
     @Default var id: Int
     @Default var baseUrl: String
-    @Default var backupUrl: String
-    @Default var bandWidth: Int
+    @Default var backupUrl: [String]
+    var bandwidth: Int
     @Default var mimeType: String
     @Default var codecs: String
     @Default var width: Int
     @Default var height: Int
-    @Default var frameRate: Int
+    var frameRate: String?
     @Default var sar: String
     @Default var startWithSap: Int
-    @Default var segmentBase: String
+    var SegmentBase: DashSegmentBase?
     @Default var codecid: Int
     var quality: Int?
 }
 
-struct Dash: Codable {
-    @Default var duration: Int
-    @Default var minBufferTime: Double
-    var video: [VideoItem]?
-    var audio: [AudioItem]?
-    var dolby: Dolby?
-    var flac: Flac?
-}
-
 struct PlayUrlModel: Codable {
+    
+    struct Dash: Codable {
+        @Default var duration: Int
+        @Default var minBufferTime: Double
+        var video: [MediaItem]?
+        var audio: [MediaItem]?
+        var dolby: Dolby?
+        var flac: Flac?
+    }
+    
+    class ClipInfo: Codable {
+        let start: CGFloat
+        let end: CGFloat
+        let clipType: String?
+        let toastText: String?
+        var a11Tag: String {
+            "\(start)\(end)"
+        }
+
+        var skipped: Bool? = false
+
+        var customText: String {
+            if clipType == "CLIP_TYPE_OP" {
+                return "跳过片头"
+            } else if clipType == "CLIP_TYPE_ED" {
+                return "跳过片尾"
+            } else {
+                return toastText ?? "跳过"
+            }
+        }
+
+        init(start: CGFloat, end: CGFloat, clipType: String?, toastText: String?) {
+            self.start = start
+            self.end = end
+            self.clipType = clipType
+            self.toastText = toastText
+        }
+    }
+    
     @Default var from: String
     @Default var result: String
     @Default var message: String
     @Default var quality: Int
     @Default var format: String
-    @Default var timeLength: Int
+    @Default var timelength: Int
     @Default var accept_format: String
     @Default var accept_description: [String]
     @Default var accept_quality: [Int]
@@ -163,25 +205,9 @@ struct PlayUrlModel: Codable {
     // @Default var highFormat: String
     @Default var last_play_time: Int
     @Default var last_play_cid: Int
+    let clip_info_list: [ClipInfo]?
 }
 
-// AudioItem类
-struct AudioItem: Codable {
-    @Default var id: Int
-    @Default var baseUrl: String
-    @Default var backupUrl: String
-    @Default var bandWidth: Int
-    @Default var mime_type: String
-    @Default var codecs: String
-    @Default var width: Int
-    @Default var height: Int
-    @Default var frameRate: String
-    @Default var sar: String
-    @Default var startWithSap: Int
-//    var segmentBase: [String: Any]
-    @Default var codecid: Int
-    //var quality: String// AudioQuality.init(rawValue: json["id"] as Int).description
-}
 
 // FormatItem类
 struct FormatItem: Codable {
@@ -196,13 +222,13 @@ struct FormatItem: Codable {
 struct Dolby: Codable {
     // 1：普通杜比音效 2：全景杜比音效
     @Default var type: Int
-    var audio: [AudioItem]?
+    var audio: [MediaItem]?
 }
 
 // Flac类
 struct Flac: Codable {
     @Default var display: Bool
-    var audio: AudioItem?
+    var audio: MediaItem?
 }
 
 // Durl类

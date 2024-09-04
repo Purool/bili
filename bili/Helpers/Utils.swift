@@ -152,12 +152,9 @@ struct QUtils {
         var videoUrl = ""
         
         // 先获取backupUrl 一般是upgcxcode地址 播放更稳定
-        if item is VideoItem{
-            backupUrl = (item as! VideoItem).backupUrl
-            videoUrl = backupUrl.contains("http") ? backupUrl : ((item as! VideoItem).baseUrl)
-        } else if item is AudioItem {
-            backupUrl = (item as! AudioItem).backupUrl
-            videoUrl = backupUrl.contains("http") ? backupUrl : ((item as! AudioItem).baseUrl)
+        if item is MediaItem{
+            backupUrl = (item as! MediaItem).backupUrl.first ?? ""
+            videoUrl = backupUrl.contains("http") ? backupUrl : ((item as! MediaItem).baseUrl)
 //        } else if item is CodecItem {//直播用
 //            backupUrl = (item.urlInfo?.first.host)! + item.baseUrl! + item.urlInfo!.first.extra!
 //            videoUrl = backupUrl.contains("http")? backupUrl : (item.baseUrl?? "")
