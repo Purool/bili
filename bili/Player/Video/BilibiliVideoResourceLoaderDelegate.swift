@@ -7,7 +7,6 @@
 
 import Alamofire
 import AVFoundation
-// import Swifter
 import SwiftyJSON
 import UIKit
 
@@ -25,12 +24,8 @@ class BilibiliVideoResourceLoaderDelegate: NSObject, AVAssetResourceLoaderDelega
         let url: String
         let duration: Int
     }
-
-    private var audioPlaylist = ""
-    private var videoPlaylist = ""
-    private var backupVideoPlaylist = ""
+    
     private var masterPlaylist = ""
-
     private let badRequestErrorCode = 455
 
     private var playlists = [String]()
@@ -38,15 +33,12 @@ class BilibiliVideoResourceLoaderDelegate: NSObject, AVAssetResourceLoaderDelega
     private var videoInfo = [PlaybackInfo]()
     private var segmentInfoCache = SidxDownloader()
     private var hasAudioInMasterListAdded = false
-    private(set) var playInfo: PlayUrlModel?
     private var hasSubtitle = false
     private var hasPreferSubtitleAdded = false
-//    private var httpServer = HttpServer()
-    private var aid = 0
-    private(set) var httpPort = 0
     private(set) var isHDR = false
+    
     deinit {
-//        httpServer.stop()
+
     }
 
     let videoCodecBlackList = ["avc1.640034"] // high 5.2 is not supported
@@ -232,9 +224,7 @@ class BilibiliVideoResourceLoaderDelegate: NSObject, AVAssetResourceLoaderDelega
         playlists.append(playList)
     }
 
-    func setBilibili(info: PlayUrlModel, subtitles: [SubtitleData], aid: Int) {
-        playInfo = info
-        self.aid = aid
+    func setBilibili(info: PlayUrlModel, subtitles: [SubtitleData]) {
         reset()
         hasSubtitle = subtitles.count > 0
         guard var videos = info.dash?.video, let dash = info.dash else { return }
@@ -273,11 +263,6 @@ class BilibiliVideoResourceLoaderDelegate: NSObject, AVAssetResourceLoaderDelega
             }
         }
 
-//        if hasSubtitle {
-//            try? httpServer.start(0)
-//            bindHttpServer()
-//            httpPort = (try? httpServer.port()) ?? 0
-//        }
         for subtitle in subtitles {
             addSubtitleData(lang: subtitle.lan, name: subtitle.lan_doc, duration: dash.duration, url: subtitle.url.absoluteString)
         }
@@ -348,94 +333,29 @@ private extension BilibiliVideoResourceLoaderDelegate {
                 report(loadingRequest, content: await getVideoPlayList(info: info))
             }
         }
-//        if urlStr.hasPrefix(URLs.customSubtitlePrefix) {
-//            let url = String(urlStr.dropFirst(URLs.customSubtitlePrefix.count))
-//            let req = url.removingPercentEncoding ?? url
-//            Task {
-//                do {
-//                    if subtitles[req] == nil {
-//                        let content = try await WebRequest.requestSubtitle(url: URL(string: req)!)
-//                        let vtt = BVideoUrlUtils.convertToVTT(subtitle: content)
-//                        subtitles[req] = vtt
-//                    }
-//                    let port = try self.httpServer.port()
-//                    let url = "http://127.0.0.1:\(port)/subtitle?u=" + url
-//                    let redirectRequest = URLRequest(url: URL(string: url)!)
-//                    let redirectResponse = HTTPURLResponse(url: URL(string: url)!, statusCode: 302, httpVersion: nil, headerFields: nil)
-//
-//                    loadingRequest.redirect = redirectRequest
-//                    loadingRequest.response = redirectResponse
-//                    loadingRequest.finishLoading()
-//                    return
-//                } catch let err {
-//                    loadingRequest.finishLoading(with: err)
-//                }
-//            }
-//            return
-//        }
+        if urlStr.hasPrefix(URLs.customSubtitlePrefix) {
+            let url = String(urlStr.dropFirst(URLs.customSubtitlePrefix.count))
+            let req = url.removingPercentEncoding ?? url
+            Task {
+                do {
+                    if let content = subtitles[req] {
+                        report(loadingRequest, content: content)
+                    } else {
+                        let content = try await ApiRequest.requestSubtitle(url: URL(string: req)!)
+                        let vtt = BVideoUrlUtils.convertToVTT(subtitle: content)
+                        subtitles[req] = vtt
+                        report(loadingRequest, content: vtt)
+                    }
+                    return
+                } catch let err {
+                    loadingRequest.finishLoading(with: err)
+                }
+            }
+            return
+        }
         print("handle loading", customUrl)
     }
 
-//    func bindHttpServer() {
-//        httpServer["/subtitle"] = { [weak self] req in
-//            if let url = req.queryParams.first(where: { $0.0 == "u" })?.1 {
-//                let req = url.removingPercentEncoding ?? url
-//                if let content = self?.subtitles[req] {
-//                    return HttpResponse.ok(.text(content))
-//                }
-//            }
-//            return HttpResponse.notFound()
-//        }
-//    }
-}
-
-enum BVideoUrlUtils {
-    static func sortUrls(base: String, backup: [String]?) -> [String] {
-        var urls = [base]
-        if let backup {
-            urls.append(contentsOf: backup)
-        }
-        return
-            urls.sorted { lhs, rhs in
-                let lhsIsPCDN = lhs.contains("szbdyd.com") || lhs.contains("mcdn.bilivideo.cn")
-                let rhsIsPCDN = rhs.contains("szbdyd.com") || rhs.contains("mcdn.bilivideo.cn")
-                switch (lhsIsPCDN, rhsIsPCDN) {
-                case (true, false): return false
-                case (false, true): return true
-                case (true, true): fallthrough
-                case (false, false): return lhs > rhs
-                }
-            }
-    }
-
-    static func convertVTTFormate(_ time: CGFloat) -> String {
-        let seconds = Int(time)
-        let hour = seconds / 3600
-        let min = (seconds % 3600) / 60
-        let second = CGFloat((seconds % 3600) % 60) + time - CGFloat(Int(time))
-        return String(format: "%02d:%02d:%06.3f", hour, min, second)
-    }
-
-    static func convertToVTT(subtitle: [SubtitleContent]) -> String {
-        var vtt = "WEBVTT\n\n"
-        for model in subtitle {
-            let from = convertVTTFormate(model.from)
-            let to = convertVTTFormate(model.to)
-            // hours:minutes:seconds.millisecond
-            vtt.append("\(from) --> \(to)\n\(model.content)\n\n")
-        }
-        return vtt
-    }
-}
-
-extension MediaItem {
-    var playableURLs: [String] {
-        BVideoUrlUtils.sortUrls(base: baseUrl, backup: backupUrl)
-    }
-
-    var isHevc: Bool {
-        return codecs.starts(with: "hev") || codecs.starts(with: "hvc") || codecs.starts(with: "dvh1")
-    }
 }
 
 actor SidxDownloader {

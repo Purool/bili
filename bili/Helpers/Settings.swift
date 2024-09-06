@@ -51,7 +51,7 @@ enum Settings {
     @UserDefaultCodable("Settings.danmuArea", defaultValue: .style_75)
     static var danmuArea: DanmuArea
 
-    @UserDefaultCodable("Settings.danmuSize", defaultValue: .size_36)
+    @UserDefaultCodable("Settings.danmuSize", defaultValue: .size_16)
     static var danmuSize: DanmuSize
 
     @UserDefaultCodable("Settings.danmuAILevel", defaultValue: 1)
@@ -128,7 +128,7 @@ enum DanmuArea: Codable, CaseIterable {
 }
 
 enum DanmuSize: String, Codable, CaseIterable {
-    case size_25
+    case size_16
     case size_31
     case size_36
     case size_42
@@ -141,8 +141,8 @@ enum DanmuSize: String, Codable, CaseIterable {
 
     var size: CGFloat {
         switch self {
-        case .size_25:
-            return 25
+        case .size_16:
+            return 16
         case .size_31:
             return 31
         case .size_36:

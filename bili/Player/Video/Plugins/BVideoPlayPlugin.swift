@@ -21,7 +21,7 @@ class BVideoPlayPlugin: NSObject, CommonPlayerPlugin {
         playerVC.player = nil
 //        playerVC.appliesPreferredDisplayCriteriaAutomatically = Settings.contentMatch
         Task {
-            try? await playmedia(urlInfo: playData.videoPlayURLInfo, playerInfo: playData.playerInfo)
+            await playmedia(urlInfo: playData.videoPlayURLInfo, playerInfo: playData.playerInfo)
         }
     }
 
@@ -37,7 +37,7 @@ class BVideoPlayPlugin: NSObject, CommonPlayerPlugin {
     }
 
     @MainActor
-    private func playmedia(urlInfo: PlayUrlModel, playerInfo: PlayerInfo?) async throws {
+    private func playmedia(urlInfo: PlayUrlModel, playerInfo: PlayerInfo?) async {
         let playURL = URL(string: BilibiliVideoResourceLoaderDelegate.URLs.play)!
         let headers: [String: String] = [
             "User-Agent": ApiRequest.Keys.userAgent,
@@ -45,7 +45,7 @@ class BVideoPlayPlugin: NSObject, CommonPlayerPlugin {
         ]
         let asset = AVURLAsset(url: playURL, options: ["AVURLAssetHTTPHeaderFieldsKey": headers])
         playerDelegate = BilibiliVideoResourceLoaderDelegate()
-        playerDelegate?.setBilibili(info: urlInfo, subtitles: playerInfo?.subtitle?.subtitles ?? [], aid: playData.aid)
+        playerDelegate?.setBilibili(info: urlInfo, subtitles: playerInfo?.subtitle?.subtitles ?? [])
         if Settings.contentMatchOnlyInHDR {
             if playerDelegate?.isHDR != true {
 //                playerVC?.appliesPreferredDisplayCriteriaAutomatically = false
@@ -53,9 +53,10 @@ class BVideoPlayPlugin: NSObject, CommonPlayerPlugin {
         }
         asset.resourceLoader.setDelegate(playerDelegate, queue: DispatchQueue(label: "loader"))
         if #available(iOS 15, *) {
-            let playable = try await asset.load(.isPlayable)
+            guard let playable = try? await asset.load(.isPlayable) else { return }
             if !playable {
-                throw "加载资源失败"
+                print("加载资源失败")
+                return
             }
         }
         let canPlay = asset.tracks(withMediaType: .video).isEmpty

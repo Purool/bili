@@ -329,7 +329,8 @@ enum QApi {
     static let onlineTotal = "/x/player/online/total"
     
     static let webDanmaku = "/x/v2/dm/web/seg.so"
-    
+    static let danmuWebView = "/x/v2/dm/web/view"
+    static let danmuList = "/x/v2/dm/list/seg.so"
     //发送视频弹幕
     //https://github.com/SocialSisterYi/bilibili-API-collect/blob/master/docs/danmaku/action.md
     static let shootDanmaku = "/x/v2/dm/post"

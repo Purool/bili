@@ -32,7 +32,7 @@ class VideoPlayerViewModel {
 //    var nextProvider: VideoNextProvider?
 
     private var playInfo: PlayInfo
-//    private let danmuProvider = VideoDanmuProvider()
+    private let danmuProvider = VideoDanmuProvider()
     private var videoDetail: VideoDetail?
     private var cancellable = Set<AnyCancellable>()
     private var playPlugin: CommonPlayerPlugin?
@@ -54,7 +54,7 @@ class VideoPlayerViewModel {
     private func loadVideoInfo() async throws -> PlayerDetailData {
 //        try await initPlayInfo()
         let data = try await fetchVideoData()
-//        await danmuProvider.initVideo(cid: data.cid, startPos: data.playerStartPos ?? 0)
+        await danmuProvider.initVideo(cid: data.cid, startPos: data.playerStartPos ?? 0)
         return data
     }
 
@@ -71,7 +71,7 @@ class VideoPlayerViewModel {
     }
 
     private func fetchVideoData() async throws -> PlayerDetailData {
-//        assert(playInfo.isCidVaild)
+        assert(playInfo.cid ?? 0 > 0)
         let aid = playInfo.aid
         let cid = playInfo.cid!
         async let infoReq: PlayerInfo? = try? ApiRequest.requestGetObj(QApi.getSubtitleConfig, parameters: ["aid": aid, "cid": cid])
@@ -139,8 +139,7 @@ class VideoPlayerViewModel {
 
     @MainActor private func generatePlayerPlugin(_ data: PlayerDetailData) async -> [CommonPlayerPlugin] {
         let player = BVideoPlayPlugin(detailData: data)
-//        let danmu = DanmuViewPlugin(provider: danmuProvider)
-        let upnp = BUpnpPlugin(duration: data.detail?.View.duration)
+        let danmu = DanmuViewPlugin(provider: danmuProvider)
 //        let debug = DebugPlugin()
 //        let playSpeed = SpeedChangerPlugin()
 //        playSpeed.$currentPlaySpeed.sink { [weak danmu] speed in
@@ -160,24 +159,11 @@ class VideoPlayerViewModel {
         playPlugin = player
 
 //        var plugins: [CommonPlayerPlugin] = [player, danmu, playSpeed, upnp, debug, playlist]
-        var plugins: [CommonPlayerPlugin] = [player, upnp]
+        var plugins: [CommonPlayerPlugin] = [player, danmu]
         if let clips = data.clips {
             let clip = BVideoClipsPlugin(clipInfos: clips)
             plugins.append(clip)
         }
-
-//        if Settings.danmuMask {
-//            if let mask = data.playerInfo?.dm_mask,
-//               let video = data.videoPlayURLInfo.dash?.video?.first,
-//               mask.fps > 0
-//            {
-//                let maskProvider = BMaskProvider(info: mask, videoSize: CGSize(width: video.width ?? 0, height: video.height ?? 0))
-//                plugins.append(MaskViewPugin(maskView: danmu.danMuView, maskProvider: maskProvider))
-//            } else if Settings.vnMask {
-//                let maskProvider = VMaskProvider()
-//                plugins.append(MaskViewPugin(maskView: danmu.danMuView, maskProvider: maskProvider))
-//            }
-//        }
 
         if let detail = data.detail {
             let info = BVideoInfoPlugin(title: detail.title, subTitle: detail.ownerName, desp: detail.View.desc, pic: detail.pic, viewPoints: data.playerInfo?.view_points)

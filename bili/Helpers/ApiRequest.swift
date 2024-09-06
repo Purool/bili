@@ -9,6 +9,7 @@ import Alamofire
 import CryptoKit
 import Foundation
 import SwiftyJSON
+import SwiftProtobuf
 import CommonCrypto
 
 struct LoginToken: Codable {
@@ -146,6 +147,65 @@ enum ApiRequest {
     static func logout(complete: (() -> Void)? = nil) {
         UserDefaults.standard.removeObject(forKey: "token")
         complete?()
+    }
+    
+    static func requestData(_ url: URLConvertible,
+                            method: HTTPMethod = .get,
+                            parameters: Parameters = [:],
+                            headers: HTTPHeaders? = nil,
+                            noCookie: Bool = false,
+                            complete: ((Result<Data, RequestError>) -> Void)? = nil)
+    {
+        var parameters = parameters
+        parameters = sign(for: parameters)
+        
+        var desURL = HttpString.apiBaseUrl
+        
+        do {
+            let tempURL = try url.asURL()
+            if nil == tempURL.host {
+                desURL += tempURL.absoluteString
+            } else {
+                desURL = tempURL.absoluteString
+            }
+        } catch {
+            print("Error: \(error)")
+            complete?(.failure(.networkFail))
+            return
+        }
+        AF.request(desURL, method: method, parameters: parameters, headers: headers).responseData { response in
+            print("---URL: \(response.request?.url?.absoluteString ?? "")")
+            switch response.result {
+            case let .success(data):
+                complete?(.success(data))
+            case let .failure(err):
+                print(err)
+                complete?(.failure(.networkFail))
+            }
+        }
+    }
+    
+    static func requestPB<T: SwiftProtobuf.Message>(_ url: URLConvertible,
+                                                    method: HTTPMethod = .get,
+                                                    parameters: Parameters = [:]) async throws -> T
+    {
+        return try await withCheckedThrowingContinuation { configure in
+            requestData(url, method: method, parameters: parameters) {
+                res in
+                switch res {
+                case let .success(data):
+                    do {
+                        let protobufObject = try T(serializedBytes: data)
+                        configure.resume(returning: protobufObject)
+                    } catch let err {
+                        print("Protobuf parsing error: \(err.localizedDescription)")
+                        configure.resume(throwing: err)
+                    }
+                case let .failure(err):
+                    configure.resume(throwing: err)
+                }
+            }
+        }
     }
     
     static func requestJSON(_ url: URLConvertible,
@@ -334,6 +394,14 @@ enum ApiRequest {
 //        let res = try await ApiRequest.requestGetJson(QApi.videoUrl, parameters: params)
         let model: PlayUrlModel = try await ApiRequest.requestGetObj(QApi.videoUrl, parameters: params)
         return model
+    }
+    
+    static func requestSubtitle(url: URL) async throws -> [SubtitleContent] {
+        struct SubtitlContenteResp: Codable {
+            let body: [SubtitleContent]
+        }
+        let resp = try await AF.request(url).serializingDecodable(SubtitlContenteResp.self).value
+        return resp.body
     }
     
 }

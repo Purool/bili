@@ -7,117 +7,45 @@
 
 import Foundation
 
-let VideoQualityList: [Int] = [6,16,32,64,74,80,112,116,120,125,126,127];
-let DecodeList: [String]  = ["dvh1", "av01", "hev1", "avc1"];
-
-enum VideoQuality: Int {
-    case speed240 = 6
-    case flunt360 = 16
-    case clear480 = 32
-    case high720 = 64
-    case high72060 = 74
-    case high1080 = 80
-    case high1080plus = 112
-    case high108060 = 116
-    case super4K = 120
-    case hdr = 125
-    case dolbyVision = 126
-    case super8k = 127
-}
-
-enum AudioQuality: Int {
-    case k64 = 30216
-    case k132 = 30232
-    case k192 = 30280
-    case dolby = 30250
-    case hiRes = 30251
-}
-
-enum VideoDecodeFormats: String {
-    case DVH1 = "dvh1"
-    case AV1 = "av01"
-    case HEVC = "hev1"
-    case AVC = "avc1"
-}
-
-extension VideoQuality {
-    var description: String {
-        switch self {
-        case.speed240:
-            return "240P 极速"
-        case.flunt360:
-            return "360P 流畅"
-        case.clear480:
-            return "480P 清晰"
-        case.high720:
-            return "720P 高清"
-        case.high72060:
-            return "720P60 高帧率"
-        case.high1080:
-            return "1080P 高清"
-        case.high1080plus:
-            return "1080P+ 高码率"
-        case.high108060:
-            return "1080P60 高帧率"
-        case.super4K:
-            return "4K 超清"
-        case.hdr:
-            return "HDR 真彩色"
-        case.dolbyVision:
-            return "杜比视界"
-        case.super8k:
-            return "8K 超高清"
+enum BVideoUrlUtils {
+    static func sortUrls(base: String, backup: [String]?) -> [String] {
+        var urls = [base]
+        if let backup {
+            urls.append(contentsOf: backup)
         }
+        return
+            urls.sorted { lhs, rhs in
+                let lhsIsPCDN = lhs.contains("szbdyd.com") || lhs.contains("mcdn.bilivideo.cn")
+                let rhsIsPCDN = rhs.contains("szbdyd.com") || rhs.contains("mcdn.bilivideo.cn")
+                switch (lhsIsPCDN, rhsIsPCDN) {
+                case (true, false): return false
+                case (false, true): return true
+                case (true, true): fallthrough
+                case (false, false): return lhs > rhs
+                }
+            }
     }
-}
 
-extension AudioQuality {
-    var description: String {
-        switch self {
-        case.k64:
-            return "64K"
-        case.k132:
-            return "132K"
-        case.k192:
-            return "192K"
-        case.dolby:
-            return "杜比全景声"
-        case.hiRes:
-            return "Hi-Res无损"
+    static func convertVTTFormate(_ time: CGFloat) -> String {
+        let seconds = Int(time)
+        let hour = seconds / 3600
+        let min = (seconds % 3600) / 60
+        let second = CGFloat((seconds % 3600) % 60) + time - CGFloat(Int(time))
+        return String(format: "%02d:%02d:%06.3f", hour, min, second)
+    }
+
+    static func convertToVTT(subtitle: [SubtitleContent]) -> String {
+        var vtt = "WEBVTT\n\n"
+        for model in subtitle {
+            let from = convertVTTFormate(model.from)
+            let to = convertVTTFormate(model.to)
+            // hours:minutes:seconds.millisecond
+            vtt.append("\(from) --> \(to)\n\(model.content)\n\n")
         }
+        return vtt
     }
 }
 
-extension VideoDecodeFormats {
-    var description: String {
-        return rawValue
-    }
-    
-    static func fromCode(_ code: String) -> VideoDecodeFormats? {
-        return VideoDecodeFormats(rawValue: code)
-    }
-    
-    static func fromString(_ val: String) -> VideoDecodeFormats? {
-//        for format in VideoDecodeFormats {
-//            if val.hasPrefix(format.rawValue) {
-//                return format
-//            }
-//        }
-        return nil
-    }
-}
-/*
- let videoQuality = VideoQuality.speed240
- print(videoQuality.description) // 输出: 240P 极速
-
- let audioQuality = AudioQuality.hiRes
- print(audioQuality.description) // 输出: Hi-Res无损
-
- let videoDecodeFormat = VideoDecodeFormats.fromString("hev1")
- if let format = videoDecodeFormat {
-     print(format.description) // 输出: hev1
- }
- */
 struct MediaItem: Codable, Hashable {
     
     func hash(into hasher: inout Hasher) {
@@ -145,6 +73,16 @@ struct MediaItem: Codable, Hashable {
     var SegmentBase: DashSegmentBase?
     @Default var codecid: Int
     var quality: Int?
+}
+
+extension MediaItem {
+    var playableURLs: [String] {
+        BVideoUrlUtils.sortUrls(base: baseUrl, backup: backupUrl)
+    }
+
+    var isHevc: Bool {
+        return codecs.starts(with: "hev") || codecs.starts(with: "hvc") || codecs.starts(with: "dvh1")
+    }
 }
 
 struct PlayUrlModel: Codable {
@@ -186,6 +124,37 @@ struct PlayUrlModel: Codable {
             self.toastText = toastText
         }
     }
+    // FormatItem类
+    struct FormatItem: Codable {
+        @Default var quality: Int
+        @Default var format: String
+        @Default var new_description: String
+        @Default var display_desc: String
+        var codecs: [String]
+    }
+    
+    // Dolby类
+    struct Dolby: Codable {
+        // 1：普通杜比音效 2：全景杜比音效
+        @Default var type: Int
+        var audio: [MediaItem]?
+    }
+
+    // Flac类
+    struct Flac: Codable {
+        @Default var display: Bool
+        var audio: MediaItem?
+    }
+
+    // Durl类
+    struct Durl: Codable {
+        @Default var order: Int
+        @Default var length: Int
+        @Default var size: Int
+        @Default var ahead: String
+        @Default var vhead: String
+        @Default var url: String
+    }
     
     @Default var from: String
     @Default var result: String
@@ -207,38 +176,3 @@ struct PlayUrlModel: Codable {
     @Default var last_play_cid: Int
     let clip_info_list: [ClipInfo]?
 }
-
-
-// FormatItem类
-struct FormatItem: Codable {
-    @Default var quality: Int
-    @Default var format: String
-    @Default var new_description: String
-    @Default var display_desc: String
-    var codecs: [String]
-}
-
-// Dolby类
-struct Dolby: Codable {
-    // 1：普通杜比音效 2：全景杜比音效
-    @Default var type: Int
-    var audio: [MediaItem]?
-}
-
-// Flac类
-struct Flac: Codable {
-    @Default var display: Bool
-    var audio: MediaItem?
-}
-
-// Durl类
-struct Durl: Codable {
-    @Default var order: Int
-    @Default var length: Int
-    @Default var size: Int
-    @Default var ahead: String
-    @Default var vhead: String
-    @Default var url: String
-}
-
-

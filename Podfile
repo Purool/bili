@@ -14,6 +14,8 @@ target 'bili' do
   pod 'HMSegmentedControl'
   pod 'MBProgressHUD'
   pod 'EmptyDataSet-Swift'
+  pod 'DanmakuKit'
+  pod 'SwiftProtobuf'
   pod "DynamicBlurView", '~> 5.0.0'
   pod 'ReachabilitySwift', '~> 5.2.1'
   pod 'SDWebImage', '~> 5.0'
