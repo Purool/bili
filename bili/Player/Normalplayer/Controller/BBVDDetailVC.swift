@@ -50,17 +50,6 @@ class BBVDDetailVC: QBaseViewController {
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        playerVC.view.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.left.right.equalToSuperview()
-            make.bottom.equalTo(TabVC.view.snp.top).offset(kScreenWidth_9_16)
-        }
-        
-        contentScrollView.snp.makeConstraints { make in
-            make.size.equalTo(contentScrollView.frame.size)
-            make.top.equalToSuperview().offset(kStatusBarHeight)
-            make.bottom.equalToSuperview()
-        }
     }
     
     private func setUpUI() {
@@ -74,17 +63,12 @@ class BBVDDetailVC: QBaseViewController {
         self.addChild(TabVC)
         contentScrollView.addSubview(TabVC.view)
         
-        contentScrollView.rx.contentOffset.buffer(timeSpan: .milliseconds(100), count: 2, scheduler: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] (points) in
-                guard let self = self, let pointA = points.first, let pointB = points.last else {return}
-    //            print("\(pointB)=====\(pointA)")
-//                let result = pointB.y - pointA.y
-//                if (pointA.y < 0) || (pointB.y < 0){
-//                    (self.parent as! HomeViewController).setNavViewHideStatus(by: false)
-//                }else if result != 0, result < 20 {
-//                    (self.parent as! HomeViewController).setNavViewHideStatus(by: result > 0)
-//                }
-            }).disposed(by: rx.disposeBag)
+        contentScrollView.rx.contentOffset.subscribe(onNext: { [weak self] (points) in
+            let retY = kStatusBarHeight - points.y
+            self?.playerVC.view.mj_y = retY
+            let distance = kScreenWidth_9_16 - kTopMargin + retY
+            self?.playerVC.backBtn.isHidden = !(retY < 0 && distance < 0.1)
+        }).disposed(by: rx.disposeBag)
         
     }
     

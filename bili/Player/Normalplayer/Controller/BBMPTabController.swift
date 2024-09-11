@@ -27,7 +27,7 @@ class BBMPTabController: UIViewController {
     lazy var pageScrollView: UIScrollView = {
         let contentScrollView = UIScrollView()
         contentScrollView.frame = CGRect(x: 0, y: CGRectGetMaxY(tabItemView.superview!.frame), width: kScreenWidth, height: CGRectGetMaxY(view.frame) - CGRectGetMaxY(tabItemView.superview!.frame))
-        contentScrollView.contentSize = CGSize(width: kScreenWidth*2, height: 0)
+        contentScrollView.contentSize = CGSize(width: kScreenWidth*2, height: contentScrollView.mj_h)
         contentScrollView.isPagingEnabled = true
         contentScrollView.bounces = false
         contentScrollView.showsHorizontalScrollIndicator = false
@@ -66,7 +66,7 @@ class BBMPTabController: UIViewController {
     }
     
     @objc func segmentedControlChangedValue(segmentedControl: HMSegmentedControl) {
-        self.pageScrollView.scrollRectToVisible(CGRect(x: kScreenWidth * CGFloat(segmentedControl.selectedSegmentIndex), y: 0, width: kScreenWidth, height: 100), animated: true)
+        pageScrollView.scrollRectToVisible(CGRect(x: kScreenWidth * CGFloat(segmentedControl.selectedSegmentIndex), y: 0, width: kScreenWidth, height: 100), animated: true)
     }
     
 }
@@ -77,14 +77,17 @@ class VDDescVC: UIViewController {
         view.backgroundColor = .systemGreen
         guard let parentVC = self.parent else { return }
         view.mj_h = (parentVC as! BBMPTabController).pageScrollView.mj_h
-//        setUpUI()
+        setUpUI()
+    }
+    func setUpUI(){
+        
     }
 }
 
 class VDCommentVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemPink
+        view.backgroundColor = .systemGray
         guard let parentVC = self.parent else { return }
         view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, (parentVC as! BBMPTabController).pageScrollView.mj_h)
 //        setUpUI()
