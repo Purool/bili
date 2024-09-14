@@ -11,10 +11,10 @@ import MBProgressHUD
 
 struct PlayInfo {
     let aid: Int
-    var cid: Int? = 0
-    var epid: Int? = 0 // 港澳台解锁需要
+    var cid: Int = 0
+    var epid: Int = 0 // 港澳台解锁需要
     var isBangumi: Bool = false
-    var seasonId: Int? = 0
+    var seasonId: Int = 0
 }
 class BBVDDetailVC: QBaseViewController {
     
@@ -59,7 +59,7 @@ class BBVDDetailVC: QBaseViewController {
         self.addChild(playerVC)
         view.addSubview(playerVC.view)
         
-        TabVC = BBMPTabController()
+        TabVC = BBMPTabController(playInfo: info)
         self.addChild(TabVC)
         contentScrollView.addSubview(TabVC.view)
         

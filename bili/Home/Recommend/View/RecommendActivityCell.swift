@@ -88,9 +88,9 @@ class RecommendActivityCell: UICollectionViewCell {
         didSet{
             if let model = videoModel as? RecVideoItemModel {
 //                coverBgImgView.kf.setImage(with: URL(string:model.pic))
-                var coverText = model.stat?.view
+                var coverText = model.stat?.view ?? 0
                 coverLeftLabel1.text = QUtils.numFormat(coverText)
-                coverText = model.stat?.danmaku
+                coverText = model.stat?.danmaku ?? 0
                 coverLeftLabel2.text = QUtils.numFormat(coverText)
                 coverRightLabel.text = QUtils.timeFormat(model.duration)
                 titleLabel.text = model.title

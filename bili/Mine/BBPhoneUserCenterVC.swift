@@ -29,8 +29,8 @@ class BBPhoneUserCenterVC: QBaseViewController {
          },
        );
          */
-        let vc = QWebViewController(url: "https://passport.bilibili.com/h5-app/passport/login")
-        let nav = UINavigationController(rootViewController: vc)//LoginViewController())
+//        let vc = QWebViewController(url: "https://passport.bilibili.com/h5-app/passport/login")
+        let nav = UINavigationController(rootViewController: LoginViewController())//LoginViewController())
         nav.modalPresentationStyle = .fullScreen
         self.present(nav, animated: true)
     }
@@ -62,7 +62,7 @@ class BBPhoneUserCenterVC: QBaseViewController {
             
             //TODO: login
         }else {                                                                                                     
-            myInfoTips.text = "Tap to Login。。Tap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to LoginTap to Login"
+            myInfoTips.text = "Tap to Login。。Tap"
             myInfoTips.font = UIFont.systemFont(ofSize: 18, weight: .medium)
             myInfoTips.snp.makeConstraints { make in
                 make.centerY.equalToSuperview()

@@ -9,14 +9,6 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-class BaseViewModel {
-    
-    var inputs: Self { self }
-
-    var outputs: Self { self }
-    
-}
-
 class RecommendViewModel: BaseViewModel, VMInAndOutputs {
     
     let dataSource = BehaviorRelay<[Any]>(value: [])

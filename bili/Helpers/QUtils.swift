@@ -1,5 +1,5 @@
 //
-//  Utils.swift
+//  QUtils.swift
 //  bili
 //
 //  Created by DJ on 2024/8/21.
@@ -39,25 +39,21 @@ struct QUtils {
         return "-x"
     }
     
-    static func numFormat(_ number: Any?) -> String {
-        guard let number = number else {
-            return "0"
+    static func numFormat<T: Numeric>(_ value: T) -> String {
+        let doubleValue: Double
+        if let intValue = value as? Int {
+            doubleValue = Double(intValue)
+        } else if let doubleValueInput = value as? Double {
+            doubleValue = doubleValueInput
+        } else {
+            return "\(value)" // 如果不是 Int 或 Double，直接返回字符串
+        }
+        if doubleValue >= 10000.0 {
+            let wanValue = doubleValue / 10000.0
+            return String(format: "%.1f万", wanValue)
         }
         
-        if let numberString = number as? String {
-            return numberString
-        }
-        
-        if let numberDouble = number as? Double {
-            let res = numberDouble / 10000
-            if Int(res) >= 1 {
-                return String(format: "%.1f万", res)
-            } else {
-                return String(numberDouble)
-            }
-        }
-        
-        return String(describing: number)
+        return "\(value)"
     }
     
     static func makeHeroTag(_ v: String) -> String {

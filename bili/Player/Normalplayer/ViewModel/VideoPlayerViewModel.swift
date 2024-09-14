@@ -71,9 +71,9 @@ class VideoPlayerViewModel {
     }
 
     private func fetchVideoData() async throws -> PlayerDetailData {
-        assert(playInfo.cid ?? 0 > 0)
+        assert(playInfo.cid > 0)
         let aid = playInfo.aid
-        let cid = playInfo.cid!
+        let cid = playInfo.cid
         async let infoReq: PlayerInfo? = try? ApiRequest.requestGetObj(QApi.getSubtitleConfig, parameters: ["aid": aid, "cid": cid])
         async let detailUpdate: () = updateVideoDetailIfNeeded()
         do {
@@ -102,7 +102,7 @@ class VideoPlayerViewModel {
             let info = await infoReq
             _ = await detailUpdate
 
-            var detail = PlayerDetailData(aid: playInfo.aid, cid: playInfo.cid!, epid: playInfo.epid, isBangumi: playInfo.isBangumi, detail: videoDetail, clips: clipInfos, playerInfo: info, videoPlayURLInfo: playData)
+            var detail = PlayerDetailData(aid: playInfo.aid, cid: playInfo.cid, epid: playInfo.epid, isBangumi: playInfo.isBangumi, detail: videoDetail, clips: clipInfos, playerInfo: info, videoPlayURLInfo: playData)
 
             if let info, info.last_play_cid == cid, (playData.dash?.duration ?? 0) - info.playTimeInSecond > 5, Settings.continuePlay {
                 detail.playerStartPos = info.playTimeInSecond
@@ -178,7 +178,7 @@ class VideoPlayerViewModel {
 extension VideoPlayerViewModel {
     private func fetchAreaLimitPcgVideoData() async throws -> PlayUrlModel? {
         guard Settings.areaLimitUnlock else { return nil }
-        guard let epid = playInfo.epid, epid > 0 else { return nil }
+//        guard let epid = playInfo.epid, epid > 0 else { return nil }
 
 //        let season = try await WebRequest.requestBangumiSeasonView(epid: epid)
 //        let checkTitle = season.title.contains("僅") ? season.title : season.series_title

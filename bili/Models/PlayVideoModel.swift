@@ -183,6 +183,7 @@ struct VideoDetail: Codable, Hashable {
     struct Owner: Hashable, Codable {
         let following: Bool
         let follower: Int?
+        let archive_count: Int?
     }
 
     let View: Info

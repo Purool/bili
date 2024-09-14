@@ -209,6 +209,7 @@ enum QApi {
     
     // 番剧/剧集明细
     static let bangumiInfo = "/pgc/view/web/season"
+    static let bangumiInfoSeason = "/pgc/web/season/section"
     
     // 全部关注的up
     // vmid 用户id pn 页码 ps 每页个数，最大50 order: desc

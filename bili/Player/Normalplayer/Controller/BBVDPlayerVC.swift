@@ -17,6 +17,7 @@ class BBVDPlayerVC: CommonPlayerViewController {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(systemName: "chevron.left"), for: .normal)
         button.tintColor = .white
+        button.addTarget(self, action: #selector(pressBack), for: .touchUpInside)
         return button
     }()
     
@@ -67,4 +68,7 @@ class BBVDPlayerVC: CommonPlayerViewController {
         super.viewDidLayoutSubviews()
     }
     
+    @objc func pressBack() {
+        navigationController?.popViewController(animated: true)
+    }
 }

@@ -267,13 +267,14 @@ enum ApiRequest {
                                       parameters: Parameters = [:],
                                       auth: Bool = true,
                                       encoding: ParameterEncoding = URLEncoding.default,
-                                      headers: HTTPHeaders? = nil) async throws -> JSON
+                                      headers: HTTPHeaders? = nil,
+                                      dataObj: String = "data") async throws -> JSON
     {
         return try await withCheckedThrowingContinuation { configure in
             requestJSON(url, method: method, parameters: parameters, auth: auth, encoding: encoding, headers: headers) { result in
                 switch result {
                 case let .success(data):
-                    configure.resume(returning: data["data"])
+                    configure.resume(returning: data[dataObj])
                 case let .failure(err):
                     configure.resume(throwing: err)
                 }
@@ -286,14 +287,15 @@ enum ApiRequest {
                                       parameters: Parameters = [:],
                                       auth: Bool = true,
                                       encoding: ParameterEncoding = URLEncoding.default,
-                                      headers: HTTPHeaders? = nil) async throws -> T
+                                      headers: HTTPHeaders? = nil,
+                                      dataObj: String = "data") async throws -> T
     {
         return try await withCheckedThrowingContinuation { configure in
             requestJSON(url, method: method, parameters: parameters, auth: auth, encoding: encoding, headers: headers) { result in
                 switch result {
                 case let .success(data):
                     do {
-                        let data = try data["data"].rawData()
+                        let data = try data[dataObj].rawData()
                         let object = try JSONDecoder().decode(T.self, from: data)
                         configure.resume(returning: object)
                     } catch let err {
@@ -402,6 +404,16 @@ enum ApiRequest {
         }
         let resp = try await AF.request(url).serializingDecodable(SubtitlContenteResp.self).value
         return resp.body
+    }
+    
+    static func requestBangumiInfo(epid: Int) async throws -> BangumiInfo {
+        let info: BangumiInfo = try await requestGetObj(QApi.bangumiInfo, parameters: ["ep_id": epid], dataObj: "result")
+        return info
+    }
+
+    static func requestBangumiInfo(seasonID: Int) async throws -> BangumiSeasonInfo {
+        let res: BangumiSeasonInfo = try await requestGetObj(QApi.bangumiInfoSeason, parameters: ["season_id": seasonID], dataObj: "result")
+        return res
     }
     
 }

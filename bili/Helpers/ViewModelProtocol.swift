@@ -23,3 +23,11 @@ protocol VMInAndOutputs {
     /// 数据源数组
     var dataSource: BehaviorRelay<[T]> { get }
 }
+
+class BaseViewModel {
+    
+    var inputs: Self { self }
+
+    var outputs: Self { self }
+    
+}
