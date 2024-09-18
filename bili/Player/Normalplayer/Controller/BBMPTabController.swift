@@ -94,29 +94,47 @@ class BBMPTabController: UIViewController {
     
 }
 
-class VDDescVC: UITableViewController {
-    
+
+class VDDescVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    class NestTableView: UITableView {
+        func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+            return true
+        }
+    }
     let allClass: [UITableViewCell.Type] = [BBMediaDescUniteUpperCell.self, VDSectionControllerCell.self, BBMediaDescUniteFeatureCell.self, BBMediaUniteRelateCell.self]
     var cells: [UITableViewCell] = []
+    private var data: VideoDetail?
+    var tableView = NestTableView(frame: CGRectZero)
+    var canScroll = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(tableView)
         tableView.separatorStyle = .none
         tableView.delegate = self
         tableView.dataSource = self
         allClass.forEach { tableView.register($0, forCellReuseIdentifier: String(describing: $0)) }
-        cells = allClass.map { self.tableView.dequeueReusableCell(withIdentifier: String(describing: $0))! }
+        cells = allClass.dropLast().map { self.tableView.dequeueReusableCell(withIdentifier: String(describing: $0))! }
         
         guard let parentVC = self.parent, let info = (parentVC as! BBMPTabController).detailInfo else { return }
         view.mj_size = CGSizeMake(kScreenWidth, (parentVC as! BBMPTabController).pageScrollView.mj_h)
+        tableView.frame = view.bounds
         
         setUpUI()
+        
+        tableView.rx.didScroll.subscribe(onNext: {[weak self] _ in
+            guard let scrollView = self?.tableView, let vc = self?.parent?.parent as? BBVDDetailVC else { return }
+            if kScreenWidth_9_16 - kNavigationBarHeight - vc.contentScrollView.contentOffset.y > 0.1 {
+                scrollView.contentOffset = CGPointZero
+            }
+        }).disposed(by: rx.disposeBag)
         
         let viewModel = VDDescViewModel()
         Task { await viewModel.inputs.getData(info: info) }
         
         viewModel.outputs.rxData.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] data in
             guard let strongSelf = self else { return }
+            strongSelf.data = data
             if let cell = strongSelf.cells[0] as? BBMediaDescUniteUpperCell{
                 cell.avatarView.kf.setImage(with: data.avatar)
                 cell.upNameLabel.text = data.ownerName
@@ -145,6 +163,17 @@ class VDDescVC: UITableViewController {
                     cell.setBtnTitle(value, index: index)
                 }
             }
+            var allUgcEpisodes = [VideoDetail.Info.UgcSeason.UgcVideoInfo]()
+            if let season = data.View.ugc_season {
+                if season.sections.count > 1 {
+                    if let section = season.sections.first(where: { section in section.episodes.contains(where: { episode in episode.aid == data.View.aid }) }) {
+                        allUgcEpisodes = section.episodes
+                    }
+                } else {
+                    allUgcEpisodes = season.sections.first?.episodes ?? []
+                }
+                allUgcEpisodes.sort { $0.arc.ctime < $1.arc.ctime }
+            }
             
             strongSelf.tableView.reloadData()
         }).disposed(by: rx.disposeBag)
@@ -168,15 +197,24 @@ class VDDescVC: UITableViewController {
         
     }
     //MARK: tableViewDelegate
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data?.Related.count ?? 0 + 3
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return cells[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row < 3 {
+            return cells[indexPath.row]
+        }
+        if let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: allClass.last!)) as? BBMediaUniteRelateCell{
+            if let related = data?.Related[indexPath.row - 3] {
+                cell.update(data: related)
+            }
+            return cell
+        }
+        return UITableViewCell()
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.row == 1 {
             if let cell = tableView.cellForRow(at: indexPath) as? VDSectionControllerCell {
                 cell.expandCell()
@@ -184,10 +222,8 @@ class VDDescVC: UITableViewController {
             }
         }
     }
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        return super.tableView(tableView, heightForRowAt: indexPath)
-    }
+    
+    
     
 }
 

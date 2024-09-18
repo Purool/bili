@@ -74,6 +74,14 @@ class BBMediaUniteRelateCell: UITableViewCell {
         super.layoutSubviews()
     }
     
+    func update(data: VideoDetail.Info) {
+        topLabel.text = data.title
+        coverImageView.kf.setImage(with: data.pic)
+        middleLabel.setTitle(data.ownerName, for: .normal)
+        bottomLabel1.setTitle(QUtils.numFormat(data.stat.view), for: .normal)
+        bottomLabel2.setTitle(QUtils.numFormat(data.stat.danmaku), for: .normal)
+    }
+    
     private func setupUI() {
         coverImageView.snp.makeConstraints { make in
             make.left.equalToSuperview().offset(12)

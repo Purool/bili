@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import MBProgressHUD
+import RxCocoa
 
 struct PlayInfo {
     let aid: Int
@@ -20,8 +21,9 @@ class BBVDDetailVC: QBaseViewController {
     
     var detailInfo: PlayInfo?
     
-    private var playerVC: BBVDPlayerVC!
+    var playerVC: BBVDPlayerVC!
     private var TabVC: BBMPTabController!
+    private var canScroll = true
     
     lazy var contentScrollView: UIScrollView = {
         let contentScrollView = UIScrollView()
@@ -63,14 +65,22 @@ class BBVDDetailVC: QBaseViewController {
         self.addChild(TabVC)
         contentScrollView.addSubview(TabVC.view)
         
-        contentScrollView.rx.contentOffset.subscribe(onNext: { [weak self] (points) in
+        contentScrollView.rx.contentOffset.map({ [weak self] (points) in
             let retY = kStatusBarHeight - points.y
             self?.playerVC.view.mj_y = retY
             let distance = kScreenWidth_9_16 - kTopMargin + retY
-            self?.playerVC.backBtn.isHidden = !(retY < 0 && distance < 0.1)
-        }).disposed(by: rx.disposeBag)
+            let isHidden = !(retY < 0 && distance < 0.1)
+            return isHidden
+        }).bind(to: self.playerVC.backBtn.rx.isHidden).disposed(by: rx.disposeBag)
         
+        contentScrollView.rx.didScroll.filter({ [weak self] _ in
+            guard let vc = (self?.children.last?.children.first as? VDDescVC) else { return false }
+            return vc.tableView.contentOffset.y > 0.1
+        }).map({ CGPoint(x: 0, y: kScreenWidth_9_16 - kNavigationBarHeight) })
+            .bind(to: contentScrollView.rx.contentOffset).disposed(by: rx.disposeBag)
     }
+    
+    
     
 }
 
