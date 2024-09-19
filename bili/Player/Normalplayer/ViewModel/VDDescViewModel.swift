@@ -16,6 +16,7 @@ class VDDescViewModel: BaseViewModel {
     let likeStatus = PublishSubject<Bool>()
     let coinCount = PublishSubject<Int>()
     let coinStatus = PublishSubject<Bool>()
+    let rxReplys = PublishSubject<[Replys.Reply]>()
     
     func getData(info: PlayInfo) async {
 //        pageView.isHidden = true
@@ -60,15 +61,6 @@ class VDDescViewModel: BaseViewModel {
                 pages = info.episodes.map({ VideoPage(cid: $0.cid, page: $0.aid, epid: $0.id, from: "", part: $0.title + " " + $0.long_title) })
             }
             self.rxPages.onNext(pages)
-            if let likeStatusJson = try? await ApiRequest.requestGetJson(QApi.hasLikeVideo, parameters: ["aid": aid]){
-                self.likeStatus.onNext(likeStatusJson.intValue == 1)
-            }
-            if let coinCountJson = try? await ApiRequest.requestGetJson(QApi.hasCoinVideo, parameters: ["aid": aid]){
-                self.coinCount.onNext(coinCountJson["multiply"].intValue)
-            }
-            if let coinStatusJson = try? await ApiRequest.requestGetJson(QApi.hasFavVideo, parameters: ["aid": aid]){
-                self.coinStatus.onNext(coinStatusJson["favoured"].boolValue)
-            }
         } catch let err {
             self.rxPages.onError(err)
             self.rxData.onError(err)
@@ -81,18 +73,18 @@ class VDDescViewModel: BaseViewModel {
 //                self.exit(with: err)
             }
         }
-
-//        ApiRequest.requestGetJson(QApi.replyList)
-//        WebRequest.requestReplys(aid: aid) { [weak self] replys in
-//            self?.replys = replys
-//            self?.replysCollectionView.reloadData()
-//        }
-//        if isBangumi {
-//            favButton.isHidden = true
-//            recommandCollectionView.superview?.isHidden = true
-//            return
-//        }
-
+        if let replys: Replys = try? await ApiRequest.requestGetObj(QApi.replyList, parameters: ["type": 1, "oid": aid, "sort": 1, "nohot": 0]){
+            self.rxReplys.onNext(replys.replies ?? [])
+        }
+        if let likeStatusJson = try? await ApiRequest.requestGetJson(QApi.hasLikeVideo, parameters: ["aid": aid]){
+            self.likeStatus.onNext(likeStatusJson.intValue == 1)
+        }
+        if let coinCountJson = try? await ApiRequest.requestGetJson(QApi.hasCoinVideo, parameters: ["aid": aid]){
+            self.coinCount.onNext(coinCountJson["multiply"].intValue)
+        }
+        if let coinStatusJson = try? await ApiRequest.requestGetJson(QApi.hasFavVideo, parameters: ["aid": aid]){
+            self.coinStatus.onNext(coinStatusJson["favoured"].boolValue)
+        }
     }
     
     

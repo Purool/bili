@@ -233,14 +233,19 @@ struct SubtitleData: Codable, Hashable {
 struct Replys: Codable, Hashable {
     struct Reply: Codable, Hashable {
         struct Member: Codable, Hashable {
+            struct levelInfo: Codable, Hashable {
+                let current_level: Int
+            }
             let uname: String
             let avatar: String
+            let level_info: levelInfo
         }
 
         struct Content: Codable, Hashable {
             let message: String
         }
-
+        let ctime: Int
+        let like: Int
         let member: Member
         let content: Content
         let replies: [Reply]?

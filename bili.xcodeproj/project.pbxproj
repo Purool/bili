@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		381EA7E12C9C0B51001D4CE0 /* BFCCommentListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 381EA7E02C9C0B51001D4CE0 /* BFCCommentListCell.swift */; };
 		3821AF5C2C6B317C00770034 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3821AF5B2C6B317C00770034 /* AppDelegate.swift */; };
 		3821AF632C6B317C00770034 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = 3821AF622C6B317C00770034 /* Base */; };
 		3821AF652C6B317E00770034 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3821AF642C6B317E00770034 /* Assets.xcassets */; };
@@ -77,6 +78,7 @@
 
 /* Begin PBXFileReference section */
 		023D1F295E97AE0872E051F6 /* Pods-bili.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bili.debug.xcconfig"; path = "Target Support Files/Pods-bili/Pods-bili.debug.xcconfig"; sourceTree = "<group>"; };
+		381EA7E02C9C0B51001D4CE0 /* BFCCommentListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BFCCommentListCell.swift; sourceTree = "<group>"; };
 		3821AF582C6B317C00770034 /* bili.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bili.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3821AF5B2C6B317C00770034 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3821AF622C6B317C00770034 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -433,6 +435,7 @@
 				3875E0B12C944A0D0057B08E /* VDSectionControllerCell.swift */,
 				3875E0B32C9569450057B08E /* BBMediaDescUniteFeatureCell.swift */,
 				3875E0B52C9575CA0057B08E /* BBMediaUniteRelateCell.swift */,
+				381EA7E02C9C0B51001D4CE0 /* BFCCommentListCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -614,6 +617,7 @@
 				3821AF9A2C6B79DB00770034 /* UIColor+ET.swift in Sources */,
 				383C10252C89C42B005CDDC6 /* dmView.pb.swift in Sources */,
 				38D4AFE62C80991A004EA87E /* EWMBProgressHUD.swift in Sources */,
+				381EA7E12C9C0B51001D4CE0 /* BFCCommentListCell.swift in Sources */,
 				3821AF722C6B325500770034 /* MainTabbarViewController.swift in Sources */,
 				384AFDC82C6CE44F001E792C /* QwebCookieTool.swift in Sources */,
 				389D3ACD2C6E4C030066E20A /* QApi.swift in Sources */,

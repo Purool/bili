@@ -23,7 +23,6 @@ class BBVDDetailVC: QBaseViewController {
     
     var playerVC: BBVDPlayerVC!
     private var TabVC: BBMPTabController!
-    private var canScroll = true
     
     lazy var contentScrollView: UIScrollView = {
         let contentScrollView = UIScrollView()
@@ -74,7 +73,7 @@ class BBVDDetailVC: QBaseViewController {
         }).bind(to: self.playerVC.backBtn.rx.isHidden).disposed(by: rx.disposeBag)
         
         contentScrollView.rx.didScroll.filter({ [weak self] _ in
-            guard let vc = (self?.children.last?.children.first as? VDDescVC) else { return false }
+            guard let tabVc = self?.children.last as? BBMPTabController, let vc = (tabVc.children[Int(tabVc.tabItemView.selectedSegmentIndex)] as? BBMPTabController.VDDescVC) else { return false }
             return vc.tableView.contentOffset.y > 0.1
         }).map({ CGPoint(x: 0, y: kScreenWidth_9_16 - kNavigationBarHeight) })
             .bind(to: contentScrollView.rx.contentOffset).disposed(by: rx.disposeBag)

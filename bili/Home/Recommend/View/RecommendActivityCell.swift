@@ -87,7 +87,7 @@ class RecommendActivityCell: UICollectionViewCell {
     var videoModel: Any? {
         didSet{
             if let model = videoModel as? RecVideoItemModel {
-//                coverBgImgView.kf.setImage(with: URL(string:model.pic))
+                coverBgImgView.kf.setImage(with: URL(string:model.pic), options: [.processor(DownsamplingImageProcessor(size: CGSize(width: kScreenWidth*0.48, height: kScreenWidth*0.29))), .forceRefresh, .cacheOriginalImage])
                 var coverText = model.stat?.view ?? 0
                 coverLeftLabel1.text = QUtils.numFormat(coverText)
                 coverText = model.stat?.danmaku ?? 0
@@ -96,7 +96,7 @@ class RecommendActivityCell: UICollectionViewCell {
                 titleLabel.text = model.title
                 descButton.setTitle(model.owner?.name ?? "-", for: .normal)
             } else if let model = videoModel as? RecVideoItemAppModel{
-//                coverBgImgView.kf.setImage(with: URL(string:model.cover))
+                coverBgImgView.kf.setImage(with: URL(string:model.cover), options: [.processor(DownsamplingImageProcessor(size: CGSize(width: kScreenWidth*0.48, height: kScreenWidth*0.29))), .forceRefresh, .cacheOriginalImage])
                 var coverText = model.cover_left_text_2
                 coverText.removeLast(2)
                 coverLeftLabel1.text = coverText

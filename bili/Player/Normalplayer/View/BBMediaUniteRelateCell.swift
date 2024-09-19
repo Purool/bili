@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class BBMediaUniteRelateCell: UITableViewCell {
     var expanded = false
@@ -76,7 +77,7 @@ class BBMediaUniteRelateCell: UITableViewCell {
     
     func update(data: VideoDetail.Info) {
         topLabel.text = data.title
-        coverImageView.kf.setImage(with: data.pic)
+        coverImageView.kf.setImage(with: data.pic, options: [.processor(DownsamplingImageProcessor(size: CGSize(width: 123, height: 72))), .forceRefresh, .cacheOriginalImage])
         middleLabel.setTitle(data.ownerName, for: .normal)
         bottomLabel1.setTitle(QUtils.numFormat(data.stat.view), for: .normal)
         bottomLabel2.setTitle(QUtils.numFormat(data.stat.danmaku), for: .normal)
