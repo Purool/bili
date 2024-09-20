@@ -85,7 +85,7 @@ extension CommonPlayerViewController {
                 let newMenus = $0.addMenuItems(current: &menus)
                 menus.append(contentsOf: newMenus)
             }
-//            playerVC.transportBarCustomMenuItems = menus
+//            playerVC. = menus
         } else {
             rateObserver = nil
         }

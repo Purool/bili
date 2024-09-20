@@ -35,6 +35,13 @@ PODS:
   - SwiftDate (7.0.0)
   - SwiftProtobuf (1.28.1)
   - SwiftyJSON (5.0.2)
+  - ZFPlayer (4.1.4):
+    - ZFPlayer/Core (= 4.1.4)
+  - ZFPlayer/AVPlayer (4.1.4):
+    - ZFPlayer/Core
+  - ZFPlayer/ControlView (4.1.4):
+    - ZFPlayer/Core
+  - ZFPlayer/Core (4.1.4)
 
 DEPENDENCIES:
   - Alamofire (~> 5.7.1)
@@ -58,6 +65,9 @@ DEPENDENCIES:
   - SwiftDate (~> 7.0.0)
   - SwiftProtobuf
   - SwiftyJSON (~> 5.0.2)
+  - ZFPlayer
+  - ZFPlayer/AVPlayer
+  - ZFPlayer/ControlView
 
 SPEC REPOS:
   trunk:
@@ -84,6 +94,7 @@ SPEC REPOS:
     - SwiftDate
     - SwiftProtobuf
     - SwiftyJSON
+    - ZFPlayer
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
@@ -109,7 +120,8 @@ SPEC CHECKSUMS:
   SwiftDate: bbc26e26fc8c0c33fbee8c140c5e8a68293a148a
   SwiftProtobuf: cc47329e2a10c235e35ba4faed831742ae5135ce
   SwiftyJSON: f5b1bf1cd8dd53cd25887ac0eabcfd92301c6a5a
+  ZFPlayer: 5cf39e8d9f0c2394a014b0db4767b5b5a6bffe13
 
-PODFILE CHECKSUM: c42d3be30a223c084f6b873925a358465ae7dba6
+PODFILE CHECKSUM: 4c616514af0b79c73da63aa4cc62f8768763e45e
 
 COCOAPODS: 1.15.2

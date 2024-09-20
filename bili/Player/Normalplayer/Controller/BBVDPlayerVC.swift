@@ -6,12 +6,11 @@
 //
 
 import UIKit
-import Combine
+import RxSwift
 
 class BBVDPlayerVC: CommonPlayerViewController {
     
     private let viewModel: VideoPlayerViewModel
-    private var cancelable = Set<AnyCancellable>()
     
     lazy var backBtn: UIButton = {
         let button = UIButton(type: .custom)
@@ -40,28 +39,24 @@ class BBVDPlayerVC: CommonPlayerViewController {
             make.width.height.equalTo(kNavigationBarHeight)
             make.left.bottom.equalToSuperview()
         }
-
+        
 //        viewModel.nextProvider = nextProvider
-        viewModel.onPluginReady.receive(on: DispatchQueue.main).sink { [weak self] completion in
-            switch completion {
-            case let .failure(err):
-//                self?.showErrorAlertAndExit(message: err)
-                EWMBProgressHud.showTextHudTips(message: err, isTranslucent: true)
-            default:
-                break
-            }
-        } receiveValue: { [weak self] plugins in
+        viewModel.onPluginReady.observe(on: MainScheduler.instance).subscribe(onNext: { [weak self] plugins in
             plugins.forEach { self?.addPlugin(plugin: $0) }
-        }.store(in: &cancelable)
-        viewModel.onPluginRemove.sink { [weak self] in
+        }, onError: { err in
+            self.showErrorAlertAndExit(message: err.localizedDescription)
+        }).disposed(by: rx.disposeBag)
+        
+        viewModel.onPluginRemove.subscribe(onNext: { [weak self] in
             self?.removePlugin(plugin: $0)
-        }.store(in: &cancelable)
+        }).disposed(by: rx.disposeBag)
+        
         viewModel.onExit = { [weak self] in
             self?.dismiss(animated: true)
         }
-//        Task {
-//            await viewModel.load()
-//        }
+        Task {
+            await viewModel.load()
+        }
     }
     
     override func viewDidLayoutSubviews() {

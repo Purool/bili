@@ -5,21 +5,9 @@
 //  Created by DJ on 2024/9/4.
 //
 
-import Combine
+import RxSwift
+import RxCocoa
 import Foundation
-import SwiftUI
-
-fileprivate var cancellables = [String: AnyCancellable]()
-
-public extension Published {
-    init(wrappedValue defaultValue: Value, key: String) {
-        let value = UserDefaults.standard.object(forKey: key) as? Value ?? defaultValue
-        self.init(initialValue: value)
-        cancellables[key] = projectedValue.sink { val in
-            UserDefaults.standard.set(val, forKey: key)
-        }
-    }
-}
 
 enum FeedDisplayStyle: Codable, CaseIterable {
     case large
@@ -31,14 +19,11 @@ enum FeedDisplayStyle: Codable, CaseIterable {
     }
 }
 
-class Defaults {
-    static let shared = Defaults()
-    private init() {}
-
-    @Published(key: "Settings.danmuStatus") var showDanmu = true
-}
-
 enum Settings {
+    
+    @UserDefaultCodable("Settings.danmuStatus", defaultValue: true)
+    static var danmuStatus: Bool
+    
     @UserDefaultCodable("Settings.displayStyle", defaultValue: .normal)
     static var displayStyle: FeedDisplayStyle
 

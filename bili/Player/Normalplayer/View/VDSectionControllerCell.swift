@@ -8,7 +8,31 @@
 import UIKit
 
 class VDSectionControllerCell: UITableViewCell {
-    var expanded = false
+    
+    var expanded: Bool = false {
+        didSet{
+            if expanded {
+                titleLabel.numberOfLines = 0
+                descLabel.isHidden = false
+                expandBtn.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+                coverLeftIcon3.snp.remakeConstraints { make in
+                    make.top.equalTo(playLabel.snp.bottom).offset(2)
+                    make.width.height.equalTo(playLabel.snp.height)
+                    make.left.equalTo(titleLabel)
+                }
+            }else {
+                titleLabel.numberOfLines = 1
+                descLabel.isHidden = true
+                expandBtn.setImage(UIImage(systemName: "chevron.up"), for: .normal)
+                coverLeftIcon3.snp.remakeConstraints { make in
+                    make.top.equalTo(playLabel.snp.bottom).offset(2)
+                    make.width.height.equalTo(playLabel.snp.height)
+                    make.left.equalTo(titleLabel)
+                    make.bottom.equalToSuperview().offset(-12)
+                }
+            }
+        }
+    }
     
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -158,7 +182,7 @@ class VDSectionControllerCell: UITableViewCell {
             make.left.equalTo(danmakuLabel.snp.right).offset(6)
         }
         
-        expandCell()
+        expanded = false
         
         onlineLabel.snp.makeConstraints { make in
             make.centerY.equalTo(coverLeftIcon3)
@@ -178,29 +202,5 @@ class VDSectionControllerCell: UITableViewCell {
         }
     }
     
-    func expandCell() {
-        if expanded {
-            titleLabel.numberOfLines = 0
-            descLabel.isHidden = false
-            expandBtn.setImage(UIImage(systemName: "chevron.down"), for: .normal)
-            coverLeftIcon3.snp.remakeConstraints { make in
-                make.top.equalTo(playLabel.snp.bottom).offset(2)
-                make.width.height.equalTo(playLabel.snp.height)
-                make.left.equalTo(titleLabel)
-            }
-        }else {
-            titleLabel.numberOfLines = 1
-            descLabel.isHidden = true
-            expandBtn.setImage(UIImage(systemName: "chevron.up"), for: .normal)
-            coverLeftIcon3.snp.remakeConstraints { make in
-                make.top.equalTo(playLabel.snp.bottom).offset(2)
-                make.width.height.equalTo(playLabel.snp.height)
-                make.left.equalTo(titleLabel)
-                make.bottom.equalToSuperview().offset(-12)
-            }
-        }
-        expanded = !expanded
-//        setNeedsUpdateConstraints()
-    }
 }
 

@@ -85,7 +85,7 @@ class BFCCommentListCell: UITableViewCell {
             timeLabel.text = DateFormatter.stringFor(timestamp: model.ctime)
             levelTagImageView.image = UIImage(named: "misc_level_whiteLv\(model.member.level_info.current_level)")
             centerSection.text = model.content.message
-            likeActionBtn.setTitle(model.like == 0 ? String(model.like) : "", for: .normal)
+            likeActionBtn.setTitle(model.like == 0 ? "" : String(model.like), for: .normal)
 //            coverLeftIcon1.image = UIImage(systemName: "play.rectangle")
 //            coverLeftIcon2.image = UIImage(systemName: "list.dash.header.rectangle")
 //            descButton.setImage(UIImage(systemName: "person.circle"), for: .normal)

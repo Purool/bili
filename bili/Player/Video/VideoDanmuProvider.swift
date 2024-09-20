@@ -6,7 +6,8 @@
 //
 
 import Alamofire
-import Combine
+import RxSwift
+import RxCocoa
 import Foundation
 import SwiftProtobuf
 import UIKit
@@ -42,7 +43,7 @@ class VideoDanmuProvider: DanmuProviderProtocol {
     private var playingDanmus = [Danmu]()
 
     let observerPlayerTime: Bool = true
-    let onSendTextModel = PassthroughSubject<DanmakuTextCellModel, Never>()
+    let onSendTextModel = PublishSubject<DanmakuTextCellModel>()
 
     var onShowDanmu: ((DanmakuTextCellModel) -> Void)?
 
@@ -166,7 +167,7 @@ class VideoDanmuProvider: DanmuProviderProtocol {
             upDanmuIdx += 1
             let model = DanmakuTextCellModel(dm: dm)
             onShowDanmu?(model)
-            onSendTextModel.send(model)
+            onSendTextModel.onNext(model)
         }
 
         while danmuIdx < dms.count {
@@ -176,7 +177,7 @@ class VideoDanmuProvider: DanmuProviderProtocol {
             if dm.aiLevel < Settings.danmuAILevel { continue }
             let model = DanmakuTextCellModel(dm: dm)
             onShowDanmu?(model)
-            onSendTextModel.send(model)
+            onSendTextModel.onNext(model)
         }
     }
 }

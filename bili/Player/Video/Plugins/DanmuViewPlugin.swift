@@ -6,39 +6,39 @@
 //
 
 import AVKit
-import Combine
+import RxSwift
+import RxCocoa
 import UIKit
 import DanmakuKit
 
 protocol DanmuProviderProtocol {
     var observerPlayerTime: Bool { get }
-    var onSendTextModel: PassthroughSubject<DanmakuTextCellModel, Never> { get }
+    var onSendTextModel: PublishSubject<DanmakuTextCellModel> { get }
     func playerTimeChange(time: TimeInterval)
 }
 
 class DanmuViewPlugin: NSObject {
     let danMuView = DanmakuView()
-
+    var showDanmu = BehaviorSubject<Bool>(value: true)
     init(provider: DanmuProviderProtocol) {
         danmuProvider = provider
         super.init()
+        showDanmu.onNext(Settings.danmuStatus)
+        
         provider.onSendTextModel
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
+            .observe(on: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] in
                 self?.shoot($0)
-            }.store(in: &cancellable)
+            }).disposed(by: rx.disposeBag)
 
-        Defaults.shared.$showDanmu
-            .receive(on: DispatchQueue.main)
-            .sink {
-                [weak self] in
-                self?.danMuView.isHidden = !$0
-            }.store(in: &cancellable)
+        showDanmu.observe(on: MainScheduler.instance)
+            .map({ !$0 })
+            .bind(to: self.danMuView.rx.isHidden)
+            .disposed(by: rx.disposeBag)
     }
 
     private let danmuProvider: DanmuProviderProtocol
     private var timeObserver: Any?
-    private var cancellable = Set<AnyCancellable>()
 
     private func shoot(_ model: DanmakuCellModel) {
         danMuView.shoot(danmaku: model)
@@ -52,8 +52,8 @@ extension DanmuViewPlugin: CommonPlayerPlugin {
         }
         player.addPeriodicTimeObserver(forInterval: CMTime(seconds: 1, preferredTimescale: 1),
                                        queue: DispatchQueue.global()) { [weak self] time in
-            guard let self else { return }
-            if !Defaults.shared.showDanmu { return }
+            guard let self, let Danmu = try? showDanmu.value() else { return }
+            if !Danmu { return }
             let seconds = time.seconds
             danmuProvider.playerTimeChange(time: seconds)
         }
@@ -89,8 +89,8 @@ extension DanmuViewPlugin: CommonPlayerPlugin {
         let danmuImageDisable = UIImage(systemName: "list.bullet.rectangle")
         let danmuAction = UIAction(title: "Show Danmu", image: danMuView.isHidden ? danmuImageDisable : danmuImage) {
             action in
-            Defaults.shared.showDanmu.toggle()
-            action.image = Defaults.shared.showDanmu ? danmuImage : danmuImageDisable
+//            Defaults.shared.showDanmu.toggle()
+//            action.image = showDanmu ? danmuImage : danmuImageDisable
         }
         let danmuDurationMenu = UIMenu(title: "弹幕展示时长", options: [.displayInline], children: [4, 6, 8].map { dur in
             UIAction(title: "\(dur) 秒", state: dur == Settings.danmuDuration ? .on : .off) { _ in Settings.danmuDuration = dur }

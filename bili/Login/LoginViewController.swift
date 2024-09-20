@@ -158,6 +158,7 @@ class LoginViewController: QBaseViewController {
             make.top.equalTo(codeBgView.snp.bottom).offset(8)
             make.height.equalTo(44)
         }
+        
     }
     func setAction() {
         let headers: HTTPHeaders = [
@@ -174,6 +175,10 @@ class LoginViewController: QBaseViewController {
                     print(error)
                 }
             }
+        }).disposed(by: rx.disposeBag)
+        
+        loginButton.rx.tap.subscribe(onNext: { [weak self] in
+            self?.navigationController?.pushViewController(ZFNoramlViewController(), animated: true)
         }).disposed(by: rx.disposeBag)
     }
 }

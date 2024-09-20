@@ -5,7 +5,8 @@
 //  Created by DJ on 2024/9/4.
 //
 
-import Combine
+import RxSwift
+import RxCocoa
 import UIKit
 
 extension String: LocalizedError {
@@ -26,15 +27,14 @@ struct PlayerDetailData {
 }
 
 class VideoPlayerViewModel {
-    var onPluginReady = PassthroughSubject<[CommonPlayerPlugin], String>()
-    var onPluginRemove = PassthroughSubject<CommonPlayerPlugin, Never>()
+    var onPluginReady = PublishSubject<[CommonPlayerPlugin]>()
+    var onPluginRemove = PublishSubject<CommonPlayerPlugin>()
     var onExit: (() -> Void)?
 //    var nextProvider: VideoNextProvider?
 
     private var playInfo: PlayInfo
     private let danmuProvider = VideoDanmuProvider()
     private var videoDetail: VideoDetail?
-    private var cancellable = Set<AnyCancellable>()
     private var playPlugin: CommonPlayerPlugin?
 
     init(playInfo: PlayInfo) {
@@ -45,9 +45,9 @@ class VideoPlayerViewModel {
         do {
             let data = try await loadVideoInfo()
             let plugin = await generatePlayerPlugin(data)
-            onPluginReady.send(plugin)
+            onPluginReady.onNext(plugin)
         } catch let err {
-            onPluginReady.send(completion: .failure(err.localizedDescription))
+            onPluginReady.onError(err)
         }
     }
 
@@ -124,15 +124,15 @@ class VideoPlayerViewModel {
     private func playNext(newPlayInfo: PlayInfo) {
         playInfo = newPlayInfo
         if let playPlugin {
-            onPluginRemove.send(playPlugin)
+            onPluginRemove.onNext(playPlugin)
         }
         Task {
             do {
                 let data = try await loadVideoInfo()
                 let player = BVideoPlayPlugin(detailData: data)
-                onPluginReady.send([player])
+                onPluginReady.onNext([player])
             } catch let err {
-                onPluginReady.send(completion: .failure(err.localizedDescription))
+                onPluginReady.onError(err)
             }
         }
     }

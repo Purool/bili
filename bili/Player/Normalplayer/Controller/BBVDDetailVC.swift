@@ -44,9 +44,7 @@ class BBVDDetailVC: QBaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
-//        Task { await fetchData() }
         setUpUI()
-//        Task { await queryVideoUrl() }
     }
     
     override func viewDidLayoutSubviews() {
@@ -73,8 +71,12 @@ class BBVDDetailVC: QBaseViewController {
         }).bind(to: self.playerVC.backBtn.rx.isHidden).disposed(by: rx.disposeBag)
         
         contentScrollView.rx.didScroll.filter({ [weak self] _ in
-            guard let tabVc = self?.children.last as? BBMPTabController, let vc = (tabVc.children[Int(tabVc.tabItemView.selectedSegmentIndex)] as? BBMPTabController.VDDescVC) else { return false }
-            return vc.tableView.contentOffset.y > 0.1
+            guard let tabVc = self?.children.last as? BBMPTabController else { return false }
+            let vcIndex = Int(tabVc.tabItemView.selectedSegmentIndex)
+            if vcIndex == 0 {
+                return (tabVc.children[vcIndex] as! BBMPTabController.VDDescVC).tableView.contentOffset.y > 0.1
+            }
+            return (tabVc.children[vcIndex] as! BBMPTabController.VDCommentVC).tableView.contentOffset.y > 0.1
         }).map({ CGPoint(x: 0, y: kScreenWidth_9_16 - kNavigationBarHeight) })
             .bind(to: contentScrollView.rx.contentOffset).disposed(by: rx.disposeBag)
     }

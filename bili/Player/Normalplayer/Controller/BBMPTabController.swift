@@ -129,7 +129,7 @@ class BBMPTabController: UIViewController {
             tableView.delegate = self
             tableView.dataSource = self
             allClass.forEach { tableView.register($0, forCellReuseIdentifier: String(describing: $0)) }
-            cells = allClass.dropLast().map { self.tableView.dequeueReusableCell(withIdentifier: String(describing: $0))! }
+            cells = allClass.dropLast().map { $0.init(style: .default, reuseIdentifier: String(describing: $0)) }
             
             view.mj_size = CGSizeMake(kScreenWidth, parentVC.pageScrollView.mj_h)
             tableView.frame = view.bounds
@@ -223,13 +223,11 @@ class BBMPTabController: UIViewController {
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             if indexPath.row == 1 {
                 if let cell = tableView.cellForRow(at: indexPath) as? VDSectionControllerCell {
-                    cell.expandCell()
+                    cell.expanded = !cell.expanded
                     tableView.reloadRows(at: [indexPath], with: .top)
                 }
             }
         }
-        
-        
         
     }
     //MARK: VDCommentVC
